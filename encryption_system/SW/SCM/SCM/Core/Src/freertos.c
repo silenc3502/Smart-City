@@ -192,7 +192,9 @@ void UnitDataEncTask(void const * argument)
 			netconn_sendto(conn, send_buf, addr, 1501); // Send packet
 
 			netbuf_delete(send_buf);
+
 			netbuf_delete(buf);
+
 		  }
 	  }
   }
