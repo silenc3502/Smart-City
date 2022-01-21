@@ -76,8 +76,8 @@ all: main-build
 main-build: SCM.elf secondary-outputs
 
 # Tool invocations
-SCM.elf: $(OBJS) $(USER_OBJS) E:\Smart_city\encryption_system\SW\SCM\SCM\STM32H743ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SCM.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"E:\Smart_city\encryption_system\SW\SCM\SCM\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SCM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+SCM.elf: $(OBJS) $(USER_OBJS) D:\Smart_City\encryption_system\SW\SCM\SCM\STM32H743ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "SCM.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"D:\Smart_City\encryption_system\SW\SCM\SCM\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SCM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

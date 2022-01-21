@@ -117,8 +117,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -162,8 +162,6 @@ void UnitDataEncTask(void const * argument)
   uint8_t* payload, send_payload;
 
   /* init code for LWIP */
-  MX_LWIP_Init();
-
   LWIP_UNUSED_ARG(argument);
 
   conn = netconn_new(NETCONN_UDP); //new udp netconn
