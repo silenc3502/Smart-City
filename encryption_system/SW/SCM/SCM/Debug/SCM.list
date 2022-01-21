@@ -621,6 +621,7 @@ void UnitDataEncTask(void const * argument)
 			netbuf_delete(send_buf);
  8000794:	6938      	ldr	r0, [r7, #16]
  8000796:	f00c fe9d 	bl	800d4d4 <netbuf_delete>
+
 			netbuf_delete(buf);
  800079a:	68bb      	ldr	r3, [r7, #8]
  800079c:	4618      	mov	r0, r3
