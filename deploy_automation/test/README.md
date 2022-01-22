@@ -42,8 +42,20 @@ Option Check
 ~/ti/ccs1010/ccs/eclipse/eclipse -noSplash -data /home/oem/tms570_workspace/proj/noos_rti_led/ -application com.ti.ccstudio.apps.projectBuild -ccs.help
 ```
 
-## How to flash with Command Line on Linux
+## How to Detect Devices with Command Line on Linux
 
 ```make
+/home/oem/ti/uniflash_6.3.0/detect-devices.sh
+```
 
+## How to Flash with Command Line on Linux
+
+```make
+/home/oem/ti/uniflash_6.3.0/dslite.sh flash --config=ccxml-file위치 -e -f -v user_files/images/blabla.out
+```
+
+## How to Open GUI Setting
+
+```make
+/home/oem/ti/uniflash_6.3.0/node-webkit/nw
 ```
