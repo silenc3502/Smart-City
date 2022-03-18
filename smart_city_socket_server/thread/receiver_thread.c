@@ -7,16 +7,12 @@
 #include "receiver_thread.h"
 #include "common.h"
 
-extern char gas_sock_buf[GAS_THREAD_MAX][BUF_SIZE];
-
-extern int gas_clnt_sock[GAS_THREAD_MAX];
-extern int current_gas_cnt;
-
 extern pthread_mutex_t mtx;
 
 extern si clnt_addr;
 extern socklen_t addr_size;
 
+#if __EXTENSION__
 void *network_accepter (void *fd)
 {
     int cnt = 0;
@@ -29,16 +25,16 @@ void *network_accepter (void *fd)
 
         printf("Entering Accepter Loop!\n");
 
-        gas_clnt_sock[cnt] = accept(serv_sock, (sp) &clnt_addr, &addr_size);
-        printf("clnt_sock = %d\n", gas_clnt_sock[cnt]);
+        gas_clnt_sock = accept(serv_sock, (sp) &clnt_addr, &addr_size);
+        printf("clnt_sock = %d\n", gas_clnt_sock);
 
         printf("Accept Client: %d!\n", cnt + 1);
 
-        if (gas_clnt_sock[cnt] == -1)
+        if (gas_clnt_sock == -1)
             continue;
 
-        flag = fcntl(gas_clnt_sock[cnt], F_GETFL, 0);
-        fcntl(gas_clnt_sock[cnt], F_SETFL, flag | O_NONBLOCK);
+        flag = fcntl(gas_clnt_sock, F_GETFL, 0);
+        fcntl(gas_clnt_sock, F_SETFL, flag | O_NONBLOCK);
 
         current_gas_cnt = cnt++;
 
@@ -60,9 +56,9 @@ void *network_receiver (void *fd)
     {
         pthread_mutex_lock(&mtx);
 
-        if (gas_clnt_sock[cnt] > 2)
+        if (gas_clnt_sock > 2)
         {
-            if ((read(gas_clnt_sock[cnt], (char *) gas_sock_buf[cnt], GAS_BUF_SIZE)) != 0)
+            if ((read(gas_clnt_sock, (char *) gas_sock_buf, GAS_BUF_SIZE)) != 0)
                 ;
 
             if (cnt++ == current_gas_cnt)
@@ -75,7 +71,7 @@ void *network_receiver (void *fd)
 
         if (time_cnt == 1000)
         {
-            printf("Received: %s\n", gas_sock_buf[cnt]);
+            printf("Received: %s\n", gas_sock_buf);
             time_cnt = 0;
         }
 
@@ -83,5 +79,34 @@ void *network_receiver (void *fd)
 
         usleep(1000);
     }
+}
+#endif
 
+void *encrypt_side_receiver (void *fd)
+{
+    int flag;
+    char msg[BUF_SIZE] = "Success!\n";
+    int len = strlen(msg);
+    int time_cnt = 0;
+
+    encrypt_side_clnt_sock = accept(serv_sock, (sp) &clnt_addr, &addr_size);
+    printf("Accept Client - fd: %d!\n", encrypt_side_clnt_sock);
+
+    flag = fcntl(encrypt_side_clnt_sock, F_GETFL, 0);
+    fcntl(encrypt_side_clnt_sock, F_SETFL, flag | O_NONBLOCK);
+
+    for(;;)
+    {
+        pthread_mutex_lock(&mtx);
+
+        if ((read(encrypt_side_clnt_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE)) != 0)
+            ;
+
+        printf("Received: %s\n", encrypt_side_sock_buf);
+        memset(encrypt_side_sock_buf, 0x0, ENCRYPT_SIDE_BUF_SIZE);
+
+        pthread_mutex_unlock(&mtx);
+
+        usleep(10000);
+    }
 }
