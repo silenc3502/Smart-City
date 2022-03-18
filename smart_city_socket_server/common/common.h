@@ -15,8 +15,8 @@ typedef struct sockaddr *       sp;
 #define THREAD_MAX          4
 #define GAS_THREAD_MAX      6
 
-#define BUF_SIZE                32
-#define GAS_BUF_SIZE            64
+#define BUF_SIZE                        32
+#define ENCRYPT_SIDE_BUF_SIZE           64
 
 int thread_id[THREAD_MAX];
 pthread_t p_thread[THREAD_MAX];
@@ -26,11 +26,11 @@ si serv_addr;
 si clnt_addr;
 socklen_t addr_size;
 
-int gas_clnt_sock[GAS_THREAD_MAX];
+int encrypt_side_clnt_sock;
 int current_gas_cnt;
 
 pthread_mutex_t mtx;
 
-char gas_sock_buf[GAS_THREAD_MAX][BUF_SIZE];
+char encrypt_side_sock_buf[ENCRYPT_SIDE_BUF_SIZE];
 
 #endif
