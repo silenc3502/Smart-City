@@ -87,7 +87,7 @@ void print_buf (char *buf)
 {
     int i;
 
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < buf[0]; i++)
     {
         printf("0x%-3x", buf[i]);
     }
