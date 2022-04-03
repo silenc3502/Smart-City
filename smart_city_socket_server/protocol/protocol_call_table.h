@@ -5,7 +5,7 @@
 
 #include "protocol_handler.h"
 
-__PROTOCOL_CALL_TABLE(0, dummy)
+__PROTOCOL_CALL_TABLE(0, protocol_dummy)
 __PROTOCOL_CALL_TABLE(1, vehicle_handler)
 __PROTOCOL_CALL_TABLE(2, electric_plant_handler)
 __PROTOCOL_CALL_TABLE(3, shooting_range_handler)

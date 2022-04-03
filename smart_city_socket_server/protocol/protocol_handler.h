@@ -1,7 +1,7 @@
 #ifndef SMART_CITY_SOCKET_SERVER_PROTOCOL_HANDLER_H
 #define SMART_CITY_SOCKET_SERVER_PROTOCOL_HANDLER_H
 
-void dummy (void *pkt);
+void protocol_dummy (void *pkt);
 void vehicle_handler (void *pkt);
 void electric_plant_handler (void *pkt);
 void shooting_range_handler (void *pkt);
