@@ -30,7 +30,6 @@ int encrypt_side_clnt_sock;
 int current_gas_cnt;
 
 pthread_mutex_t mtx;
-pthread_cond_t edge_recv_cond_mtx;
 
 char encrypt_side_sock_buf[ENCRYPT_SIDE_BUF_SIZE];
 

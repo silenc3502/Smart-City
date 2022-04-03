@@ -21,11 +21,11 @@ void *encrypt_side_protocol_processer (void *fd)
     for(;;)
     {
         pthread_mutex_lock(&mtx);
-        pthread_cond_wait(&edge_recv_cond_mtx, &mtx);
 
         memcpy(pkt, encrypt_side_sock_buf, sizeof(protocol_packt));
 
-        protocol_call_table[((protocol_packt *)pkt)->target_command](pkt);
+        if (((protocol_packt *)pkt)->target_command)
+            protocol_call_table[((protocol_packt *)pkt)->target_command](pkt);
 
         pthread_mutex_unlock(&mtx);
 
