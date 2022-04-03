@@ -8,10 +8,11 @@ SOCKET = $(SRC)/socket
 MUTEX = $(SRC)/mutex
 #TEST = $(SRC)/test
 MAIN = $(SRC)/main
+PROTOCOL = $(SRC)/protocol
 
 EDDI_SOCKET_SERVER = $(MAIN)/eddi_socket_server
 
-SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX)
+SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL)
 
 all:	main
 	$(shell mkdir build)
