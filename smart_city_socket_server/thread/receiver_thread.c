@@ -125,7 +125,6 @@ void *encrypt_side_receiver (void *fd)
         {
             print_buf(encrypt_side_sock_buf);
             printf(" Received!\n");
-            pthread_cond_signal(&edge_recv_cond_mtx);
         }
 
         pthread_mutex_unlock(&mtx);
