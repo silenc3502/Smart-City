@@ -72,10 +72,10 @@ class _CctvDisturbScreen extends State<CctvDisturbScreen> {
       toggleValue = !toggleValue;
     });
 
-    if (toggleValue) {
-      requestBuf = [10, 12, 1, 1];
+    if (toggleValue == true) {
+      requestBuf = [5, 10, 12, 1, 1];
     } else {
-      requestBuf = [10, 12, 1, 0];
+      requestBuf = [5, 10, 12, 1, 0];
     }
 
     await Future.wait([RawDatagramSocket.bind(InternetAddress.ANY_IP_V4, 0)])
