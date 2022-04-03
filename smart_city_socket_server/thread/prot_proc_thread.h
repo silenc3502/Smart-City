@@ -1,0 +1,6 @@
+#ifndef SMART_CITY_SOCKET_SERVER_PROT_PROC_THREAD_H
+#define SMART_CITY_SOCKET_SERVER_PROT_PROC_THREAD_H
+
+void *encrypt_side_protocol_processer (void *fd);
+
+#endif //SMART_CITY_SOCKET_SERVER_PROT_PROC_THREAD_H
