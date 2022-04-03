@@ -10,7 +10,7 @@
 typedef struct sockaddr_in      si;
 typedef struct sockaddr *       sp;
 
-#define EDDI_SERVER_PORT        33333
+#define EDDI_SERVER_PORT        7777
 
 #define THREAD_MAX          4
 #define GAS_THREAD_MAX      6
@@ -24,12 +24,13 @@ pthread_t p_thread[THREAD_MAX];
 int serv_sock;
 si serv_addr;
 si clnt_addr;
-socklen_t addr_size;
+int addrlen;
 
 int encrypt_side_clnt_sock;
 int current_gas_cnt;
 
 pthread_mutex_t mtx;
+pthread_cond_t edge_recv_cond_mtx;
 
 char encrypt_side_sock_buf[ENCRYPT_SIDE_BUF_SIZE];
 

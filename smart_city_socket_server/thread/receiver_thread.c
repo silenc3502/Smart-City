@@ -82,6 +82,20 @@ void *network_receiver (void *fd)
 }
 #endif
 
+#if DEBUG
+void print_buf (char *buf)
+{
+    int i;
+
+    for (i = 0; i < 4; i++)
+    {
+        printf("0x%-3x", buf[i]);
+    }
+}
+#else
+void print_buf (char *buf) { }
+#endif
+
 void *encrypt_side_receiver (void *fd)
 {
     int flag;
@@ -89,21 +103,30 @@ void *encrypt_side_receiver (void *fd)
     int len = strlen(msg);
     int time_cnt = 0;
 
+#if TCP
     encrypt_side_clnt_sock = accept(serv_sock, (sp) &clnt_addr, &addr_size);
     printf("Accept Client - fd: %d!\n", encrypt_side_clnt_sock);
 
     flag = fcntl(encrypt_side_clnt_sock, F_GETFL, 0);
     fcntl(encrypt_side_clnt_sock, F_SETFL, flag | O_NONBLOCK);
+#else
+    printf("Receiver Start!\n");
+#endif
 
     for(;;)
     {
         pthread_mutex_lock(&mtx);
 
-        if ((read(encrypt_side_clnt_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE)) != 0)
-            ;
-
-        printf("Received: %s\n", encrypt_side_sock_buf);
-        memset(encrypt_side_sock_buf, 0x0, ENCRYPT_SIDE_BUF_SIZE);
+#if TCP
+        if ((read(encrypt_side_clnt_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE)) != -1)
+#else
+        if ((recvfrom(serv_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE, 0, (sp)&clnt_addr, &addrlen)) != -1)
+#endif
+        {
+            print_buf(encrypt_side_sock_buf);
+            printf(" Received!\n");
+            pthread_cond_signal(&edge_recv_cond_mtx);
+        }
 
         pthread_mutex_unlock(&mtx);
 
