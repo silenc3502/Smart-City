@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:core';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -12,6 +12,11 @@ class _CctvDisturbScreen extends State<CctvDisturbScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool toggleValue = false;
+
+  InternetAddress unicastAddress = new InternetAddress('192.168.219.102');
+  int unicastPort = 7777;
+
+  var requestBuf = [10, 12, 1, 1];
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +67,28 @@ class _CctvDisturbScreen extends State<CctvDisturbScreen> {
         ));
   }
 
-  toggleButton() {
+  toggleButton() async {
     setState(() {
       toggleValue = !toggleValue;
     });
+
+    if (toggleValue) {
+      requestBuf = [10, 12, 1, 1];
+    } else {
+      requestBuf = [10, 12, 1, 0];
+    }
+
+    await Future.wait([RawDatagramSocket.bind(InternetAddress.ANY_IP_V4, 0)])
+        .then((values) {
+      RawDatagramSocket udpSocket = values[0];
+      udpSocket.send(requestBuf, unicastAddress, unicastPort);
+    });
   }
+}
+
+class MessageItem {
+  String owner;
+  String content;
+
+  MessageItem(this.owner, this.content);
 }
