@@ -18,6 +18,8 @@ typedef struct sockaddr *       sp;
 #define BUF_SIZE                        32
 #define ENCRYPT_SIDE_BUF_SIZE           64
 
+#define ONE_BYTE                        1
+
 int thread_id[THREAD_MAX];
 pthread_t p_thread[THREAD_MAX];
 
