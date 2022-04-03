@@ -10,6 +10,7 @@ INC_DIRS = -I$(PWD)/../mutex
 INC_DIRS += -I$(PWD)/../socket
 INC_DIRS += -I$(PWD)/../thread
 INC_DIRS += -I$(PWD)/../common
+INC_DIRS += -I$(PWD)/../protocol
 
 #LIBS = -lm -lGL -lglut -lGLU -lGLEW -lstdc++
 LIBS = -lpthread
@@ -21,10 +22,12 @@ TARGET = eddi_socket_server
 MUTEX_DIR = $(PWD)/../mutex
 SOCKET_DIR = $(PWD)/../socket
 THREAD_DIR = $(PWD)/../thread
+PROTOCOL_DIR = $(PWD)/../protocol
 
 MUTEX_OBJS = $(shell find $(MUTEX_DIR) -name '*.o')
 SOCKET_OBJS = $(shell find $(SOCKET_DIR) -name '*.o')
 THREAD_OBJS = $(shell find $(THREAD_DIR) -name '*.o')
+PROTOCOL_OBJS = $(shell find $(PROTOCOL_DIR) -name '*.o')
 
 all:	$(TARGET)
 
@@ -33,7 +36,8 @@ eddi_socket_server:		eddi_socket_server.o
 	@echo "$(MUTEX_OBJS)"
 	@echo "$(SOCKET_OBJS)"
 	@echo "$(THREAD_OBJS)"
-	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(LIBS)
+	@echo "$(PROTOCOL_OBJS)"
+	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(LIBS)
 
 .c.o:
 	@echo "====================================================="
