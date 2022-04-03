@@ -14,7 +14,12 @@
 void socket_config (int *sc, si *sa, int sa_size, int port)
 {
     int flag;
+
+#if TCP
+    serv_sock = socket(PF_INET, SOCK_STREAM, 0);
+#else
     serv_sock = socket(PF_INET, SOCK_DGRAM, 0);
+#endif
 
     if(serv_sock == -1)
         err_handler((char *)"socket() error");
