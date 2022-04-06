@@ -7,6 +7,7 @@ endif
 PWD = $(shell pwd)
 
 INC_DIRS = -I$(PWD)/../common
+INC_DIRS += -I$(PWD)/../cctv/crime_prevention
 
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:%.c=%.o)
