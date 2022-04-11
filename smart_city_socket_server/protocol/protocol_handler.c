@@ -3,6 +3,9 @@
 
 #include "common.h"
 
+#include "tc_cctv_command_handler.h"
+#include "tc_cctv_command.h"
+
 #include "cp_cctv_command_handler.h"
 #include "cp_cctv_command.h"
 
@@ -61,7 +64,7 @@ void central_socket_server_handler (void *pkt)
 
 void crime_prevention_cctv_handler (void *pkt)
 {
-    printf("방범 시스템 핸들러 구동: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("방범 CCTV 시스템 핸들러 구동: %d!\n", ((protocol_packt *)pkt)->target_command);
     printf("서브 커맨드: %d!\n", ((protocol_packt *)pkt)->sub_command);
 
     if (((protocol_packt *)pkt)->sub_command)
@@ -73,7 +76,14 @@ void crime_prevention_cctv_handler (void *pkt)
 
 void traffic_control_cctv_handler (void *pkt)
 {
-    printf("미구현 스펙: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("교통 관제 CCTV 시스템 핸들러 구동: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("서브 커맨드: %d!\n", ((protocol_packt *)pkt)->sub_command);
+
+    if (((protocol_packt *)pkt)->sub_command)
+    {
+        tc_cctv_command_table[((protocol_packt *)pkt)->sub_command](((protocol_packt *)pkt)->data);
+        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+    }
 }
 
 void edge_device_handler (void *pkt)
