@@ -28,7 +28,7 @@
 #include "lwipopts.h"
 #include "lwiplib.h"
 #include "httpd.h"
-#include "lwip\inet.h"
+#include "lwip/inet.h"
 #include "locator.h"
 
 #define TMS570_MDIO_BASE_ADDR 	0xFCF78900u /* Same base address for TMS570 & RM48 devices */
@@ -236,21 +236,21 @@ void iommMuxEnableMii(void) {
 ** Interrupt Handler for Core 0 Receive interrupt
 */
 volatile int countEMACCore0RxIsr = 0;
-#pragma INTERRUPT(EMACCore0RxIsr, IRQ)
-void EMACCore0RxIsr(void)
+#pragma INTERRUPT(EMACRxIntISR, IRQ)
+void EMACRxIntISR(void)
 {
-		countEMACCore0RxIsr++;
-		lwIPRxIntHandler(0);
+        countEMACCore0RxIsr++;
+        lwIPRxIntHandler(0);
 }
 
 /*
 ** Interrupt Handler for Core 0 Transmit interrupt
 */
 volatile int countEMACCore0TxIsr = 0;
-#pragma INTERRUPT(EMACCore0TxIsr, IRQ)
-void EMACCore0TxIsr(void)
+#pragma INTERRUPT(EMACTxIntISR, IRQ)
+void EMACTxIntISR(void)
 {
-	countEMACCore0TxIsr++;
+    countEMACCore0TxIsr++;
     lwIPTxIntHandler(0);
 }
 
