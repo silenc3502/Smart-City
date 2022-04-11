@@ -7,8 +7,6 @@ endif
 PWD = $(shell pwd)
 
 INC_DIRS = -I$(PWD)/../common
-INC_DIRS += -I$(PWD)/../cctv/traffic_control
-INC_DIRS += -I$(PWD)/../cctv/crime_prevention
 
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:%.c=%.o)
@@ -17,9 +15,9 @@ all:	$(OBJS)
 	@echo "SRCS = $(SRCS)"
 
 .c.o:
-	@echo "=============================================="
-	@echo "========= Compiling Protocol Library ========="
-	@echo "=============================================="
+	@echo "=========================================================="
+	@echo "========= Compiling Traffic Control CCTV Library ========="
+	@echo "=========================================================="
 	$(CC) $(DBG_FLAGS) -c $< -o $@ $(INC_DIRS)
 
 clean:

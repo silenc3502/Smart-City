@@ -28,12 +28,12 @@
 		<link>
 			<name>example</name>
 			<type>2</type>
-			<location>/home/son/proj/eddi/academy/Smart-City/traffic_control_system/TMS570LC4357_FreeRTOS_LWIP/example</location>
+			<locationURI>$%7BPROJECT_LOC%7D/example</locationURI>
 		</link>
 		<link>
 			<name>lwip-1.4.1</name>
 			<type>2</type>
-			<location>/home/son/proj/eddi/academy/Smart-City/traffic_control_system/TMS570LC4357_FreeRTOS_LWIP/lwip-1.4.1</location>
+			<locationURI>$%7BPROJECT_LOC%7D/lwip-1.4.1</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
