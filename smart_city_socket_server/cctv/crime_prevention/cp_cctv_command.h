@@ -2,12 +2,12 @@
 #define SMART_CITY_SOCKET_SERVER_CP_CCTV_COMMAND_H
 
 enum eddi_smartcity_crime_prevention_cctv_protocol {
-    DISTURB = 1,
-    END
+    CP_CCTV_DISTURB = 1,
+    CP_CCTV_END
 };
 
-#define CP_CCTV_CALL_BUFFER_COUNT          (END)
-#define CP_CCTV_CALL_BUFFER                ((END) - (1))
+#define CP_CCTV_CALL_BUFFER_COUNT          (CP_CCTV_END)
+#define CP_CCTV_CALL_BUFFER                ((CP_CCTV_END) - (1))
 
 typedef void (* cp_cctv_table_ptr_t) (void *);
 
