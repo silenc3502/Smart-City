@@ -1757,7 +1757,7 @@ void EMACGetConfigValue(emac_config_reg_t *config_reg, config_value_type_t type)
 }
 
 /* USER CODE BEGIN (2) */
-#if 0
+#if 1
 /* USER CODE END */
 
 /* ISR for EMAC Transmit Interrupt. Calls another handler function for processing the descriptors.
