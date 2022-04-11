@@ -1,5 +1,5 @@
-#ifndef SMART_CITY_SOCKET_SERVER_COMMAND_H
-#define SMART_CITY_SOCKET_SERVER_COMMAND_H
+#ifndef SMART_CITY_SOCKET_SERVER_CP_CCTV_COMMAND_H
+#define SMART_CITY_SOCKET_SERVER_CP_CCTV_COMMAND_H
 
 enum eddi_smartcity_crime_prevention_cctv_protocol {
     DISTURB = 1,
