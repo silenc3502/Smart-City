@@ -28,7 +28,7 @@
 #include "lwipopts.h"
 #include "lwiplib.h"
 #include "httpd.h"
-#include "lwip\inet.h"
+#include "lwip/inet.h"
 #include "locator.h"
 
 #define TMS570_MDIO_BASE_ADDR 	0xFCF78900u /* Same base address for TMS570 & RM48 devices */
