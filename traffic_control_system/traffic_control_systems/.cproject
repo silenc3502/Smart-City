@@ -175,16 +175,16 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="TMS570LC4357_FreeRTOS_LWIP.com.ti.ccstudio.buildDefinitions.TMS470.ProjectType.1203351879" name="TMS470" projectType="com.ti.ccstudio.buildDefinitions.TMS470.ProjectType"/>
+		<project id="traffic_control_systems.com.ti.ccstudio.buildDefinitions.TMS470.ProjectType.1203351879" name="TMS470" projectType="com.ti.ccstudio.buildDefinitions.TMS470.ProjectType"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/TMS570LC4357_FreeRTOS_LWIP"/>
+			<resource resourceType="PROJECT" workspacePath="/traffic_control_systems"/>
 		</configuration>
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/TMS570LC4357_FreeRTOS_LWIP"/>
+			<resource resourceType="PROJECT" workspacePath="/traffic_control_systems"/>
 		</configuration>
 	</storageModule>
 </cproject>
