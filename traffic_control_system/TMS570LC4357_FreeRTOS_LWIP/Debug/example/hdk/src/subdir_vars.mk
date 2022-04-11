@@ -4,7 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-/home/oem/test/tms570/lwip/TMS570LC4357_FreeRTOS_LWIP/example/hdk/src/lwip_main.c 
+../example/hdk/src/lwip_main.c 
 
 C_DEPS += \
 ./example/hdk/src/lwip_main.d 
@@ -19,6 +19,6 @@ C_DEPS__QUOTED += \
 "example/hdk/src/lwip_main.d" 
 
 C_SRCS__QUOTED += \
-"/home/oem/test/tms570/lwip/TMS570LC4357_FreeRTOS_LWIP/example/hdk/src/lwip_main.c" 
+"../example/hdk/src/lwip_main.c" 
 
 

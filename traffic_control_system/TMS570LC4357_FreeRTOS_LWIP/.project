@@ -28,12 +28,12 @@
 		<link>
 			<name>example</name>
 			<type>2</type>
-			<location>/home/oem/test/tms570/lwip/TMS570LC4357_FreeRTOS_LWIP/example</location>
+			<location>/home/son/proj/eddi/academy/Smart-City/traffic_control_system/TMS570LC4357_FreeRTOS_LWIP/example</location>
 		</link>
 		<link>
 			<name>lwip-1.4.1</name>
 			<type>2</type>
-			<location>/home/oem/test/tms570/lwip/TMS570LC4357_FreeRTOS_LWIP/lwip-1.4.1</location>
+			<location>/home/son/proj/eddi/academy/Smart-City/traffic_control_system/TMS570LC4357_FreeRTOS_LWIP/lwip-1.4.1</location>
 		</link>
 	</linkedResources>
 </projectDescription>
