@@ -10,11 +10,11 @@ MUTEX = $(SRC)/mutex
 MAIN = $(SRC)/main
 PROTOCOL = $(SRC)/protocol
 CP_CCTV = $(SRC)/cctv/crime_prevention
-TC_CCTV = $(SRC)/cctv/traffic_control
+TM_CCTV = $(SRC)/cctv/traffic_monitor
 
 EDDI_SOCKET_SERVER = $(MAIN)/eddi_socket_server
 
-SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TC_CCTV) $(CP_CCTV)
+SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV)
 
 all:	main
 	$(shell mkdir build)

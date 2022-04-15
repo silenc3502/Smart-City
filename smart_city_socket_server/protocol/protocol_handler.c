@@ -3,8 +3,8 @@
 
 #include "common.h"
 
-#include "tc_cctv_command_handler.h"
-#include "tc_cctv_command.h"
+#include "tm_cctv_command_handler.h"
+#include "tm_cctv_command.h"
 
 #include "cp_cctv_command_handler.h"
 #include "cp_cctv_command.h"
@@ -81,7 +81,7 @@ void traffic_control_cctv_handler (void *pkt)
 
     if (((protocol_packt *)pkt)->sub_command)
     {
-        tc_cctv_command_table[((protocol_packt *)pkt)->sub_command](((protocol_packt *)pkt)->data);
+        tm_cctv_command_table[((protocol_packt *)pkt)->sub_command](((protocol_packt *)pkt)->data);
         memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
     }
 }
