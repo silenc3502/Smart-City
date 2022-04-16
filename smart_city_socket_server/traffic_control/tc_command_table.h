@@ -3,7 +3,7 @@
 
 #define __TC_COMMAND_TABLE(nr, sym) [nr] = sym,
 
-#include "cp_cctv_command_handler.h"
+#include "tc_command_handler.h"
 
 __TC_COMMAND_TABLE(0, tc_dummy)
 __TC_COMMAND_TABLE(1, tc_barricade_handler)
