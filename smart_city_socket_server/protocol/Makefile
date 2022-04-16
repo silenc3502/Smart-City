@@ -10,6 +10,7 @@ INC_DIRS = -I$(PWD)/../common
 INC_DIRS += -I$(PWD)/../cctv/traffic_monitor
 INC_DIRS += -I$(PWD)/../cctv/crime_prevention
 INC_DIRS += -I$(PWD)/../traffic_control
+INC_DIRS += -I$(PWD)/../vehicle_control
 
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:%.c=%.o)
