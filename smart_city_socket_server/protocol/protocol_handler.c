@@ -18,6 +18,9 @@
 #include "gs_command_handler.h"
 #include "gs_command.h"
 
+#include "electric_plant_command_handler.h"
+#include "electric_plant_command.h"
+
 #include "protocol_handler.h"
 #include "protocol_packt.h"
 
@@ -40,7 +43,14 @@ void vehicle_handler (void *pkt)
 
 void electric_plant_handler (void *pkt)
 {
-    printf("미구현 스펙: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("전력 발전 시스템 핸들러 구동: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("서브 커맨드: %d!\n", ((protocol_packt *)pkt)->sub_command);
+
+    if (((protocol_packt *)pkt)->sub_command)
+    {
+        electric_plant_command_table[((protocol_packt *)pkt)->sub_command](((protocol_packt *)pkt)->data);
+        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+    }
 }
 
 void shooting_range_handler (void *pkt)
