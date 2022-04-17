@@ -2,7 +2,7 @@
 #define SMART_CITY_SOCKET_SERVER_ELECTRIC_PLANT_COMMAND_H
 
 enum eddi_smartcity_electric_plant_protocol {
-    EP_UNKNOWN,
+    EP_ID_ISSUANCE = 1,
     EP_END
 };
 

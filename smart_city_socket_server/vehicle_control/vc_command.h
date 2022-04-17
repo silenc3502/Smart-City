@@ -2,6 +2,7 @@
 #define SMART_CITY_SOCKET_SERVER_VC_COMMAND_H
 
 enum eddi_smartcity_vehicle_control_protocol {
+    VC_ID_ISSUANCE = 1,
     VC_ACCEL,
     VC_STEERING,
     VC_STOP,

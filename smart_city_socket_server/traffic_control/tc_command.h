@@ -2,6 +2,7 @@
 #define SMART_CITY_SOCKET_SERVER_TC_COMMAND_H
 
 enum eddi_smartcity_traffic_control_protocol {
+    TC_ID_ISSUANCE = 1,
     TC_BARRICADE,
     TC_LIFT,
     TC_STREET_LAMP,
