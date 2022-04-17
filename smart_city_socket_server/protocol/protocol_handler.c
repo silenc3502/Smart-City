@@ -15,6 +15,9 @@
 #include "vc_command_handler.h"
 #include "vc_command.h"
 
+#include "gs_command_handler.h"
+#include "gs_command.h"
+
 #include "protocol_handler.h"
 #include "protocol_packt.h"
 
@@ -47,7 +50,14 @@ void shooting_range_handler (void *pkt)
 
 void gas_sensor_handler (void *pkt)
 {
-    printf("미구현 스펙: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("가스 센서 시스템 핸들러 구동: %d!\n", ((protocol_packt *)pkt)->target_command);
+    printf("서브 커맨드: %d!\n", ((protocol_packt *)pkt)->sub_command);
+
+    if (((protocol_packt *)pkt)->sub_command)
+    {
+        gs_command_table[((protocol_packt *)pkt)->sub_command](((protocol_packt *)pkt)->data);
+        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+    }
 }
 
 void traffic_control_handler (void *pkt)
