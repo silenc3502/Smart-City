@@ -15,6 +15,7 @@ INC_DIRS += -I$(PWD)/../cctv/crime_prevention
 INC_DIRS += -I$(PWD)/../cctv/traffic_monitor
 INC_DIRS += -I$(PWD)/../traffic_control
 INC_DIRS += -I$(PWD)/../vehicle_control
+INC_DIRS += -I$(PWD)/../gas_sensor
 
 #LIBS = -lm -lGL -lglut -lGLU -lGLEW -lstdc++
 LIBS = -lpthread
@@ -31,6 +32,7 @@ CP_CCTV_DIR = $(PWD)/../cctv/crime_prevention
 TM_CCTV_DIR = $(PWD)/../cctv/traffic_monitor
 TC_DIR = $(PWD)/../traffic_control
 VC_DIR = $(PWD)/../vehicle_control
+GS_DIR = $(PWD)/../gas_sensor
 
 MUTEX_OBJS = $(shell find $(MUTEX_DIR) -name '*.o')
 SOCKET_OBJS = $(shell find $(SOCKET_DIR) -name '*.o')
@@ -40,6 +42,7 @@ CP_CCTV_OBJS = $(shell find $(CP_CCTV_DIR) -name '*.o')
 TM_CCTV_OBJS = $(shell find $(TM_CCTV_DIR) -name '*.o')
 TC_OBJS = $(shell find $(TC_DIR) -name '*.o')
 VC_OBJS = $(shell find $(VC_DIR) -name '*.o')
+GS_OBJS = $(shell find $(GS_DIR) -name '*.o')
 
 all:	$(TARGET)
 
@@ -53,7 +56,8 @@ eddi_socket_server:		eddi_socket_server.o
 	@echo "$(TM_CCTV_OBJS)"
 	@echo "$(TC_OBJS)"
 	@echo "$(VC_OBJS)"
-	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(TM_CCTV_OBJS) $(CP_CCTV_OBJS) $(TC_OBJS) $(VC_OBJS) $(LIBS)
+	@echo "$(GS_OBJS)"
+	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(TM_CCTV_OBJS) $(CP_CCTV_OBJS) $(TC_OBJS) $(VC_OBJS) $(GS_OBJS) $(LIBS)
 
 .c.o:
 	@echo "====================================================="

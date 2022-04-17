@@ -13,10 +13,11 @@ CP_CCTV = $(SRC)/cctv/crime_prevention
 TM_CCTV = $(SRC)/cctv/traffic_monitor
 TC = $(SRC)/traffic_control
 VC = $(SRC)/vehicle_control
+GS = $(SRC)/gas_sensor
 
 EDDI_SOCKET_SERVER = $(MAIN)/eddi_socket_server
 
-SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC)
+SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS)
 
 all:	main
 	$(shell mkdir build)
