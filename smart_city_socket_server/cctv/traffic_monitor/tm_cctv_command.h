@@ -2,7 +2,8 @@
 #define SMART_CITY_SOCKET_SERVER_TM_CCTV_COMMAND_H
 
 enum eddi_smartcity_traffic_monitor_cctv_protocol {
-    TM_CCTV_DISTURB = 1,
+    TM_CCTV_ID_ISSUANCE = 1,
+    TM_CCTV_DISTURB,
     TM_CCTV_END
 };
 

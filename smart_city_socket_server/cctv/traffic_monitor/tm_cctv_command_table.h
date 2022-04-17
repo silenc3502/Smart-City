@@ -6,6 +6,7 @@
 #include "tm_cctv_command_handler.h"
 
 __TM_CCTV_COMMAND_TABLE(0, tm_cctv_dummy)
-__TM_CCTV_COMMAND_TABLE(1, tm_cctv_disturb_handler)
+__TM_CCTV_COMMAND_TABLE(1, tm_cctv_id_issuance_handler)
+__TM_CCTV_COMMAND_TABLE(2, tm_cctv_disturb_handler)
 
 #endif

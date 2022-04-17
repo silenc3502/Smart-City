@@ -2,7 +2,7 @@
 #define SMART_CITY_SOCKET_SERVER_GS_COMMAND_H
 
 enum eddi_smartcity_gas_sensor_protocol {
-    GS_UNKNOWN,
+    GS_ID_ISSUANCE = 1,
     GS_END
 };
 
