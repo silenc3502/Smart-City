@@ -16,7 +16,7 @@ void cp_cctv_id_issuance_handler (void *data)
 void cp_cctv_disturb_handler (void *data)
 {
     printf("방범 서브 커맨드: %d\n", *((int *)data));
-    uint8_t data_pkt = *((uint8_t *)data);
+    uint8_t data_pkt = *((int *)data);
 
     if (data_pkt == ON)
     {
