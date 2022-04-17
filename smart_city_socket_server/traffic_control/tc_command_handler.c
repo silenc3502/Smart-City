@@ -10,12 +10,12 @@ void tc_dummy (void *data)
 
 void tc_id_issuance (void *data)
 {
-    printf("아이디(세션) 발급 커맨드: %d\n", *((uint8_t *)data));
+    printf("아이디(세션) 발급 커맨드: %d\n", *((int *)data));
 }
 
 void tc_barricade_handler (void *data)
 {
-    printf("바리케이드 서브 커맨드: %d\n", *((uint8_t *)data));
+    printf("바리케이드 서브 커맨드: %d\n", *((int *)data));
     uint8_t data_pkt = *((uint8_t *)data);
 
     if (data_pkt == ON)
@@ -30,7 +30,7 @@ void tc_barricade_handler (void *data)
 
 void tc_lift_handler (void *data)
 {
-    printf("리프트 서브 커맨드: %d\n", *((uint8_t *)data));
+    printf("리프트 서브 커맨드: %d\n", *((int *)data));
     uint8_t data_pkt = *((uint8_t *)data);
 
     if (data_pkt == ON)
@@ -45,7 +45,7 @@ void tc_lift_handler (void *data)
 
 void tc_street_lamp_handler (void *data)
 {
-    printf("가로등 서브 커맨드: %d\n", *((uint8_t *)data));
+    printf("가로등 서브 커맨드: %d\n", *((int *)data));
     uint8_t data_pkt = *((uint8_t *)data);
 
     if (data_pkt == ON)
@@ -60,7 +60,7 @@ void tc_street_lamp_handler (void *data)
 
 void tc_traffic_light_handler (void *data)
 {
-    printf("신호등 서브 커맨드: %d\n", *((uint8_t *)data));
+    printf("신호등 서브 커맨드: %d\n", *((int *)data));
     uint8_t data_pkt = *((uint8_t *)data);
 
     if (data_pkt == ON)
