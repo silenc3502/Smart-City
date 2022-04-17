@@ -2,7 +2,8 @@
 #define SMART_CITY_SOCKET_SERVER_CP_CCTV_COMMAND_H
 
 enum eddi_smartcity_crime_prevention_cctv_protocol {
-    CP_CCTV_DISTURB = 1,
+    CP_CCTV_ID_ISSUANCE = 1,
+    CP_CCTV_DISTURB,
     CP_CCTV_END
 };
 

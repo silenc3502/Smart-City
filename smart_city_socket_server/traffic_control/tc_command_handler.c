@@ -8,6 +8,11 @@ void tc_dummy (void *data)
     printf("미구현 스펙입니다!\n");
 }
 
+void tc_id_issuance (void *data)
+{
+    printf("아이디(세션) 발급 커맨드: %d\n", *((uint8_t *)data));
+}
+
 void tc_barricade_handler (void *data)
 {
     printf("바리케이드 서브 커맨드: %d\n", *((uint8_t *)data));

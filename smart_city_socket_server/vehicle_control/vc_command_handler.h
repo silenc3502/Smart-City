@@ -2,6 +2,7 @@
 #define SMART_CITY_SOCKET_SERVER_VC_COMMAND_HANDLER_H
 
 void vc_dummy (void *);
+void vc_id_issuance (void *);
 void vc_accel (void *);
 void vc_steering (void *);
 void vc_stop (void *);

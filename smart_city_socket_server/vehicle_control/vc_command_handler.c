@@ -8,6 +8,11 @@ void vc_dummy (void *data)
     printf("미구현 스펙입니다!\n");
 }
 
+void vc_id_issuance (void *data)
+{
+    printf("아이디(세션) 발급 커맨드: %d\n", *((uint8_t *)data));
+}
+
 void vc_accel (void *data)
 {
     printf("차량 가속 서브 커맨드: %d\n", *((uint8_t *)data));
