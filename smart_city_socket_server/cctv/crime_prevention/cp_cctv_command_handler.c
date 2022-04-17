@@ -8,6 +8,11 @@ void cp_cctv_dummy (void *data)
     printf("미구현 스펙입니다!\n");
 }
 
+void cp_cctv_id_issuance_handler (void *data)
+{
+    printf("아이디(세션) 발급 커맨드: %d\n", *((uint8_t *)data));
+}
+
 void cp_cctv_disturb_handler (void *data)
 {
     printf("방범 서브 커맨드: %d\n", *((uint8_t *)data));
