@@ -17,7 +17,7 @@ typedef void (* vc_table_ptr_t) (void *);
 
 const vc_table_ptr_t vc_command_table[VC_CALL_BUFFER_COUNT] = {
         [0 ... VC_CALL_BUFFER] = NULL,
-#include "vc_command_handler.h"
+#include "vc_command_table.h"
 };
 
 #endif //SMART_CITY_SOCKET_SERVER_VC_COMMAND_H
