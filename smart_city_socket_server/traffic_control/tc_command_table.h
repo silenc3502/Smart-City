@@ -1,15 +1,13 @@
 #ifndef SMART_CITY_SOCKET_SERVER_TC_COMMAND_TABLE_H
 #define SMART_CITY_SOCKET_SERVER_TC_COMMAND_TABLE_H
 
-#define __TC_COMMAND_TABLE(nr, sym) [nr] = sym,
+#include "tc_command.h"
 
-#include "tc_command_handler.h"
+typedef void * (* tc_table_ptr_t) (void *);
 
-__TC_COMMAND_TABLE(0, tc_dummy)
-__TC_COMMAND_TABLE(1, tc_id_issuance)
-__TC_COMMAND_TABLE(2, tc_barricade_handler)
-__TC_COMMAND_TABLE(3, tc_lift_handler)
-__TC_COMMAND_TABLE(4, tc_street_lamp_handler)
-__TC_COMMAND_TABLE(5, tc_traffic_light_handler)
+const tc_table_ptr_t tc_command_table[TC_CALL_BUFFER_COUNT] = {
+        [0 ... TC_CALL_BUFFER] = NULL,
+#include "tc_command_table_map.h"
+};
 
 #endif //SMART_CITY_SOCKET_SERVER_TC_COMMAND_TABLE_H
