@@ -9,7 +9,8 @@
 #include "common.h"
 
 #include "protocol_handler.h"
-#include "protocol.h"
+#include "protocol_call_table.h"
+#include "protocol_packt.h"
 
 extern pthread_mutex_t mtx;
 extern pthread_cond_t edge_recv_cond_mtx;

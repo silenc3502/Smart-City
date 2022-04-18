@@ -7,6 +7,7 @@ endif
 PWD = $(shell pwd)
 
 INC_DIRS = -I$(PWD)/../common
+INC_DIRS += -I$(PWD)/../protocol
 
 
 SRCS = $(wildcard *.c)
