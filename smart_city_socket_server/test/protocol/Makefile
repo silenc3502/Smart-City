@@ -42,9 +42,9 @@ protocol_test:		protocol_test.o $(TRAFFIC_CONTROL_OBJS) $(SESSION_OBJS)
 
 .c.o:
 #protocol_test.o:   %.o: %.c
-	@echo "================================================"
-	@echo "========= Compiling GoogleTest Library ========="
-	@echo "================================================"
+	@echo "==================================================="
+	@echo "========= Compiling Protocol Test Library ========="
+	@echo "==================================================="
 	$(CXX) -c $< $(INC_DIRS) $(DBG_FLAGS)
 
 clean:

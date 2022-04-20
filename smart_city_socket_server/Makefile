@@ -8,6 +8,7 @@ SOCKET = $(SRC)/socket
 MUTEX = $(SRC)/mutex
 TEST_PROTOCOL = $(SRC)/test/protocol
 TEST_UDP = $(SRC)/test/communication
+TEST_SESSION = $(SRC)/test/session
 MAIN = $(SRC)/main
 PROTOCOL = $(SRC)/protocol
 CP_CCTV = $(SRC)/cctv/crime_prevention
@@ -20,7 +21,7 @@ SESSION = $(SRC)/session
 
 EDDI_SOCKET_SERVER = $(MAIN)/eddi_socket_server
 
-SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS) $(EP) $(SESSION) $(TEST_PROTOCOL) $(TEST_UDP)
+SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS) $(EP) $(SESSION) $(TEST_PROTOCOL) $(TEST_UDP) $(TEST_SESSION)
 
 all:	main
 	$(shell mkdir build)

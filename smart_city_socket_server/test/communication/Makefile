@@ -36,10 +36,10 @@ udp_test:	udp_test.o $(TRAFFIC_CONTROL_OBJS) $(SESSION_OBJS)
 
 .c.o:
 #protocol_test.o:   %.o: %.c
-	@echo "================================================"
-	@echo "========= Compiling GoogleTest Library ========="
-	@echo "================================================"
+	@echo "=============================================="
+	@echo "========= Compiling UDP Test Library ========="
+	@echo "=============================================="
 	$(CXX) -c $< $(INC_DIRS) $(DBG_FLAGS)
 
 clean:
-	rm -rf *.o protocol_test
+	rm -rf *.o udp_test
