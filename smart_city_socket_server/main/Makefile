@@ -17,6 +17,7 @@ INC_DIRS += -I$(PWD)/../traffic_control
 INC_DIRS += -I$(PWD)/../vehicle_control
 INC_DIRS += -I$(PWD)/../gas_sensor
 INC_DIRS += -I$(PWD)/../electric_plant
+INC_DIRS += -I$(PWD)/../session
 
 #LIBS = -lm -lGL -lglut -lGLU -lGLEW -lstdc++
 LIBS = -lpthread
@@ -35,6 +36,7 @@ TC_DIR = $(PWD)/../traffic_control
 VC_DIR = $(PWD)/../vehicle_control
 GS_DIR = $(PWD)/../gas_sensor
 EP_DIR = $(PWD)/../electric_plant
+SESSION_DIR = $(PWD)/../session
 
 MUTEX_OBJS = $(shell find $(MUTEX_DIR) -name '*.o')
 SOCKET_OBJS = $(shell find $(SOCKET_DIR) -name '*.o')
@@ -46,6 +48,7 @@ TC_OBJS = $(shell find $(TC_DIR) -name '*.o')
 VC_OBJS = $(shell find $(VC_DIR) -name '*.o')
 GS_OBJS = $(shell find $(GS_DIR) -name '*.o')
 EP_OBJS = $(shell find $(EP_DIR) -name '*.o')
+SESSION_OBJS = $(shell find $(SESSION_DIR) -name '*.o')
 
 all:	$(TARGET)
 
@@ -61,7 +64,8 @@ eddi_socket_server:		eddi_socket_server.o
 	@echo "$(VC_OBJS)"
 	@echo "$(GS_OBJS)"
 	@echo "$(EP_OBJS)"
-	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(TM_CCTV_OBJS) $(CP_CCTV_OBJS) $(TC_OBJS) $(VC_OBJS) $(GS_OBJS) $(EP_OBJS) $(LIBS)
+	@echo "$(SESSION_OBJS)"
+	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(TM_CCTV_OBJS) $(CP_CCTV_OBJS) $(TC_OBJS) $(VC_OBJS) $(GS_OBJS) $(EP_OBJS) $(SESSION_OBJS) $(LIBS)
 
 .c.o:
 	@echo "====================================================="
