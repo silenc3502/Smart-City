@@ -15,7 +15,7 @@ enum eddi_smartcity_protocol {
     END
 };
 
-#define CALL_BUFFER_COUNT          (END)
-#define CALL_BUFFER                ((END) - (1))
+#define CALL_BUFFER_COUNT           (END)
+#define CALL_BUFFER                 ((END) - (1))
 
 #endif //SMART_CITY_SOCKET_SERVER_PROTOCOL_H
