@@ -1,7 +1,7 @@
 ifeq ($(RELEASE), 1)
-DBG_FLAGS = -O2
+DBG_FLAGS = -O2 -std=c99
 else
-DBG_FLAGS = -g -O0 -DDEBUG
+DBG_FLAGS = -g -O0 -DDEBUG -std=c99
 endif
 
 PWD = $(shell pwd)

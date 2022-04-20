@@ -29,12 +29,12 @@ TRAFFIC_CONTROL_OBJS = $(TRAFFIC_CONTROL_DIRS)/tc_command_handler.o
 
 #OBJECTS += $(TEST_OBJECT)
 
-all:    protocol_test $(TRAFFIC_CONTROL_OBJS) $(TEST_OBJS)
+all:    udp_test $(TRAFFIC_CONTROL_OBJS) $(TEST_OBJS)
 	@echo "Check Test" $(TEST_TARGET) $(TEST_SRCS)
 
 #$(TEST_TARGET): $(TEST_OBJS)
 #protocol_test:		protocol_test.o $(TRAFFIC_CONTROL_OBJS)
-protocol_test:		protocol_test.o $(TRAFFIC_CONTROL_OBJS)
+udp_test:	udp_test.o $(TRAFFIC_CONTROL_OBJS)
 	$(CXX) -o $@ $^ $(DBG_FLAGS)
 
 .c.o:

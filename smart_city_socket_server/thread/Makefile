@@ -1,7 +1,7 @@
 ifeq ($(RELEASE), 1)
-DBG_FLAGS = -O2 -lpthread
+DBG_FLAGS = -O2 -lpthread -std=c99
 else
-DBG_FLAGS = -g -O0 -DDEBUG -lpthread
+DBG_FLAGS = -g -O0 -DDEBUG -lpthread -std=c99
 endif
 
 PWD = $(shell pwd)
