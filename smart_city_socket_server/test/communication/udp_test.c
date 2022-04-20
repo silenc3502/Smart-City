@@ -40,7 +40,7 @@ bool udp_send_test (void)
     return true;
 }
 
-TEST(protocol_handler_test, udp_send) {
+TEST(udp_send_test, udp_send) {
     EXPECT_TRUE(udp_send_test());
 }
 
