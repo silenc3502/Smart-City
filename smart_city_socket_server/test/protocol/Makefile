@@ -21,6 +21,9 @@ TEST_TARGET = $(SRCS:%.c=%)
 TRAFFIC_CONTROL_DIRS = $(PWD)/../../traffic_control
 TRAFFIC_CONTROL_OBJS = $(TRAFFIC_CONTROL_DIRS)/tc_command_handler.o
 
+SESSION_DIRS = $(PWD)/../../session
+SESSION_OBJS = $(SESSION_DIRS)/session_manage.o
+
 #TEST_MODULES = protocol_test.c
 
 #TEST_SRCS = $(wildcard $(TEST_MODULE))
@@ -29,12 +32,12 @@ TRAFFIC_CONTROL_OBJS = $(TRAFFIC_CONTROL_DIRS)/tc_command_handler.o
 
 #OBJECTS += $(TEST_OBJECT)
 
-all:    protocol_test $(TRAFFIC_CONTROL_OBJS) $(TEST_OBJS)
+all:    protocol_test $(TRAFFIC_CONTROL_OBJS) $(TEST_OBJS) $(SESSION_OBJS)
 	@echo "Check Test" $(TEST_TARGET) $(TEST_SRCS)
 
 #$(TEST_TARGET): $(TEST_OBJS)
 #protocol_test:		protocol_test.o $(TRAFFIC_CONTROL_OBJS)
-protocol_test:		protocol_test.o $(TRAFFIC_CONTROL_OBJS)
+protocol_test:		protocol_test.o $(TRAFFIC_CONTROL_OBJS) $(SESSION_OBJS)
 	$(CXX) -o $@ $^ $(DBG_FLAGS)
 
 .c.o:

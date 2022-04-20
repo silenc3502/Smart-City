@@ -9,7 +9,7 @@ bool tc_id_issuance_test (void)
     void *pkt = (protocol_packt *)malloc(ENCRYPT_SIDE_BUF_SIZE);
     ((protocol_packt *)pkt)->total_length = 16;
     ((protocol_packt *)pkt)->target_command = CENTRAL_SOCKET_SERVER;
-    ((protocol_packt *)pkt)->source = TRAFFIC_CONTROL;
+    ((protocol_packt *)pkt)->session_id = TRAFFIC_CONTROL;
     ((protocol_packt *)pkt)->sub_command = TC_ID_ISSUANCE;
 
     return tc_id_issuance(pkt);

@@ -7,7 +7,7 @@ struct protocol_packt
 {
     int total_length;
     int target_command;
-    int source;
+    int session_id;
     int sub_command;
     int data[0];
 };
