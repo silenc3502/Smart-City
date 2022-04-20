@@ -16,10 +16,11 @@ TC = $(SRC)/traffic_control
 VC = $(SRC)/vehicle_control
 GS = $(SRC)/gas_sensor
 EP = $(SRC)/electric_plant
+SESSION = $(SRC)/session
 
 EDDI_SOCKET_SERVER = $(MAIN)/eddi_socket_server
 
-SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS) $(EP) $(TEST_PROTOCOL) $(TEST_UDP)
+SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS) $(EP) $(SESSION) $(TEST_PROTOCOL) $(TEST_UDP)
 
 all:	main
 	$(shell mkdir build)

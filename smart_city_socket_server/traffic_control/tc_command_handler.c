@@ -5,6 +5,9 @@
 #include "protocol_packt.h"
 #include "tc_command_handler.h"
 
+#include "session_manage.h"
+#include "socket_manage.h"
+
 void *tc_dummy (void *data)
 {
     printf("미구현 스펙입니다!\n");
@@ -13,6 +16,8 @@ void *tc_dummy (void *data)
 
 void *tc_id_issuance (void *pkt)
 {
+    int target_command = ((protocol_packt *)pkt)->target_command;
+    int session_id = ((protocol_packt *)pkt)->session_id;
     int sub_command = ((protocol_packt *)pkt)->sub_command;
     int total_length = ((protocol_packt *)pkt)->total_length;
     int data_length = total_length - DEFAULT_PACKET_SIZE;
@@ -27,6 +32,12 @@ void *tc_id_issuance (void *pkt)
     else
     {
         printf("아이디(세션) 자동 발급\n");
+        // TODO: socket_manage_map 검색 및 발급
+        if (session_id == NO_SESSION)
+        {
+            request_session_id(target_command, session_id);
+        }
+
         return true;
     }
 }
