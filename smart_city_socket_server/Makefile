@@ -9,6 +9,7 @@ MUTEX = $(SRC)/mutex
 TEST_PROTOCOL = $(SRC)/test/protocol
 TEST_UDP = $(SRC)/test/communication
 TEST_SESSION = $(SRC)/test/session
+TEST_WORK_QUEUE = $(SRC)/test/data_structure/queue
 MAIN = $(SRC)/main
 PROTOCOL = $(SRC)/protocol
 CP_CCTV = $(SRC)/cctv/crime_prevention
@@ -18,10 +19,11 @@ VC = $(SRC)/vehicle_control
 GS = $(SRC)/gas_sensor
 EP = $(SRC)/electric_plant
 SESSION = $(SRC)/session
+WORK_QUEUE = $(SRC)/data_structure/queue
 
 EDDI_SOCKET_SERVER = $(MAIN)/eddi_socket_server
 
-SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS) $(EP) $(SESSION) $(TEST_PROTOCOL) $(TEST_UDP) $(TEST_SESSION)
+SUBDIRS = $(THREAD) $(SOCKET) $(MUTEX) $(PROTOCOL) $(TM_CCTV) $(CP_CCTV) $(TC) $(VC) $(GS) $(EP) $(SESSION) $(WORK_QUEUE) $(TEST_PROTOCOL) $(TEST_UDP) $(TEST_SESSION) $(TEST_WORK_QUEUE)
 
 all:	main
 	$(shell mkdir build)
