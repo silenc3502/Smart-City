@@ -5,11 +5,11 @@
 
 struct protocol_packt
 {
-    uint8_t total_length;
-    uint8_t target_command;
-    uint8_t source;
-    uint8_t sub_command;
-    uint8_t data[0];
+    int total_length;
+    int target_command;
+    int session_id;
+    int sub_command;
+    int data[0];
 };
 
 typedef struct protocol_packt protocol_packt;

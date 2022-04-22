@@ -1,8 +1,6 @@
 #ifndef SMART_CITY_SOCKET_SERVER_PROTOCOL_H
 #define SMART_CITY_SOCKET_SERVER_PROTOCOL_H
 
-#include "protocol_packt.h"
-
 enum eddi_smartcity_protocol {
     VEHICLE = 1,
     ELECTRIC_PLANT,
@@ -17,19 +15,7 @@ enum eddi_smartcity_protocol {
     END
 };
 
-#define CALL_BUFFER_COUNT          (END)
-#define CALL_BUFFER                ((END) - (1))
-
-void protocol_not_impl (void *pkt)
-{
-    printf("미구현 스펙입니다.\n");
-}
-
-typedef void (* protocol_call_table_ptr_t) (void *);
-
-const protocol_call_table_ptr_t protocol_call_table[CALL_BUFFER_COUNT] = {
-        [0 ... CALL_BUFFER] = &protocol_not_impl,
-        #include "protocol_call_table.h"
-};
+#define CALL_BUFFER_COUNT           (END)
+#define CALL_BUFFER                 ((END) - (1))
 
 #endif //SMART_CITY_SOCKET_SERVER_PROTOCOL_H

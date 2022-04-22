@@ -9,18 +9,19 @@
 #include "common.h"
 
 #include "protocol_handler.h"
-#include "protocol.h"
+#include "protocol_call_table.h"
+#include "protocol_packt.h"
 
 extern pthread_mutex_t mtx;
 extern pthread_cond_t edge_recv_cond_mtx;
 
 void copy_protocol (void *pkt, char *sock_buf)
 {
-    memcpy(pkt, sock_buf, ONE_BYTE);
+    memcpy(pkt, sock_buf, FOUR_BYTE);
 
     if (((protocol_packt *)pkt)->total_length)
     {
-        memcpy((char *)&pkt[ONE_BYTE], &sock_buf[ONE_BYTE], ((protocol_packt *) pkt)->total_length - 1);
+        memcpy((char *)&pkt[FOUR_BYTE], &sock_buf[FOUR_BYTE], ((protocol_packt *) pkt)->total_length - FOUR_BYTE);
     }
     else
     {

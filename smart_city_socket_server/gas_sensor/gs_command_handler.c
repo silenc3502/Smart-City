@@ -10,5 +10,5 @@ void gs_dummy (void *data)
 
 void gs_id_issuance (void *data)
 {
-    printf("아이디(세션) 발급 커맨드: %d\n", *((uint8_t *)data));
+    printf("아이디(세션) 발급 커맨드: %d\n", *((int *)data));
 }
