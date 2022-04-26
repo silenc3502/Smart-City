@@ -102,6 +102,9 @@ void *encrypt_side_receiver (void *fd)
     char msg[BUF_SIZE] = "Success!\n";
     int len = strlen(msg);
     int time_cnt = 0;
+    int recv_len;
+
+    char receive_tmpbuf[RECEIVER_BUF_SIZE] = { 0 };
 
 #if TCP
     encrypt_side_clnt_sock = accept(serv_sock, (sp) &clnt_addr, &addr_size);
@@ -113,6 +116,8 @@ void *encrypt_side_receiver (void *fd)
     printf("Receiver Start!\n");
 #endif
 
+    init_work_queue(&receive_queue);
+
     for(;;)
     {
         pthread_mutex_lock(&mtx);
@@ -120,11 +125,16 @@ void *encrypt_side_receiver (void *fd)
 #if TCP
         if ((read(encrypt_side_clnt_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE)) != -1)
 #else
-        if ((recvfrom(serv_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE, 0, (sp)&clnt_addr, &addrlen)) != -1)
+        if ((recv_len = recvfrom(serv_sock, (char *) encrypt_side_sock_buf, RECEIVER_BUF_SIZE, 0, (sp)&clnt_addr, &addrlen)) != -1)
 #endif
         {
             print_buf(encrypt_side_sock_buf);
             printf(" Received!\n");
+
+            memcpy(receive_tmpbuf, encrypt_side_sock_buf, recv_len);
+
+            enqueue_node_data(&receive_queue, receive_tmpbuf);
+            memset(receive_tmpbuf, 0x0, recv_len);
         }
 
         pthread_mutex_unlock(&mtx);
