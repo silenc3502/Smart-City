@@ -52,17 +52,13 @@
 /* USER CODE BEGIN (1) */
 /* Include FreeRTOS scheduler files */
 #include "FreeRTOS.h"
+#include "os_semphr.h"
 #include "os_task.h"
 
 /* Include HET header file - types, definitions and function declarations for system driver */
 #include "HL_het.h"
 #include "HL_gio.h"
 #include "HL_esm.h"
-
-#include "lwip/err.h"
-#include "lwip/pbuf.h"
-#include "ipv4/lwip/ip_addr.h"
-#include "lwip/udp.h"
 
 #ifdef DEBUG
 void
@@ -73,15 +69,15 @@ __error__(char *pcFilename, uint32_t ui32Line)
 
 void vTask1(void *pvParameters);
 extern void vTask2(void *pvParameters);
-void vTask3(void *pvParameters);
 extern void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName );
 extern void EMAC_LwIP_Main (uint8_t * emacAddress);
-
 
 /* Define Task Handles */
 xTaskHandle xTask1Handle;
 xTaskHandle xTask2Handle;
-xTaskHandle xTask3Handle;
+
+/* Define semaphore Handles*/
+SemaphoreHandle_t sem;
 
 /* USER CODE END */
 
@@ -96,8 +92,8 @@ xTaskHandle xTask3Handle;
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-uint8	emacAddress[6U] = 	{0x00U, 0x08U, 0xeeU, 0x03U, 0xa6U, 0x6cU};
-uint32 	emacPhyAddress	=	1U;
+uint8   emacAddress[6U] =   {0x00U, 0x08U, 0xeeU, 0x03U, 0xa6U, 0x6cU};
+uint32  emacPhyAddress  =   1U;
 
 int main(void)
 {
@@ -116,6 +112,8 @@ int main(void)
     /* Set high end timer GIO port hetPort pin direction to all output */
     gioSetDirection(hetPORT1, 0xFFFFFFFF); //HDK uses NHET for LEDs
 
+    sem = xSemaphoreCreateBinary();
+    xSemaphoreGive(sem);
     //EMAC_LwIP_Main(emacAddress);
 
     /* Create Task 1 */
@@ -132,14 +130,20 @@ int main(void)
         /* Task could not be created */
         while(1);
     }
-
-    /* Create Task 2 */
-    if (xTaskCreate(vTask3, "UDP_TX", configMINIMAL_STACK_SIZE, NULL, 1, &xTask3Handle) != pdTRUE)
-    {
-        /* Task could not be created */
-        while(1);
-    }
-
+//    /* Create Task 1 */
+//    //    if (xTaskCreate(vTask1,"Task1", configMINIMAL_STACK_SIZE, NULL, 1, &xTask1Handle) != pdTRUE)
+//    if (xTaskCreate(vTask1,"Task1", configMINIMAL_STACK_SIZE, NULL,  1, &xTask1Handle) != pdTRUE)
+//    {
+//        /* Task could not be created */
+//        while(1);
+//    }
+//
+//    /* Create Task 2 */
+//    if (xTaskCreate(vTask2,"Task2", configMINIMAL_STACK_SIZE, NULL, 1, &xTask2Handle) != pdTRUE)
+//    {
+//        /* Task could not be created */
+//        while(1);
+//    }
     /* Start Scheduler */
     vTaskStartScheduler();
 
@@ -155,8 +159,14 @@ int main(void)
 /* Task1 */
 void vTask1(void *pvParameters)
 {
+//    if(xSemaphoreTake(sem, (TickType_t)0x01) == pdTRUE)
+//    {
+//        EMAC_LwIP_Main (emacAddress);
+//        xSemaphoreGive(sem);
+//        vTaskDelay(1000);
+//    }
     EMAC_LwIP_Main (emacAddress);
-#if 1
+#if 0
     for(;;){
         /* Taggle GIOB[6] with timer tick */
         gioSetBit(gioPORTB, 6, gioGetBit(gioPORTB, 6) ^ 1);
@@ -172,53 +182,20 @@ void vTask2(void *pvParameters)
 {
     for(;;)
     {
-        /* Taggle GIOB[7] with timer tick */
-        gioSetBit(gioPORTB, 7, gioGetBit(gioPORTB, 7) ^ 1);
+        if(xSemaphoreTake(sem, (TickType_t)0x01) == pdTRUE)
+        {
+            /* Taggle GIOB[7] with timer tick */
+            gioSetBit(gioPORTB, 7, gioGetBit(gioPORTB, 7) ^ 1);
 
-        gioSetBit(hetPORT1, 18, gioGetBit(hetPORT1, 18) ^ 1);  //LED on HDK, bottom
-        vTaskDelay(500);
-    }
-}
-
-void vTask3(void *pvParameters)
-{
-    //struct ip_addr dst_addr;
-    //struct ip_addr src_addr;
-    //u16_t dst_port;
-
-    struct udp_pcb *pcb;
-    char msg[] = "udp test\n\r\0";
-    struct pbuf *p;
-
-    //IP4_ADDR(&dst_addr, 192, 168, 219, 100);
-    //IP4_ADDR(&src_addr, 192, 168, 219, 77);
-    //dst_port = (u16_t)7777;
-
-    pcb = udp_new();
-    //udp_bind(pcb, &src_addr, dst_port);
-    udp_bind(pcb, IP_ADDR_ANY, 7777);
-    //udp_connect(pcb, &dst_addr, dst_port);
-
-    for(;;)
-    {
-        taskENTER_CRITICAL();
-
-#if 0
-        p = pbuf_alloc(PBUF_TRANSPORT, sizeof(msg), PBUF_RAM);
-        memcpy(p->payload, msg, sizeof(msg));
-        udp_sendto(pcb, p, &dst_addr, dst_port);
-        pbuf_free(p);
-#else
-        p = pbuf_alloc(PBUF_TRANSPORT, sizeof(msg), PBUF_RAM);
-        memcpy(p->payload, msg, sizeof(msg));
-        udp_sendto(pcb, p, IP_ADDR_BROADCAST, 7777);
-        //udp_sendto(pcb, p, &dst_addr, 7777);
-        pbuf_free(p);
-#endif
-
-        taskEXIT_CRITICAL();
-
-        vTaskDelay(500);
+            gioSetBit(hetPORT1, 18, gioGetBit(hetPORT1, 18) ^ 1);  //LED on HDK, bottom
+            xSemaphoreGive(sem);
+            vTaskDelay(501);
+        }
+//        /* Taggle GIOB[7] with timer tick */
+//        gioSetBit(gioPORTB, 7, gioGetBit(gioPORTB, 7) ^ 1);
+//
+//        gioSetBit(hetPORT1, 18, gioGetBit(hetPORT1, 18) ^ 1);  //LED on HDK, bottom
+//        vTaskDelay(500);
     }
 }
 /* USER CODE END */
