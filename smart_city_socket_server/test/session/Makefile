@@ -10,6 +10,7 @@ PWD = $(shell pwd)
 INC_DIRS = -I$(PWD)/../../common
 INC_DIRS += -I$(PWD)/../../protocol
 INC_DIRS += -I$(PWD)/../../session
+INC_DIRS += -I$(PWD)/../../data_structure/queue
 
 SESSION_DIRS = $(PWD)/../../session
 SESSION_OBJS = $(SESSION_DIRS)/session_manage.o
