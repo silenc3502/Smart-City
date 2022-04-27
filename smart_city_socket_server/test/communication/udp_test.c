@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "udp_test.h"
+#include "session_manage.h"
 
 #include <stdbool.h>
 
@@ -11,7 +12,7 @@ bool udp_send_test (void)
     char recv_buffer[1024];
     int recv_len;
     unsigned int address_len;
-    int data[6] = { 20, TRAFFIC_CONTROL, TRAFFIC_CONTROL, TC_ID_ISSUANCE, 1 };
+    int data[6] = { 20, TRAFFIC_CONTROL, NO_SESSION, TC_ID_ISSUANCE, 1 };
 
     if((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
