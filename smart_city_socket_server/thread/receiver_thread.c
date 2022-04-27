@@ -104,7 +104,8 @@ void *encrypt_side_receiver (void *fd)
     int time_cnt = 0;
     int recv_len;
 
-    char receive_tmpbuf[RECEIVER_BUF_SIZE] = { 0 };
+    //char receive_tmpbuf[RECEIVER_BUF_SIZE] = { 0 };
+    receive_data *recv_data;
 
 #if TCP
     encrypt_side_clnt_sock = accept(serv_sock, (sp) &clnt_addr, &addr_size);
@@ -131,10 +132,22 @@ void *encrypt_side_receiver (void *fd)
             print_buf(encrypt_side_sock_buf);
             printf(" Received!\n");
 
-            memcpy(receive_tmpbuf, encrypt_side_sock_buf, recv_len);
+#if 0
+            // Receiver 에서 Session 검사 진행 ??
+            if ((protocol_packt *)encrypt_side_sock_buf->session_id == NO_SESSION)
+            {
+                int session_id = request_session_id(packet->target_command, NO_SESSION);
+                (protocol_packt *)encrypt_side_sock_buf->session_id = session_id;
+            }
+#endif
 
-            enqueue_node_data(&receive_queue, receive_tmpbuf);
-            memset(receive_tmpbuf, 0x0, recv_len);
+            recv_data = (receive_data *)malloc(sizeof(receive_data));
+
+            // receiver: 받는 족족 데이터를 쌓는다.
+            memcpy(recv_data->receive_tmpbuf, encrypt_side_sock_buf, recv_len);
+            recv_data->recv_len = recv_len;
+
+            enqueue_node_data(&receive_queue, recv_data);
         }
 
         pthread_mutex_unlock(&mtx);
