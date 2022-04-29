@@ -12,6 +12,7 @@ typedef struct _receive_data receive_data;
 struct _receive_data
 {
     char receive_tmpbuf[RECEIVER_BUF_SIZE];
+    si socket_addr;
     int recv_len;
 };
 
