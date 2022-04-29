@@ -6,13 +6,11 @@
 
 bool tc_id_issuance_test (void)
 {
-    void *pkt = (protocol_packt *)malloc(ENCRYPT_SIDE_BUF_SIZE);
-    ((protocol_packt *)pkt)->total_length = 16;
-    ((protocol_packt *)pkt)->target_command = CENTRAL_SOCKET_SERVER;
-    ((protocol_packt *)pkt)->session_id = TRAFFIC_CONTROL;
-    ((protocol_packt *)pkt)->sub_command = TC_ID_ISSUANCE;
+    int data[2] = { 1 };
 
-    return tc_id_issuance(pkt);
+    tc_id_issuance(data);
+
+    return true;
 }
 
 TEST(protocol_handler_test, id_issuance) {
