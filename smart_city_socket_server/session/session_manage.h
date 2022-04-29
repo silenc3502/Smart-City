@@ -5,6 +5,6 @@
 
 void init_socket_manage_map (void);
 int find_empty_socket_manage_map_idx (int target);
-void request_session_id (int target, int session_id);
+int request_session_id (int target, int session_id);
 
 #endif //SMART_CITY_SOCKET_SERVER_SESSION_MANAGER_H
