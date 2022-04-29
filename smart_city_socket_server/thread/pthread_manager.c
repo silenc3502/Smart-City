@@ -6,6 +6,7 @@
 #include "pthread_manager.h"
 #include "receiver_thread.h"
 #include "prot_analysis_thread.h"
+#include "transmitter_thread.h"
 #include "common.h"
 
 extern int thread_id[THREAD_MAX];
@@ -37,7 +38,15 @@ void start_pthread_manager (void)
         exit(0);
     }
 
+    thread_id[cnt] = pthread_create(&p_thread[cnt], NULL, transmitter, NULL);
+    if(thread_id[cnt++] < 0)
+    {
+        perror("encryption side protocol processor thread create error: ");
+        exit(0);
+    }
+
     pthread_join(p_thread[0], (void **)&status);
     pthread_join(p_thread[1], (void **)&status);
     pthread_join(p_thread[2], (void **)&status);
+    pthread_join(p_thread[3], (void **)&status);
 }
