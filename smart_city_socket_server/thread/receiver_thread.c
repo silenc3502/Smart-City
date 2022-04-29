@@ -1,8 +1,12 @@
 #include <pthread.h>
 #include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+
+#include <sys/time.h>
+#include <sys/types.h>
 
 #include "receiver_thread.h"
 #include "common.h"
@@ -96,6 +100,19 @@ void print_buf (char *buf)
 void print_buf (char *buf) { }
 #endif
 
+int recv_from_timeout (int sock, long sec)
+{
+    struct timeval timeout;
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(sock, &fds);
+
+    timeout.tv_sec = sec;
+    timeout.tv_usec = 0;
+
+    return select(10, &fds, 0, 0, &timeout);
+}
+
 void *encrypt_side_receiver (void *fd)
 {
     int flag;
@@ -103,9 +120,10 @@ void *encrypt_side_receiver (void *fd)
     int len = strlen(msg);
     int time_cnt = 0;
     int recv_len;
+    int select_res;
 
-    //char receive_tmpbuf[RECEIVER_BUF_SIZE] = { 0 };
-    receive_data *recv_data;
+    receive_data *recv_data = NULL;
+    si client;
 
 #if TCP
     encrypt_side_clnt_sock = accept(serv_sock, (sp) &clnt_addr, &addr_size);
@@ -123,31 +141,37 @@ void *encrypt_side_receiver (void *fd)
     {
         pthread_mutex_lock(&mtx);
 
+        printf("수신기!\n");
+
 #if TCP
         if ((read(encrypt_side_clnt_sock, (char *) encrypt_side_sock_buf, ENCRYPT_SIDE_BUF_SIZE)) != -1)
 #else
-        if ((recv_len = recvfrom(serv_sock, (char *) encrypt_side_sock_buf, RECEIVER_BUF_SIZE, 0, (sp)&clnt_addr, &addrlen)) != -1)
-#endif
+        select_res = recv_from_timeout(serv_sock, 1);
+        printf("select_res = %d\n", select_res);
+
+        if (select_res > 0)
         {
-            print_buf(encrypt_side_sock_buf);
-            printf(" Received!\n");
-
-#if 0
-            // Receiver 에서 Session 검사 진행 ??
-            if ((protocol_packt *)encrypt_side_sock_buf->session_id == NO_SESSION)
-            {
-                int session_id = request_session_id(packet->target_command, NO_SESSION);
-                (protocol_packt *)encrypt_side_sock_buf->session_id = session_id;
-            }
+            printf("상태 변경!");
+            if ((recv_len = recvfrom(serv_sock, (char *) encrypt_side_sock_buf, RECEIVER_BUF_SIZE, 0, (sp) & clnt_addr,
+                                     &addrlen)) != -1)
 #endif
+            {
+                print_buf(encrypt_side_sock_buf);
+                printf(" Received!\n");
 
-            recv_data = (receive_data *)malloc(sizeof(receive_data));
+                do {
+                    recv_data = (receive_data *) malloc(sizeof(receive_data));
+                } while (!recv_data);
 
-            // receiver: 받는 족족 데이터를 쌓는다.
-            memcpy(recv_data->receive_tmpbuf, encrypt_side_sock_buf, recv_len);
-            recv_data->recv_len = recv_len;
+                printf("메모리 할당 성공!\n");
 
-            enqueue_node_data(&receive_queue, recv_data);
+                // receiver: 받는 족족 데이터를 쌓는다.
+                memcpy(recv_data->receive_tmpbuf, encrypt_side_sock_buf, recv_len);
+                recv_data->recv_len = recv_len;
+                memcpy(&recv_data->socket_addr, (sp) & clnt_addr, sizeof(si));
+
+                enqueue_node_data(&receive_queue, recv_data);
+            }
         }
 
         pthread_mutex_unlock(&mtx);
