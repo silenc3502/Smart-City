@@ -29,7 +29,7 @@ int find_empty_socket_manage_map_idx (int target)
     }
 }
 
-void request_session_id (int target, int session_id)
+int request_session_id (int target, int session_id)
 {
     int tmp;
 
@@ -37,5 +37,8 @@ void request_session_id (int target, int session_id)
     {
         tmp = find_empty_socket_manage_map_idx(target);
         socket_manage_map[target][tmp].session_id = tmp;
+        return tmp;
     }
+
+    return session_id;
 }
