@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "protocol_packt.h"
 #include "tc_command_handler.h"
@@ -8,26 +9,33 @@
 #include "session_manage.h"
 #include "socket_manage.h"
 
-void *tc_dummy (void *data)
+#include "transmitter_thread.h"
+#include "prot_analysis_thread.h"
+
+#include "thread_work_queue.h"
+
+void tc_dummy (void *pkt)
 {
     printf("미구현 스펙입니다!\n");
-    return true;
 }
 
-void *tc_id_issuance (void *pkt)
+// Todo: 수동 발급 커맨드에 대한 고민이 필요함
+void tc_id_issuance (void *pkt)
 {
-    int target_command = ((protocol_packt *)pkt)->target_command;
-    int session_id = ((protocol_packt *)pkt)->session_id;
-    int sub_command = ((protocol_packt *)pkt)->sub_command;
-    int total_length = ((protocol_packt *)pkt)->total_length;
-    int data_length = total_length - DEFAULT_PACKET_SIZE;
+    int *command_data = ((prot_analysis_metadata *)pkt)->data;
+    int target_command = ((prot_analysis_metadata *)pkt)->target;
+    int session_id = ((prot_analysis_metadata *)pkt)->session_id;
 
-    printf("아이디(세션) 발급 커맨드: %d\n", sub_command);
+    si socket_addr = ((prot_analysis_metadata *)pkt)->socket_addr;
+    int alloc_session;
 
-    if (data_length)
+    transmit_data *data;
+
+    printf("아이디(세션) 발급 커맨드\n");
+
+    if (command_data[0])
     {
         printf("아이디(세션) 수동 발급\n");
-        return false;
     }
     else
     {
@@ -35,17 +43,21 @@ void *tc_id_issuance (void *pkt)
         // TODO: socket_manage_map 검색 및 발급
         if (session_id == NO_SESSION)
         {
-            request_session_id(target_command, session_id);
+            alloc_session = request_session_id(target_command, session_id);
         }
 
-        return true;
+        data = (transmit_data *)malloc(sizeof(transmit_data));
+        data->session_id = alloc_session;
+        data->socket_addr = socket_addr;
+
+        enqueue_node_data(&transmit_queue, data);
     }
 }
 
-void *tc_barricade_handler (void *data)
+void tc_barricade_handler (void *pkt)
 {
-    printf("바리케이드 서브 커맨드: %d\n", *((int *)data));
-    uint8_t data_pkt = *((int *)data);
+    printf("바리케이드 서브 커맨드\n");
+    uint8_t data_pkt = *((int *)pkt);
 
     if (data_pkt == ON)
     {
@@ -55,14 +67,12 @@ void *tc_barricade_handler (void *data)
     {
         printf("바리케이드 OFF\n");
     }
-
-    return true;
 }
 
-void *tc_lift_handler (void *data)
+void tc_lift_handler (void *pkt)
 {
-    printf("리프트 서브 커맨드: %d\n", *((int *)data));
-    uint8_t data_pkt = *((int *)data);
+    printf("리프트 서브 커맨드\n");
+    uint8_t data_pkt = *((int *)pkt);
 
     if (data_pkt == ON)
     {
@@ -72,14 +82,12 @@ void *tc_lift_handler (void *data)
     {
         printf("리프트 DOWN\n");
     }
-
-    return true;
 }
 
-void *tc_street_lamp_handler (void *data)
+void tc_street_lamp_handler (void *pkt)
 {
-    printf("가로등 서브 커맨드: %d\n", *((int *)data));
-    uint8_t data_pkt = *((int *)data);
+    printf("가로등 서브 커맨드\n");
+    uint8_t data_pkt = *((int *)pkt);
 
     if (data_pkt == ON)
     {
@@ -89,14 +97,12 @@ void *tc_street_lamp_handler (void *data)
     {
         printf("가로등 OFF\n");
     }
-
-    return true;
 }
 
-void *tc_traffic_light_handler (void *data)
+void tc_traffic_light_handler (void *pkt)
 {
-    printf("신호등 서브 커맨드: %d\n", *((int *)data));
-    uint8_t data_pkt = *((int *)data);
+    printf("신호등 서브 커맨드\n");
+    uint8_t data_pkt = *((int *)pkt);
 
     if (data_pkt == ON)
     {
@@ -106,6 +112,4 @@ void *tc_traffic_light_handler (void *data)
     {
         printf("신호등 OFF\n");
     }
-
-    return true;
 }

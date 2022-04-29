@@ -3,7 +3,7 @@
 
 #include "tc_command.h"
 
-typedef void * (* tc_table_ptr_t) (void *);
+typedef void (* tc_table_ptr_t) (void *);
 
 const tc_table_ptr_t tc_command_table[TC_CALL_BUFFER_COUNT] = {
         [0 ... TC_CALL_BUFFER] = NULL,
