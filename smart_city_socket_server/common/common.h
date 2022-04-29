@@ -21,6 +21,7 @@ typedef struct sockaddr *       sp;
 #define ENCRYPT_SIDE_BUF_SIZE           64
 
 #define RECEIVER_BUF_SIZE               1024
+#define TRANSMITTER_BUF_SIZE            1024
 
 #define FOUR_BYTE                        4
 
@@ -38,6 +39,7 @@ int current_gas_cnt;
 pthread_mutex_t mtx;
 
 char encrypt_side_sock_buf[RECEIVER_BUF_SIZE];
+char transmit_buf[TRANSMITTER_BUF_SIZE];
 
 work_queue receive_queue;
 work_queue protocol_queue;
