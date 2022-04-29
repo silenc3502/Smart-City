@@ -13,7 +13,7 @@
 #include "receiver_thread.h"
 
 extern pthread_mutex_t mtx;
-extern pthread_cond_t edge_recv_cond_mtx;
+//extern pthread_cond_t edge_recv_cond_mtx;
 
 // 데이터가 중간에 짤리는 경우가 존재할 수 있으나 고려하지 않음
 prot_analysis_metadata *protocol_analysis (work_queue *recv_queue)
@@ -27,9 +27,11 @@ prot_analysis_metadata *protocol_analysis (work_queue *recv_queue)
 
     tmp->length = packet->total_length;
     tmp->target = packet->target_command;
+    tmp->session_id = packet->session_id;
     tmp->sub_command = packet->sub_command;
     tmp->data = (int *)malloc(sizeof(int) * data_cnt);
     memcpy(tmp->data, (int *)packet->data, data_cnt);
+    memcpy(&tmp->socket_addr, &recv_data->socket_addr, sizeof(si));
 
     memmove(&((int *)recv_queue->head->data)[0], &((int *)recv_queue->head->data)[tot_cnt], recv_data->recv_len);
     ((receive_data *)recv_queue->head->data)->recv_len -= tmp->length;
@@ -47,14 +49,10 @@ void *protocol_analyzer (void *fd)
     {
         pthread_mutex_lock(&mtx);
 
-#if 0
-        if (((protocol_packt *)pkt)->target_command)
-            protocol_call_table[((protocol_packt *)pkt)->target_command](pkt);
-#endif
-
         // protocol analyzer: 수신 받은 정보를 기반으로 처리할 프로토콜에 대한 작업 리스트를 만든다.
         while (receive_queue.count)
         {
+            printf("수신 데이터 프로토콜별 배치\n");
             metadata = protocol_analysis(&receive_queue);
 
             enqueue_node_data(&protocol_queue, metadata);
@@ -62,7 +60,7 @@ void *protocol_analyzer (void *fd)
             if (((receive_data *)receive_queue.head->data)->recv_len - ((protocol_packt *)receive_queue.head->data)->total_length <= 0)
             {
                 dequeue_node_data(&receive_queue);
-                break;
+                printf("데이터 해제\n");
             }
         }
 
