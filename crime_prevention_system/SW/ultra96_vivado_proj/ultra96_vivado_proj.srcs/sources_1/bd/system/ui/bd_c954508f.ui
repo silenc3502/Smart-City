@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.254199",
-   "Default View_TopLeft":"-146,-472",
+   "Default View_ScaleFactor":"1.77034",
+   "Default View_TopLeft":"947,224",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
@@ -23,6 +23,7 @@ preplace inst v_axi4s_vid_out_0 -pg 1 -lvl 10 -x 4040 -y 690 -defaultsOSRD
 preplace inst v_tpg_0 -pg 1 -lvl 9 -x 3620 -y 560 -defaultsOSRD
 preplace netloc Net 1 6 4 2150 680 2950 670 3380 730 NJ
 preplace netloc Net1 1 8 2 3390 740 3810
+preplace netloc clk_wiz_0_locked 1 6 2 2160J 960 2940
 preplace netloc clk_wiz_clk_out1 1 1 1 NJ 810
 preplace netloc proc_sys_reset_0_peripheral_aresetn 1 8 1 3410 380n
 preplace netloc proc_sys_reset_0_peripheral_reset 1 8 2 N 770 NJ
@@ -34,7 +35,6 @@ preplace netloc v_axi4s_vid_out_0_vid_vsync 1 6 5 2170 980 NJ 980 NJ 980 NJ 980 
 preplace netloc v_axi4s_vid_out_0_vtg_ce 1 8 3 3440 860 NJ 860 4200
 preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 10 20 1050 380 490 690 390 1060 390 1440 390 1860 250 2200 130 2970 530 3420 660 3800J
 preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 8 10 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 2900
-preplace netloc clk_wiz_0_locked 1 6 2 2160J 960 2940
 preplace netloc axi_smc_M00_AXI 1 6 1 2140 190n
 preplace netloc axi_vdma_0_M_AXIS_MM2S 1 5 4 1840 100 NJ 100 2940J 540 NJ
 preplace netloc axi_vdma_0_M_AXI_MM2S 1 5 1 N 460
