@@ -163,6 +163,20 @@ SECTIONS
     . = ALIGN(8);
   } >RAM_D1
 
+/* Modification start */
+  .lwip_sec (NOLOAD) : {
+    . = ABSOLUTE(0x30040000);
+    *(.RxDecripSection) 
+    
+    . = ABSOLUTE(0x30040060);
+    *(.TxDecripSection)
+    
+    . = ABSOLUTE(0x30040200);
+    *(.RxArraySection) 
+  } >RAM_D2
+  /* Modification end */
+
+
   /* Remove information from the standard libraries */
   /DISCARD/ :
   {

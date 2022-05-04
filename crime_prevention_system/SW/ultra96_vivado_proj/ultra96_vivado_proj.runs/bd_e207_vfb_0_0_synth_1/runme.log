@@ -1,0 +1,313 @@
+
+*** Running vivado
+    with args -log bd_e207_vfb_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_e207_vfb_0_0.tcl
+
+
+****** Vivado v2021.1 (64-bit)
+  **** SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
+  **** IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source bd_e207_vfb_0_0.tcl -notrace
+Command: synth_design -top bd_e207_vfb_0_0 -part xczu3eg-sbva484-1-i -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Device 21-403] Loading part xczu3eg-sbva484-1-i
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 28894
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 2655.543 ; gain = 41.812 ; free physical = 2068 ; free virtual = 3000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'bd_e207_vfb_0_0' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'bd_e207_vfb_0_0_core' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0_core.v:53]
+INFO: [Synth 8-6157] synthesizing module 'vfb_v1_0_18_reorder' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/d294/hdl/vfb_v1_0_syn_rfs.v:897]
+	Parameter AXIS_TDATA_WIDTH bound to: 64 - type: integer 
+	Parameter AXIS_TUSER_WIDTH bound to: 96 - type: integer 
+	Parameter AXIS_TDEST_WIDTH bound to: 4 - type: integer 
+	Parameter VFB_TU_WIDTH bound to: 1 - type: integer 
+	Parameter VFB_TSB0_WIDTH bound to: 32 - type: integer 
+	Parameter VFB_TSB1_WIDTH bound to: 0 - type: integer 
+	Parameter VFB_TSB2_WIDTH bound to: 3 - type: integer 
+	Parameter VFB_OP_DWIDTH bound to: 16 - type: integer 
+	Parameter VFB_DATA_TYPE bound to: 43 - type: integer 
+	Parameter VFB_VC bound to: 0 - type: integer 
+	Parameter VFB_FILTER_VC bound to: 0 - type: integer 
+	Parameter VFB_REQ_BUFFER bound to: 1 - type: integer 
+	Parameter VFB_REQ_REORDER bound to: 1 - type: integer 
+	Parameter VFB_FIFO_WIDTH bound to: 64 - type: integer 
+	Parameter VFB_DCONV_TUW bound to: 24 - type: integer 
+	Parameter VFB_4PXL_W bound to: 40 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'vfb_v1_0_18_reorder' (1#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/d294/hdl/vfb_v1_0_syn_rfs.v:897]
+INFO: [Synth 8-6157] synthesizing module 'bd_e207_vfb_0_0_axis_dconverter' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0/src/verilog/bd_e207_vfb_0_0_axis_dconverter.v:47]
+INFO: [Synth 8-6157] synthesizing module 'bd_e207_vfb_0_0_axis_converter' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/ip_0/synth/bd_e207_vfb_0_0_axis_converter.v:57]
+INFO: [Synth 8-6157] synthesizing module 'axis_dwidth_converter_v1_1_23_axis_dwidth_converter' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/68de/hdl/axis_dwidth_converter_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6157] synthesizing module 'axis_dwidth_converter_v1_1_23_axisc_downsizer' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/68de/hdl/axis_dwidth_converter_v1_1_vl_rfs.v:62]
+INFO: [Synth 8-6155] done synthesizing module 'axis_dwidth_converter_v1_1_23_axisc_downsizer' (2#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/68de/hdl/axis_dwidth_converter_v1_1_vl_rfs.v:62]
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_24_axis_register_slice' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:2838]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' (3#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_24_axisc_register_slice' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:1936]
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_24_axisc_register_slice' (4#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:1936]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:992]
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' (5#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:992]
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_24_axis_register_slice' (6#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:2838]
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_24_axis_register_slice__parameterized0' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:2838]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector__parameterized0' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector__parameterized0' (6#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_24_axisc_register_slice__parameterized0' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:1936]
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_24_axisc_register_slice__parameterized0' (6#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:1936]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis__parameterized0' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:992]
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis__parameterized0' (6#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:992]
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_24_axis_register_slice__parameterized0' (6#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/8d66/hdl/axis_register_slice_v1_1_vl_rfs.v:2838]
+INFO: [Synth 8-6155] done synthesizing module 'axis_dwidth_converter_v1_1_23_axis_dwidth_converter' (7#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/68de/hdl/axis_dwidth_converter_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6155] done synthesizing module 'bd_e207_vfb_0_0_axis_converter' (8#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/ip_0/synth/bd_e207_vfb_0_0_axis_converter.v:57]
+WARNING: [Synth 8-689] width (3) of port connection 'm_axis_tuser' does not match port width (6) of module 'bd_e207_vfb_0_0_axis_converter' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0/src/verilog/bd_e207_vfb_0_0_axis_dconverter.v:75]
+INFO: [Synth 8-6155] done synthesizing module 'bd_e207_vfb_0_0_axis_dconverter' (9#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0/src/verilog/bd_e207_vfb_0_0_axis_dconverter.v:47]
+INFO: [Synth 8-6157] synthesizing module 'vfb_v1_0_18_op_inf' [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/d294/hdl/vfb_v1_0_syn_rfs.v:3753]
+	Parameter VFB_TU_WIDTH bound to: 1 - type: integer 
+	Parameter VFB_TSB0_WIDTH bound to: 32 - type: integer 
+	Parameter VFB_TSB1_WIDTH bound to: 0 - type: integer 
+	Parameter VFB_TSB2_WIDTH bound to: 3 - type: integer 
+	Parameter AXIS_TDATA_WIDTH bound to: 64 - type: integer 
+	Parameter VFB_PXL_W bound to: 10 - type: integer 
+	Parameter VFB_PXL_W_BB bound to: 16 - type: integer 
+	Parameter VFB_DCONV_OWIDTH bound to: 16 - type: integer 
+	Parameter VFB_OP_DWIDTH bound to: 16 - type: integer 
+	Parameter VFB_OP_PIXELS bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'vfb_v1_0_18_op_inf' (10#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ipshared/d294/hdl/vfb_v1_0_syn_rfs.v:3753]
+INFO: [Synth 8-6155] done synthesizing module 'bd_e207_vfb_0_0_core' (11#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0_core.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'bd_e207_vfb_0_0' (12#1) [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0.v:53]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:12 . Memory (MB): peak = 2709.449 ; gain = 95.719 ; free physical = 1207 ; free virtual = 1765
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:13 . Memory (MB): peak = 2729.262 ; gain = 115.531 ; free physical = 196 ; free virtual = 908
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:13 . Memory (MB): peak = 2729.262 ; gain = 115.531 ; free physical = 196 ; free virtual = 908
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2729.262 ; gain = 0.000 ; free physical = 3983 ; free virtual = 4743
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0_ooc.xdc] for cell 'inst'
+create_clock: Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2905.949 ; gain = 0.000 ; free physical = 4114 ; free virtual = 5587
+Finished Parsing XDC File [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.gen/sources_1/bd/system/ip/system_mipi_csi2_rx_subsyst_0_1/bd_0/ip/ip_3/bd_e207_vfb_0_0_ooc.xdc] for cell 'inst'
+Parsing XDC File [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/bd_e207_vfb_0_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/bd_e207_vfb_0_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2905.949 ; gain = 0.000 ; free physical = 4112 ; free virtual = 5585
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2905.949 ; gain = 0.000 ; free physical = 4171 ; free virtual = 5644
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2905.949 ; gain = 292.219 ; free physical = 3147 ; free virtual = 4720
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu3eg-sbva484-1-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2905.949 ; gain = 292.219 ; free physical = 3145 ; free virtual = 4718
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for inst. (constraint file  /home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/bd_e207_vfb_0_0_synth_1/dont_touch.xdc, line 9).
+Applied set_property KEEP_HIERARCHY = SOFT for inst/axis_dconverter/axis_conv_inst. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2905.949 ; gain = 292.219 ; free physical = 3142 ; free virtual = 4715
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4490] FSM extraction disabled for register 'state_reg' through user attribute
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2905.949 ; gain = 292.219 ; free physical = 3716 ; free virtual = 5339
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    8 Bit       Adders := 1     
+	  10 Input    8 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 1     
+	   8 Input    4 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---Registers : 
+	              180 Bit    Registers := 2     
+	               64 Bit    Registers := 6     
+	               41 Bit    Registers := 2     
+	               32 Bit    Registers := 4     
+	               24 Bit    Registers := 2     
+	               16 Bit    Registers := 1     
+	               10 Bit    Registers := 3     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 5     
+	                1 Bit    Registers := 23    
++---Muxes : 
+	   2 Input  180 Bit        Muxes := 4     
+	   4 Input  176 Bit        Muxes := 2     
+	   4 Input   64 Bit        Muxes := 1     
+	   2 Input   64 Bit        Muxes := 3     
+	   2 Input   41 Bit        Muxes := 2     
+	   4 Input   32 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 1     
+	   4 Input   24 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 3     
+	   4 Input   10 Bit        Muxes := 1     
+	   2 Input    9 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 6     
+	   3 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 39    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 360 (col length:72)
+BRAMs: 432 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:33 . Memory (MB): peak = 2905.949 ; gain = 292.219 ; free physical = 2167 ; free virtual = 4047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:37 ; elapsed = 00:00:46 . Memory (MB): peak = 3265.090 ; gain = 651.359 ; free physical = 297 ; free virtual = 1578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:48 . Memory (MB): peak = 3313.129 ; gain = 699.398 ; free physical = 191 ; free virtual = 1501
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:39 ; elapsed = 00:00:48 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 220 ; free virtual = 1540
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1056 ; free virtual = 2441
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1064 ; free virtual = 2449
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1174 ; free virtual = 2562
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1179 ; free virtual = 2567
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1260 ; free virtual = 2648
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1267 ; free virtual = 2655
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |LUT1  |     7|
+|2     |LUT2  |    21|
+|3     |LUT3  |    76|
+|4     |LUT4  |    18|
+|5     |LUT5  |   134|
+|6     |LUT6  |   211|
+|7     |MUXF7 |    40|
+|8     |FDRE  |   630|
+|9     |FDSE  |     1|
++------+------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.145 ; gain = 715.414 ; free physical = 1275 ; free virtual = 2664
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:32 ; elapsed = 00:00:41 . Memory (MB): peak = 3329.145 ; gain = 538.727 ; free physical = 1467 ; free virtual = 2841
+Synthesis Optimization Complete : Time (s): cpu = 00:00:42 ; elapsed = 00:00:51 . Memory (MB): peak = 3329.152 ; gain = 715.414 ; free physical = 1469 ; free virtual = 2844
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3329.152 ; gain = 0.000 ; free physical = 1997 ; free virtual = 3375
+INFO: [Netlist 29-17] Analyzing 40 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3382.941 ; gain = 0.000 ; free physical = 3928 ; free virtual = 5415
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 90f93b11
+INFO: [Common 17-83] Releasing license: Synthesis
+48 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 3382.941 ; gain = 876.211 ; free physical = 4055 ; free virtual = 5551
+INFO: [Common 17-1381] The checkpoint '/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/bd_e207_vfb_0_0_synth_1/bd_e207_vfb_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP bd_e207_vfb_0_0, cache-ID = 0304b5dd62729b2c
+INFO: [Coretcl 2-1174] Renamed 4 cell refs.
+INFO: [Common 17-1381] The checkpoint '/home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/bd_e207_vfb_0_0_synth_1/bd_e207_vfb_0_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file bd_e207_vfb_0_0_utilization_synth.rpt -pb bd_e207_vfb_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 10 02:17:10 2022...

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Fri Mar 11 00:55:36 2022
+# Process ID: 14037
+# Current directory: /home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/impl_1
+# Command line: vivado -log system_wrapper.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source system_wrapper.tcl -notrace
+# Log file: /home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/impl_1/system_wrapper.vdi
+# Journal file: /home/chh/projects/ultra96_proj/ultra96_vivado_proj/ultra96_vivado_proj.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source system_wrapper.tcl -notrace
