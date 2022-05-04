@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "protocol_packt.h"
+#include "protocol_request_packt.h"
 #include "tc_command_handler.h"
 
 #include "session_manage.h"
@@ -49,6 +49,7 @@ void tc_id_issuance (void *pkt)
         data = (transmit_data *)malloc(sizeof(transmit_data));
         data->session_id = alloc_session;
         data->socket_addr = socket_addr;
+        memcpy(data->dest_ip_addr, ((prot_analysis_metadata *)pkt)->ip_addr, IP_ADDR_SIZE);
 
         enqueue_node_data(&transmit_queue, data);
     }

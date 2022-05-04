@@ -8,7 +8,7 @@
 #include "prot_analysis_thread.h"
 #include "common.h"
 
-#include "protocol_packt.h"
+#include "protocol_request_packt.h"
 
 #include "receiver_thread.h"
 
@@ -21,12 +21,14 @@ prot_analysis_metadata *protocol_analysis (work_queue *recv_queue)
     queue_node *node = recv_queue->head;
     prot_analysis_metadata *tmp = (prot_analysis_metadata *)malloc(sizeof(prot_analysis_metadata));
     receive_data *recv_data = (receive_data *)node->data;
-    protocol_packt *packet = (protocol_packt *)node->data;
+    protocol_request_packt *packet = (protocol_request_packt *)node->data;
     int tot_cnt = packet->total_length / sizeof(int);
-    int data_cnt = (packet->total_length - sizeof(protocol_packt)) / sizeof(int);
+    int data_cnt = (packet->total_length - sizeof(protocol_request_packt)) / sizeof(int);
 
     tmp->length = packet->total_length;
     tmp->target = packet->target_command;
+    memcpy(tmp->ip_addr, packet->ip_addr, IP_ADDR_SIZE);
+
     tmp->session_id = packet->session_id;
     tmp->sub_command = packet->sub_command;
     tmp->data = (int *)malloc(sizeof(int) * data_cnt);
@@ -57,7 +59,7 @@ void *protocol_analyzer (void *fd)
 
             enqueue_node_data(&protocol_queue, metadata);
 
-            if (((receive_data *)receive_queue.head->data)->recv_len - ((protocol_packt *)receive_queue.head->data)->total_length <= 0)
+            if (((receive_data *)receive_queue.head->data)->recv_len - ((protocol_request_packt *)receive_queue.head->data)->total_length <= 0)
             {
                 dequeue_node_data(&receive_queue);
                 printf("데이터 해제\n");

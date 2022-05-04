@@ -23,7 +23,8 @@ typedef struct sockaddr *       sp;
 #define RECEIVER_BUF_SIZE               1024
 #define TRANSMITTER_BUF_SIZE            1024
 
-#define FOUR_BYTE                        4
+#define FOUR_BYTE                       4
+#define IP_ADDR_SIZE                    16
 
 int thread_id[THREAD_MAX];
 pthread_t p_thread[THREAD_MAX];
