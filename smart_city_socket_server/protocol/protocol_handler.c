@@ -24,7 +24,7 @@
 
 #include "protocol_handler.h"
 #include "protocol.h"
-#include "protocol_packt.h"
+#include "protocol_request_packt.h"
 
 #include "prot_analysis_thread.h"
 
@@ -44,7 +44,7 @@ void *vehicle_handler (void *pkt)
     if (sub_command)
     {
         tc_command_table[sub_command](((prot_analysis_metadata *)pkt)->data);
-        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+        memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
     }
@@ -60,7 +60,7 @@ void *electric_plant_handler (void *pkt)
     if (sub_command)
     {
         electric_plant_command_table[sub_command](((prot_analysis_metadata *)pkt)->data);
-        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+        memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
     }
@@ -84,7 +84,7 @@ void *gas_sensor_handler (void *pkt)
     if (sub_command)
     {
         gs_command_table[sub_command](((prot_analysis_metadata *)pkt)->data);
-        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+        memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
     }
@@ -100,7 +100,7 @@ void *traffic_control_handler (void *pkt)
     if (sub_command)
     {
         tc_command_table[sub_command](pkt);
-        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+        memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
     }
@@ -124,7 +124,7 @@ void *crime_prevention_cctv_handler (void *pkt)
     if (sub_command)
     {
         cp_cctv_command_table[sub_command](((prot_analysis_metadata *)pkt)->data);
-        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+        memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
     }
@@ -140,7 +140,7 @@ void *traffic_monitor_cctv_handler (void *pkt)
     if (sub_command)
     {
         tm_cctv_command_table[sub_command](((prot_analysis_metadata *)pkt)->data);
-        memset((char *)pkt, 0x00, ((protocol_packt *)pkt)->total_length);
+        memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
     }

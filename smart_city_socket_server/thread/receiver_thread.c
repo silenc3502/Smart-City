@@ -152,8 +152,8 @@ void *encrypt_side_receiver (void *fd)
         if (select_res > 0)
         {
             printf("상태 변경!");
-            if ((recv_len = recvfrom(serv_sock, (char *) encrypt_side_sock_buf, RECEIVER_BUF_SIZE, 0, (sp) & clnt_addr,
-                                     &addrlen)) != -1)
+            if ((recv_len = recvfrom(serv_sock, (char *) encrypt_side_sock_buf, RECEIVER_BUF_SIZE,
+                                     0, (sp) &clnt_addr, &addrlen)) != -1)
 #endif
             {
                 print_buf(encrypt_side_sock_buf);
@@ -168,7 +168,7 @@ void *encrypt_side_receiver (void *fd)
                 // receiver: 받는 족족 데이터를 쌓는다.
                 memcpy(recv_data->receive_tmpbuf, encrypt_side_sock_buf, recv_len);
                 recv_data->recv_len = recv_len;
-                memcpy(&recv_data->socket_addr, (sp) & clnt_addr, sizeof(si));
+                memcpy(&recv_data->socket_addr, (sp) &clnt_addr, sizeof(si));
 
                 enqueue_node_data(&receive_queue, recv_data);
             }

@@ -16,7 +16,7 @@ void tm_cctv_id_issuance_handler (void *data)
 void tm_cctv_disturb_handler (void *data)
 {
     printf("교통 관제 서브 커맨드: %d\n", *((int *)data));
-    uint8_t data_pkt = *((int *)data);
+    int data_pkt = *((int *)data);
 
     if (data_pkt == ON)
     {
