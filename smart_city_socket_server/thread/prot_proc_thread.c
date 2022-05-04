@@ -10,7 +10,7 @@
 
 #include "protocol_handler.h"
 #include "protocol_call_table.h"
-#include "protocol_packt.h"
+#include "protocol_request_packt.h"
 
 #include "receiver_thread.h"
 #include "prot_analysis_thread.h"
