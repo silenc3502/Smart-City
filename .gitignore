@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# metadata
+.metadata
+
+# Debug directory
+Debug/
+
