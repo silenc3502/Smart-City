@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 #include "protocol.h"
-#include "protocol_packt.h"
+#include "protocol_request_packt.h"
 
 #include "tc_command.h"
 #include "tc_command_handler.h"

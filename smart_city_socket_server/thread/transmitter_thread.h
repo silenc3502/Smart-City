@@ -9,6 +9,7 @@ struct _transmit_data
 {
     int session_id;
     si socket_addr;
+    char dest_ip_addr[16];
 };
 
 void *transmitter (void *);
