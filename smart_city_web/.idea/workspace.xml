@@ -22,9 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b367619c-cc0f-470c-bec4-14e36e82dfa3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/prepare.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="b367619c-cc0f-470c-bec4-14e36e82dfa3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,20 +65,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="smartcity" />
       <option name="VM_PARAMETERS" />
@@ -145,6 +135,7 @@
       <option name="presentableId" value="Default" />
       <updated>1639710006870</updated>
       <workItem from="1639710008877" duration="821000" />
+      <workItem from="1639916841842" duration="29000" />
     </task>
     <servers />
   </component>
@@ -161,6 +152,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="774" y="300" width="424" height="520" key="FileChooserDialogImpl" timestamp="1639711205557">
