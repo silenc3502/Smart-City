@@ -1,4 +1,6 @@
-FROM osrf/ros:melodic-desktop-full-bionic
+FROM		osrf/ros:melodic-desktop-full-bionic
+MAINTAINER	gcccompil3r@gmail.com
+LABEL 		authors="gcccompil3r@gmail.com"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG HOST_USER
