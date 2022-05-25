@@ -8,3 +8,16 @@ else
 fi
 
 df -h
+echo "SD 카드를 입력하세요!"
+
+#sudo umount /dev/sdXXXX
+
+#unzip -p image_rpi_20191119.img.zip image_rpi_20191119.img > /dev/sdXXXX
+
+#sudo dd if=$IMGPATH of=$DEVICE bs=4M conv=fsync
+unzip -p $ZIPFILE | sudo dd of=$DEVICE bs=4M conv=fsync status=progress
+
+sudo watch kill -USR1 $(pgrep ^dd)
+
+sync
+
