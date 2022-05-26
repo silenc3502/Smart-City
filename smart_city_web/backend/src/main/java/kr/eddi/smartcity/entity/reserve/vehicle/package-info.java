@@ -1,0 +1,1 @@
+package kr.eddi.smartcity.entity.reserve.vehicle;
