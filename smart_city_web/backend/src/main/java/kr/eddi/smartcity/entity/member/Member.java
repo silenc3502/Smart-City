@@ -32,13 +32,13 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
-    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private MemberProfile profile;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private Set<MemberRole> memberRoles = new HashSet<>();
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private Set<Authentication> authentications = new HashSet<>();
 
     public Member(String email, MemberProfile profile) {
