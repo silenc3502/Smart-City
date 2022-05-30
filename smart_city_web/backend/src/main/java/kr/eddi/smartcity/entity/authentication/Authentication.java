@@ -21,7 +21,7 @@ public abstract class Authentication {
     private Long id = null;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Column(name = "authentication_type", nullable = false, insertable = false, updatable = false)
