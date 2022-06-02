@@ -22,8 +22,10 @@ struct udp_pcb *upcb;
 
 boolean udp_socket_handler(void);
 void udp_tx(protocol_request_packt **pkt);
+void udp_rx_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p, ip_addr_t *addr, u16_t port);
 
 extern network info;
+
 boolean udp_socket_handler(void)
 {
     upcb = udp_new();
@@ -33,6 +35,7 @@ boolean udp_socket_handler(void)
 
 #if BROADCAST
     udp_bind(upcb, IP_ADDR_ANY, info.dst.port);
+    udp_recv(upcb, udp_rx_callback, NULL);
 #else
     udp_bind(pcb, &info->src.ip, info->src.port);
     udp_connect(pcb, &info->dst.ip, info->dst.port);
@@ -72,4 +75,9 @@ void udp_tx(protocol_request_packt **pkt)
 
     free(tmp_pkt);
     pbuf_free(txbuf);
+}
+
+//미구현 스펙
+void udp_rx_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p, ip_addr_t *addr, u16_t port)
+{
 }
