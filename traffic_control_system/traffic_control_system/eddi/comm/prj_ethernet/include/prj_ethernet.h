@@ -20,6 +20,8 @@
 #define CLIENT 0
 #define SERVER 1
 
+#define UDPTEST 1
+
 #if PRJ_UDP
 extern boolean udp_socket_handler(void);
 extern void udp_tx(protocol_request_packt **pkt);

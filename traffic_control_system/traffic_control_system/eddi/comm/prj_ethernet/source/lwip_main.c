@@ -25,35 +25,15 @@
 #include "sci.h"
 #endif
 
-#include <comm/prj_ethernet/include/lwipopts.h>
-#include <comm/lwip-1.4.1/ports/hdk/include/lwiplib.h>
-#include <comm/lwip-1.4.1/apps/httpserver_raw/httpd.h>
-#include <comm/lwip-1.4.1/src/include/ipv4/lwip/inet.h>
-#include <comm/lwip-1.4.1/ports/hdk/include/locator.h>
-
-//#define DHCP_Test 1
-#define TMS570_MDIO_BASE_ADDR   0xFCF78900u /* Same base address for TMS570 & RM48 devices */
-#define TMS570_EMAC_BASE_ADDR   0xFCF78000u /* Same base address for TMS570 & RM48 devices */
-#define DPS83640_PHYID          0x20005CE1u /** PHY ID Register 1 & 2 values for DPS83640 (Same for TMS570 & RM devices */
-#define PHY_ADDR                1           /** EVM/Hardware dependent & is same for TMS570 & RM48 HDKs */
-
+#include "lwipopts.h"
+#include "lwiplib.h"
+#include "lwip/inet.h"
 /* Choosing the SCI module used depending upon the device HDK */
 #if defined(_TMS570LC43x_) || defined(_RM57Lx_)
 #define sciREGx sciREG1
 #else
 #define sciREGx scilinREG
 #endif
-
-uint8_t     txtCRLF[]           = {'\r', '\n'};
-uint8_t     txtTitle[]          = {"HERCULES MICROCONTROLLERS"};
-uint8_t     txtTI[]             = {"Texas Instruments"};
-uint8_t     txtLittleEndian[]   = {"Little Endian device"};
-uint8_t     txtBigEndian[]      = {"Big Endian device"};
-uint8_t     txtEnetInit[]       = {"Initializing ethernet (DHCP)"};
-uint8_t     txtIPAddrTxt[]      = {"Device IP Address: "};
-uint8_t     txtNote1[]          = {"Webserver accessible @ http:\\\\"};
-uint8_t     txtErrorInit[]      = {"-------- ERROR INITIALIZING HARDWARE --------"};
-uint8_t      * txtIPAddrItoA;
 
 //uint8   pcmacAddress[6U] =   {0x00U, 0x50U, 0x56U, 0x00U, 0x00U, 0x08U};
 
@@ -64,7 +44,7 @@ void    iommMuxEnableRmii   (void);
 void    iommMuxEnableMii    (void);
 void    IntMasterIRQEnable  (void);
 void    smallDelay          (void);
-void    sciDisplayText      (sciBASE_t *sci, uint8_t *text,uint32_t length);
+//void    sciDisplayText      (sciBASE_t *sci, uint8_t *text,uint32_t length);
 
 /** @fn void main(void)
 *   @brief Application main function
@@ -77,169 +57,38 @@ void    sciDisplayText      (sciBASE_t *sci, uint8_t *text,uint32_t length);
 /* USER CODE BEGIN (2) */
 #include <stdio.h>
 #include <string.h>
-#include "FreeRTOS.h"
-#include "os_semphr.h"
-#include "os_task.h"
 
-uint8_t      * txtdstAddrItoA;
-uint8_t     txtIPAddrTxt2[]      = {"Dst IP Address: "};
-uint8_t     pcbBindTxt[] = {"UDP pcb bind complete"};
-uint8_t     udpConnectTxt[] = {"UDP connect complete"};
-uint8_t     pbufAllocTxt[] = {"setting pbuf complete"};
-uint8_t     udpSendTxt[] = {"setting pbuf complete"};
-char txtbuf[256] = {0};
-
-extern SemaphoreHandle_t sem;
-
-void smallDelay(void) {
-      static volatile unsigned int delayval;
-      delayval = 10000;   // 100000 are about 10ms
-      while(delayval--);
-}
-
-void udpClient_send(struct ip_addr *srcAddress, struct ip_addr *dstAddress)
-{
-    err_t err;
-    struct udp_pcb *upcb;
-    struct pbuf *ubuf;
-
-    uint8_t txdata[] = {'H', 'E', 'L', 'L', 'O', ' ', 'W', 'O', 'R', 'L', 'D', '\r', '\n', '\0'};
-
-    upcb = udp_new();
-    err = udp_bind(upcb, srcAddress, 23);
-
-    if(err == ERR_OK)
-    {
-//        sprintf(txtbuf,"UDP pcb bind complete\r\n\0");
-        sciDisplayText(sciREGx, (uint8 *)pcbBindTxt, sizeof(pcbBindTxt));
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-    }
-
-    err = udp_connect(upcb, dstAddress, 8080);
-    if(err == ERR_OK)
-    {
-//        sprintf(txtbuf,"UDP connect complete\r\n\0");
-        sciDisplayText(sciREGx, (uint8 *)udpConnectTxt, sizeof(udpConnectTxt));
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-    }
-
-    ubuf = pbuf_alloc(PBUF_TRANSPORT, sizeof(txdata), PBUF_RAM);
-    err = pbuf_take(ubuf, (void*)txdata, sizeof(txdata));
-    if(err == ERR_OK)
-    {
-//        sprintf(txtbuf,"setting pbuf complete\r\n\0");
-        sciDisplayText(sciREGx, (uint8 *)pbufAllocTxt, sizeof(pbufAllocTxt));
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-    }
-
-    udp_send(upcb, ubuf);
-//    sprintf(txtbuf,"udp send complete\r\n\0");
-    sciDisplayText(sciREGx, (uint8 *)udpSendTxt, sizeof(udpSendTxt));
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-
-    udp_remove(upcb);
-    pbuf_free(ubuf);
-}
+#define DHCP_Test 0
 
 /* USER CODE END */
 
-void EMAC_LwIP_Main (uint8_t * macAddress)
+uint32_t EMAC_LwIP_Main (uint8_t * macAddress)
 {
     unsigned int    ipAddr;
-    struct ip_addr  devIPAddress;
-    struct ip_addr  dstIPAddress;
 
-    //iommUnlock();
-    //iommMuxEnableMdio();
-    //iommMuxEnableMii();
-    //iommLock();
     sciInit();
 
     /* Enable the interrupt generation in CPSR register */
     IntMasterIRQEnable();
     _enable_FIQ();
 
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-    sciDisplayText(sciREGx, txtTitle, sizeof(txtTitle));
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-    sciDisplayText(sciREGx, txtTI, sizeof(txtTI));
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-#ifdef __little_endian__
-    sciDisplayText(sciREGx, txtLittleEndian, sizeof(txtLittleEndian));
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-#else
-    sciDisplayText(sciREGx, txtBigEndian, sizeof(txtBigEndian));
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-#endif
-#ifdef DHCP_Test
+#if DHCP_Test
     /* Initialze the lwIP library, using DHCP.*/
-    sciDisplayText(sciREGx, txtEnetInit, sizeof(txtEnetInit));
     ipAddr = lwIPInit(0, macAddress, 0, 0, 0, IPADDR_USE_DHCP);
 #else
-    /* Uncomment the following if you'd like to assign a static IP address. Change address as required, and uncomment the previous statement. */
-    //HDK logic address
-    uint8 ip_addr[4] = { 192, 168, 0, 107 };
-    //NETMASK
+    //source address
+    uint8 src_addr[4] = { 192, 168, 1, 7 };
+    //netmask
     uint8 netmask[4] = { 255, 255, 255, 0 };
-    //router address
-    uint8 gateway[4] = { 192, 168, 0, 1 };
+    //gateway
+    uint8 gateway[4] = { 0, 0, 0, 0 };
+    //destination address
+    uint8 dst_addr[4] = { 192, 168, 1, 15 };
 
-    uint8 pc_addr[4] = { 192, 168, 0, 5 };
-
-    ipAddr = lwIPInit(0, macAddress, *((uint32_t *)ip_addr), *((uint32_t *)netmask),
+    ipAddr = lwIPInit(0, macAddress, *((uint32_t *)src_addr), *((uint32_t *)netmask),
                       *((uint32_t *)gateway), IPADDR_USE_STATIC);
-
-    dstIPAddress.addr = *((uint32_t *)pc_addr);
 #endif
-    sciDisplayText(sciREGx, (uint8_t*)"..DONE", sizeof("..DONE"));
-    sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-
-    if (0 == ipAddr) {
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-        sciDisplayText(sciREGx, txtErrorInit, sizeof(txtErrorInit));
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-        sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-    } else {
-        /* Convert IP Address to string */
-        devIPAddress.addr = ipAddr;
-        //네트워크 바이트 순서의 32bit값을 dotted-decimal notation으로 바꿔주는 함수
-        //예:6601a8c0 -> 192.168.1.102
-        txtIPAddrItoA = (uint8_t *)inet_ntoa(devIPAddress);
-
-         /* Loop forever.  All the work is done in interrupt handlers. */
-        while(1)
-        {
-            sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-
-            sciDisplayText(sciREGx, txtTitle, sizeof(txtTitle));
-            sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-
-            sciDisplayText(sciREGx, txtTI, sizeof(txtTI));
-            sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-#ifdef __little_endian__
-            sciDisplayText(sciREGx, txtLittleEndian, sizeof(txtLittleEndian));
-            sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-#else
-            sciDisplayText(sciREGx, txtBigEndian, sizeof(txtBigEndian));
-            sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-#endif
-            sciDisplayText(sciREGx, txtIPAddrTxt, sizeof(txtIPAddrTxt));
-            sciDisplayText(sciREGx, txtIPAddrItoA, 16);
-            sciDisplayText(sciREGx, txtCRLF, sizeof(txtCRLF));
-
-            /* Before printing the next set, wait for a character on the terminal */
-//            sciReceive(sciREGx, 1, &testChar);
-
-            if(xSemaphoreTake(sem, (TickType_t)0x01) == pdTRUE)
-            {
-                udpClient_send(&devIPAddress, &dstIPAddress);
-                xSemaphoreGive(sem);
-            }
-
-            vTaskDelay(1000);
-        }
-    }
+    return ipAddr;
 }
 
 void iommUnlock(void) {
@@ -296,7 +145,6 @@ void iommMuxEnableMii(void) {
     *(int *) 0xFFFFEB84  &= 0x00FFFFFF;//P29[24]  //Mux 29 MII Select pin (24 bit - 0(MII),1(RMII))
     *(int *) 0xFFFFEB84  |= (0<<24);   //P29[24]  //Mux 29 MII Select pin (24 bit - 0(MII),1(RMII))
 }
-
 
 /*
 ** Interrupt Handler for Core 0 Receive interrupt

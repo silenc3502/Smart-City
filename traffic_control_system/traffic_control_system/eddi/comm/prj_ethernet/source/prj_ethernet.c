@@ -24,7 +24,14 @@ boolean udp_socket_handler(void);
 void udp_tx(protocol_request_packt **pkt);
 void udp_rx_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p, ip_addr_t *addr, u16_t port);
 
+#if UDPTEST
+uint8 dst_addr[4] = { 192, 168, 1, 15 };
+uint8 src_addr[4] = { 192, 168, 1, 7 };
+struct ip_addr src_ip;
+struct ip_addr dst_ip;
+#else
 extern network info;
+#endif
 
 boolean udp_socket_handler(void)
 {
@@ -32,13 +39,20 @@ boolean udp_socket_handler(void)
 
     if(!upcb)
         return false;
-
+#if UDPTEST
+    src_ip.addr = htonl(*(uint32_t *)src_addr);
+    dst_ip.addr = htonl(*(uint32_t *)dst_addr);
+    udp_bind(upcb, IP_ADDR_ANY, 1500);
+    udp_recv(upcb, udp_rx_callback, NULL);
+#else
 #if BROADCAST
-    udp_bind(upcb, IP_ADDR_ANY, info.dst.port);
+    udp_bind(upcb, IP_ADDR_ANY, info.src.port);
+    udp_connect(upcb, IP_ADDR_ANY, info.dst.port);
     udp_recv(upcb, udp_rx_callback, NULL);
 #else
     udp_bind(pcb, &info->src.ip, info->src.port);
     udp_connect(pcb, &info->dst.ip, info->dst.port);
+#endif
 #endif
     return true;
 }
@@ -71,13 +85,34 @@ void udp_tx(protocol_request_packt **pkt)
 
     memcpy(txbuf->payload, tmp_pkt, (*pkt)->total_length);
 
+#if UDPTEST
+    udp_sendto(upcb, txbuf, IP_ADDR_BROADCAST, 1500);
+#else
     udp_sendto(upcb, txbuf, IP_ADDR_BROADCAST, info.dst.port);
-
+#endif
     free(tmp_pkt);
     pbuf_free(txbuf);
 }
 
-//미구현 스펙
 void udp_rx_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p, ip_addr_t *addr, u16_t port)
 {
+#if UDPTEST
+    struct pbuf *tmp;
+    if(!p)
+    {
+        //에러 flag추가
+        return;
+    }
+
+    tmp = pbuf_alloc(PBUF_TRANSPORT, p->tot_len, PBUF_RAM);
+    pbuf_take(p, tmp, p->tot_len);
+
+    udp_connect(pcb, IP_ADDR_ANY, port);
+    udp_sendto(pcb, tmp, IP_ADDR_BROADCAST, port);
+
+    pbuf_free(tmp);
+    pbuf_free(p);
+    udp_disconnect(pcb);
+#else
+#endif
 }
