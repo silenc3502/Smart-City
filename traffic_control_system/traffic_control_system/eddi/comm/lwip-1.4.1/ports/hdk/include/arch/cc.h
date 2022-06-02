@@ -40,6 +40,11 @@ typedef unsigned    int    u32_t;
 typedef signed      int    s32_t;
 typedef u32_t           mem_ptr_t;
 
+#define LWIP_PLATFORM_BYTESWAP 1
+#define LWIP_PLATFORM_HTONS(x) ( (((u16_t)(x))>>8) | (((x)&0xFF)<<8) )
+#define LWIP_PLATFORM_HTONL(x) ( (((u32_t)(x))>>24) | (((x)&0xFF0000)>>8) \
+                               | (((x)&0xFF00)<<8) | (((x)&0xFF)<<24) )
+
 #ifdef __little_endian__
 #ifndef BYTE_ORDER
 #define BYTE_ORDER LITTLE_ENDIAN
