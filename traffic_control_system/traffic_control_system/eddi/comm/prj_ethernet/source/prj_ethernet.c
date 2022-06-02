@@ -4,51 +4,72 @@
  *  Created on: 2022. 4. 26.
  *      Author: son
  */
-#include <comm/prj_ethernet/include/prj_ethernet.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-/*
- * @parameter
- * dst_id : 수신받는 장비의 ID
- * id : 도로통제 시스템의 하위 컴포넌트 ID
- * act : id 발급요청인지 상태전송인지 구분
- * cmd : id 발급의 경우 2, 그 외 사용자 정의
- * length_num : id 발급의 경우 발급할 데이터의 개수, 상태 전송의 경우 데이터 길이
- * data : id 발급의 경우 각 컴포넌트의 고정된 id정보, 상태 전송의 경우 각 컴포넌트의 상태정보
- */
-typedef struct _com_payload com_payload;
-struct _com_payload
+#include "HL_sys_common.h"
+
+#include "lwiplib.h"
+#include "lwip/inet.h"
+
+#include "prj_ethernet.h"
+
+#if PRJ_UDP
+struct udp_pcb *upcb;
+#else
+//TCP PCB 추가
+#endif
+
+boolean udp_socket_handler(void);
+void udp_tx(protocol_request_packt **pkt);
+
+extern network info;
+boolean udp_socket_handler(void)
 {
-    city_sys dst_id;
-    component id;
-    void *act;
-    void *cmd;
-    uint32_t length_num;
-    void *data;
-};
-/*
- * ethernet_init : lwip 초기화와 mac address 초기화를 수행한다
- */
-void prj_ethernet_init(const uint8_t macaddr)
-{
-    ;
-}
-void enqueue_payload()
-{
-    ;
-}
-/*
- * ethernet_client_tx : src와 dst IP주소와 스마트시티 프로토콜 패킷을 전달받는다
- * ethernet 구성
- * 암호화장비로 send
- */
-void ethernet_client_tx(struct ip_addr *src, struct ip_addr *dst, void **packet)
-{
-    ;
-}
-void ethernet_client_rx(void)
-{
-    ;
+    upcb = udp_new();
+
+    if(!upcb)
+        return false;
+
+#if BROADCAST
+    udp_bind(upcb, IP_ADDR_ANY, info.dst.port);
+#else
+    udp_bind(pcb, &info->src.ip, info->src.port);
+    udp_connect(pcb, &info->dst.ip, info->dst.port);
+#endif
+    return true;
 }
 
+void udp_tx(protocol_request_packt **pkt)
+{
+    uint32_t data_num;
+    uint32_t i;
+    if(!(*pkt))
+        //error flag 추가
+        return;
+    struct pbuf *txbuf;
 
+    data_num = ((*pkt)->total_length - sizeof(protocol_request_packt))/sizeof(uint32_t);
+    protocol_request_packt *tmp_pkt;
 
+    tmp_pkt = (protocol_request_packt *)malloc((*pkt)->total_length);
+
+    memcpy(tmp_pkt, (*pkt), (*pkt)->total_length);
+
+    tmp_pkt->total_length = htonl(tmp_pkt->total_length);
+    tmp_pkt->target_command = htonl(tmp_pkt->target_command);
+    tmp_pkt->session_id = htonl(tmp_pkt->session_id);
+    tmp_pkt->sub_command = htonl(tmp_pkt->sub_command);
+
+    for(i = 0; i < data_num; i++)
+        tmp_pkt->data[i] = htonl(tmp_pkt->data[i]);
+
+    txbuf = pbuf_alloc(PBUF_TRANSPORT, (*pkt)->total_length, PBUF_RAM);
+
+    memcpy(txbuf->payload, tmp_pkt, (*pkt)->total_length);
+
+    udp_sendto(upcb, txbuf, IP_ADDR_BROADCAST, info.dst.port);
+
+    free(tmp_pkt);
+    pbuf_free(txbuf);
+}

@@ -5,53 +5,25 @@
  *      Author: son
  */
 
-#ifndef EDDI_COMM_PRJ_ETHERNET_INCLUDE_PRJ_ETHERNET_H_
-#define EDDI_COMM_PRJ_ETHERNET_INCLUDE_PRJ_ETHERNET_H_
+#ifndef EDDI_COM_PRJ_ETHERNET_INCLUDE_PRJ_ETHERNET_H_
+#define EDDI_COM_PRJ_ETHERNET_INCLUDE_PRJ_ETHERNET_H_
 
-#include <comm/lwip-1.4.1/ports/hdk/include/lwiplib.h>
-#include <comm/lwip-1.4.1/src/include/ipv4/lwip/inet.h>
-#include <comm/prj_ethernet/include/lwipopts.h>
-#include <stdlib.h>
-#include "HL_sys_common.h"
-#include "HL_system.h"
+#include "prj_network.h"
+#include "prj_protocol.h"
 
-/*
- * city_sys는 추후 시스템 관리쪽으로 옮겨야함
- */
-typedef enum eddi_smartcity_sys city_sys;
-enum eddi_smartcity_sys{
-    Vehicle = 1,
-    BMS,
-    Gun_Range,
-    Airclean,
-    Traffic_Control,
-    Socket_Server,
-    Sus_CCTV,
-    Traffic_CCTV,
-    Edge_Term,
-    Web_Server
-};
+#define BROADCAST 1
+#define UNICAST 0
 
-typedef enum eddi_smartcity_traffic_control_protocol component;
-enum eddi_smartcity_traffic_control_protocol {
-    TC_ID_ISSUANCE = 1,
-    TC_BARRICADE,
-    TC_LIFT,
-    TC_STREET_LAMP,
-    TC_TRAFFIC_LIGHT,
-    TC_END
-};
+#define PRJ_UDP 1
+#define PRJ_TCP 0
 
-struct protocol_packt
-{
-    uint32_t total_length;
-    uint32_t target_command;
-    uint32_t session_id;
-    uint32_t sub_command;
-    uint32_t data[0];
-};
+#define CLIENT 0
+#define SERVER 1
 
-typedef struct protocol_packt protocol_packt;
-void prj_udp_init(const uint8_t macaddr);
+#if PRJ_UDP
+extern boolean udp_socket_handler(void);
+extern void udp_tx(protocol_request_packt **pkt);
+#else
+#endif
 
-#endif /* EDDI_COMM_PRJ_ETHERNET_INCLUDE_PRJ_ETHERNET_H_ */
+#endif /* EDDI_COM_PRJ_ETHERNET_INCLUDE_PRJ_ETHERNET_H_ */
