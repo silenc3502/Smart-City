@@ -10,14 +10,22 @@ fi
 df -h
 echo "SD 카드를 입력하세요!"
 
-#sudo umount /dev/sdXXXX
+df -h | grep media
+echo "이미지를 구울 미디어를 선택해주세요!"
+read media_name
 
+echo "media_name: $media_name"
+
+#sudo umount /dev/sdXXXX
+sudo umount $media_name
+
+#unzip -p image_rpi_20191119.img.zip image_rpi_20191119.img > /dev/sdXXXX
 #unzip -p image_rpi_20191119.img.zip image_rpi_20191119.img > /dev/sdXXXX
 
 #sudo dd if=$IMGPATH of=$DEVICE bs=4M conv=fsync
-unzip -p $ZIPFILE | sudo dd of=$DEVICE bs=4M conv=fsync status=progress
+#unzip -p $ZIPFILE | sudo dd of=$DEVICE bs=4M conv=fsync status=progress
+unzip -p image_rpi_20191119.img.zip | sudo dd of=$media_name bs=4M conv=fsync status=progress
 
-sudo watch kill -USR1 $(pgrep ^dd)
+#sudo watch kill -USR1 $(pgrep ^dd)
 
 sync
-
