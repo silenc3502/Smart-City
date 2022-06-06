@@ -1,9 +1,15 @@
 <template>
   <nav>
 
-
     <v-app-bar color="dark" class="flex-grow-0" app dark>
       <v-app-bar-nav-icon @click="nav_drawer = !nav_drawer"></v-app-bar-nav-icon>
+      <v-img
+          class="mx-2"
+          src="@/assets/img/EDDI_eng.png"
+          max-height="40"
+          max-width="40"
+          contain
+      ></v-img>
       <v-toolbar-title class="text-uppercase text--darken-4">
         <span>EDDI Robot Academy</span>
       </v-toolbar-title>
@@ -47,13 +53,15 @@ export default {
     return {
       nav_drawer: false,
       links: [
-        { icon: 'mdi-account-alert-outline', title: 'My Page', route: '/' },
+        { icon: 'mdi-home-outline', title: 'Home', route: '/' },
+        { icon: 'mdi-account-alert-outline', title: 'My Page', route: '/my-page' },
         { icon: 'mdi-calendar-check-outline', title: 'Schedule', route: '/schedule' },
-        { icon: 'mdi-traffic-light-outline', title: 'Traffic Control', route: '/traffic' },
-        { icon: 'mdi-car-electric-outline', title: 'Vehicle Control', route: '/vehicle' },
+        { icon: 'mdi-traffic-light-outline', title: 'Traffic Control', route: '/traffic-control' },
+        { icon: 'mdi-car-electric-outline', title: 'Vehicle Control', route: '/vehicle-control' },
         { icon: 'mdi-meter-gas-outline', title: 'Gas Measurement', route: '/air-quality' },
         { icon: 'mdi-lightning-bolt-outline', title: 'Power Plant', route: '/power' },
         { icon: 'mdi-video-wireless-outline', title: 'CCTV', route: '/cctv' },
+        { icon: 'mdi-account-group-outline', title: 'Member', route: '/member' },
       ]
     }
   }
