@@ -5,8 +5,10 @@ spring:
   datasource:
     #url: jdbc:mysql://localhost:3306/non_jpa_db?serverTimezone=UTC&useSSL=false
     url: jdbc:mysql://localhost:3306/smartcity_db?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
-    username: smartcity
-    password: Eddi@123
+    #username: smartcity
+    #password: Eddi@123
+    username: eddi
+    password: eddi@123
     driver-class-name: com.mysql.cj.jdbc.Driver
     dialect: org.hibernate.dialect.MySQL8Dialect
 
