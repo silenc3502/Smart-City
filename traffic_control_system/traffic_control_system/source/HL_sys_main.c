@@ -60,6 +60,9 @@
 #include "HL_gio.h"
 #include "HL_esm.h"
 
+#include <comm/prj_ethernet/include/prj_ethernet.h>
+#include "lwip/timers.h"
+
 #ifdef DEBUG
 void
 __error__(char *pcFilename, uint32_t ui32Line)
@@ -69,8 +72,9 @@ __error__(char *pcFilename, uint32_t ui32Line)
 
 void vTask1(void *pvParameters);
 extern void vTask2(void *pvParameters);
+
 extern void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName );
-extern void EMAC_LwIP_Main (uint8_t * emacAddress);
+extern uint32_t EMAC_LwIP_Main (uint8_t * emacAddress);
 
 /* Define Task Handles */
 xTaskHandle xTask1Handle;
@@ -92,8 +96,8 @@ SemaphoreHandle_t sem;
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-uint8	emacAddress[6U] = 	{0x00U, 0x08U, 0xeeU, 0x03U, 0xa6U, 0x6cU};
-uint32 	emacPhyAddress	=	1U;
+uint8   emacAddress[6U] =   {0x00U, 0x08U, 0xeeU, 0x03U, 0xa6U, 0x6cU};
+uint32_t ipAddr;
 
 int main(void)
 {
@@ -104,26 +108,29 @@ int main(void)
     esmREG->EKR = 0x0000000A;
     esmREG->EKR = 0x00000000;
 
-
     /* Set high end timer GIO port hetPort pin direction to all output */
     gioInit();
     gioSetDirection(gioPORTB, 0xFFFF);
-
     /* Set high end timer GIO port hetPort pin direction to all output */
     gioSetDirection(hetPORT1, 0xFFFFFFFF); //HDK uses NHET for LEDs
+
+    /*lwip Init*/
+    ipAddr = EMAC_LwIP_Main (emacAddress);
 
     sem = xSemaphoreCreateBinary();
     xSemaphoreGive(sem);
 
     /* Create Task 1 */
-    if (xTaskCreate(vTask1,"Task1", configMINIMAL_STACK_SIZE, NULL,  ((configMAX_PRIORITIES-1)|portPRIVILEGE_BIT), &xTask1Handle) != pdTRUE)
+    if (xTaskCreate(vTask1,"Task1", configMINIMAL_STACK_SIZE, NULL,
+                    ((configMAX_PRIORITIES-1)|portPRIVILEGE_BIT), &xTask1Handle) != pdTRUE)
     {
         /* Task could not be created */
         while(1);
     }
 
     /* Create Task 2 */
-    if (xTaskCreate(vTask2,"Task2", configMINIMAL_STACK_SIZE, NULL, 1, &xTask2Handle) != pdTRUE)
+    if (xTaskCreate(vTask2,"id_issue", configMINIMAL_STACK_SIZE, NULL, 2,
+                    &xTask2Handle) != pdTRUE)
     {
         /* Task could not be created */
         while(1);
@@ -135,26 +142,29 @@ int main(void)
     /* Run forever */
     while(1);
 /* USER CODE END */
-
     return 0;
 }
-
 
 /* USER CODE BEGIN (4) */
 /* Task1 */
 void vTask1(void *pvParameters)
 {
-    EMAC_LwIP_Main (emacAddress);
-#if 0
-    for(;;){
+    uint32_t data[1] = {0};
+
+    while(!udp_socket_handler());
+
+    for(;;)
+    {
         /* Taggle GIOB[6] with timer tick */
         gioSetBit(gioPORTB, 6, gioGetBit(gioPORTB, 6) ^ 1);
-
         /* Taggle HET[1] with timer tick */
         gioSetBit(hetPORT1, 17, gioGetBit(hetPORT1, 17) ^ 1);  //LED on HDK, top left
+
+        taskENTER_CRITICAL();
+        while(!id_issuance_handle((char *)"192.168.1.7", data, sizeof(data)/sizeof(uint32_t)));
+        taskEXIT_CRITICAL();
         vTaskDelay(300);
     }
-#endif
 }
 
 void vTask2(void *pvParameters)
@@ -165,11 +175,10 @@ void vTask2(void *pvParameters)
         {
             /* Taggle GIOB[7] with timer tick */
             gioSetBit(gioPORTB, 7, gioGetBit(gioPORTB, 7) ^ 1);
-
             gioSetBit(hetPORT1, 18, gioGetBit(hetPORT1, 18) ^ 1);  //LED on HDK, bottom
             xSemaphoreGive(sem);
-            vTaskDelay(501);
         }
+        vTaskDelay(501);
     }
 }
 /* USER CODE END */
