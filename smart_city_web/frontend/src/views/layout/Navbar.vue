@@ -14,15 +14,15 @@
         <span>EDDI Robot Academy</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text color="grey" onclick="location.href='http://localhost:8080/sign-up'">
+      <v-btn text color="grey" onclick="location.href='http://localhost:8081/sign-up'">
         <span>Sign Up</span>
         <v-icon right>mdi-account-plus-outline</v-icon>
       </v-btn>
-      <v-btn v-if="session" text color="grey" onclick="location.href='http://localhost:8080/sign-in'">
+      <v-btn v-if="isAuthenticated == false" text color="grey" onclick="location.href='http://localhost:8081/sign-in'">
         <span>Sign In</span>
-        <v-icon right>mdi-exit-to-app</v-icon>
+        <v-icon right>mdi-login</v-icon>
       </v-btn>
-      <v-btn v-else text color="grey" onclick="location.href='http://localhost:8080/logout'">
+      <v-btn v-else text color="grey" v-on:click="logout">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
@@ -56,6 +56,9 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -72,6 +75,18 @@ export default {
         { icon: 'mdi-video-wireless-outline', title: 'CCTV', route: '/cctv' },
         { icon: 'mdi-account-group-outline', title: 'Member', route: '/member' },
       ]
+    }
+  },
+  computed: {
+    ...mapState(["isAuthenticated"]),
+  },
+  methods: {
+    logout () {
+      axios.get("http://localhost:7777/mainpage/logout")
+          .then(() => {
+            alert("로그아웃 완료");
+            this.$store.state.isAuthenticated = false;
+          })
     }
   }
 }

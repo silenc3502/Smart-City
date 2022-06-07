@@ -7,6 +7,7 @@ import VehicleControlView from "@/views/vehicle/VehicleControlView";
 import AirQualityDashboardView from "@/views/air/AirQualityDashboardView";
 
 import SignUpPage from "@/views/account/SignUpPage";
+import SignInPage from "@/views/account/SignInPage";
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/sign-up',
     name: 'SignUpPage',
     component: SignUpPage
+  },
+  {
+    path: '/sign-in',
+    name: 'SignInPage',
+    component: SignInPage
   }
 ]
 
