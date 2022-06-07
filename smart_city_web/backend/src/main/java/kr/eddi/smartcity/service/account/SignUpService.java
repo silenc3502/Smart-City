@@ -5,4 +5,8 @@ import kr.eddi.smartcity.service.account.dto.MemberRegisterRequest;
 public interface SignUpService {
 
     void signUp(MemberRegisterRequest request);
+
+    Boolean checkDupEmail(String email);
+
+    Boolean checkDupPhone(String phone);
 }
