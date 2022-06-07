@@ -6,6 +6,8 @@ import TrafficControlView from "@/views/traffic/TrafficControlView";
 import VehicleControlView from "@/views/vehicle/VehicleControlView";
 import AirQualityDashboardView from "@/views/air/AirQualityDashboardView";
 
+import SignUpPage from "@/views/account/SignUpPage";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,6 +30,11 @@ const routes = [
     path: '/air-quality',
     name: 'AirQualityDashboardView',
     component: AirQualityDashboardView
+  },
+  {
+    path: '/sign-up',
+    name: 'SignUpPage',
+    component: SignUpPage
   }
 ]
 
