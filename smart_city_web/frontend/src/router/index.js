@@ -8,6 +8,7 @@ import AirQualityDashboardView from "@/views/air/AirQualityDashboardView";
 
 import SignUpPage from "@/views/account/SignUpPage";
 import SignInPage from "@/views/account/SignInPage";
+import SearchAccountPage from "@/views/account/SearchAccountPage"
 
 Vue.use(VueRouter)
 
@@ -41,7 +42,13 @@ const routes = [
     path: '/sign-in',
     name: 'SignInPage',
     component: SignInPage
+  },
+  {
+    path: '/search-account',
+    name: 'SearchAccountPage',
+    component: SearchAccountPage
   }
+  
 ]
 
 const router = new VueRouter({
