@@ -60,4 +60,12 @@ public class MemberController {
         signInService.signIn(form.toLoginRequest());
         return true;
     }
+
+    @GetMapping("/find-email/{email}")
+    public Boolean findEmail(@PathVariable("email") String email) {
+        log.info("MemberController#check-email: {}", email);
+
+        Boolean checkDupEmail = signUpService.checkDupEmail(email);
+        return !checkDupEmail;
+    }
 }
