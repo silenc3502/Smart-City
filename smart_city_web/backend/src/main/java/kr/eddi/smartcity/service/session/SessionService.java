@@ -6,4 +6,5 @@ public interface SessionService {
     void save(SaveUserRequest request);
     void logout();
     Object find();
+    //String checkResignMember();
 }

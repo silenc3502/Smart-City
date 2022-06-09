@@ -1,5 +1,7 @@
 package kr.eddi.smartcity.controller.member;
 
+import kr.eddi.smartcity.controller.member.form.EmailMatchPhoneForm;
+import kr.eddi.smartcity.controller.member.form.EmailPasswordForm;
 import kr.eddi.smartcity.controller.member.form.MemberLoginForm;
 import kr.eddi.smartcity.controller.member.form.MemberRegisterForm;
 import kr.eddi.smartcity.service.account.SignInService;
@@ -67,5 +69,21 @@ public class MemberController {
 
         Boolean checkDupEmail = signUpService.checkDupEmail(email);
         return !checkDupEmail;
+    }
+
+    @PostMapping("/emailMatchPhone")
+    public Boolean emailMatchPhone(@Validated @RequestBody EmailMatchPhoneForm form, BindingResult bindingResult) {
+        log.info("MainFormController#emailMatchPhone: {}", form);
+        if (bindingResult.hasFieldErrors()) {
+            return false;
+        }
+        return signUpService.emailMatchPhone(form.toEmailMatchPhoneRequest());
+    }
+
+    @PostMapping("/applyNewPassword")
+    public Boolean applyNewPassword(@Validated @RequestBody EmailPasswordForm form) {
+        log.info("MainFormController#applyNewPassword: {}", form);
+
+        return signUpService.applyNewPassword(form.toEmailPasswordRequest());
     }
 }
