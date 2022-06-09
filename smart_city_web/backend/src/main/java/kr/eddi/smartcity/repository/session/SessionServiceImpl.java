@@ -3,6 +3,7 @@ package kr.eddi.smartcity.repository.session;
 import kr.eddi.smartcity.service.session.SessionKey;
 import kr.eddi.smartcity.service.session.SessionService;
 import kr.eddi.smartcity.service.session.dto.SaveUserRequest;
+import kr.eddi.smartcity.service.session.dto.SessionUser;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -39,4 +40,12 @@ public class SessionServiceImpl implements SessionService {
     private Object get(SessionKey key) {
         return session.getAttribute(key.name());
     }
+
+    /*
+    @Override
+    public String checkResignMember() {
+        SessionUser user = (SessionUser)get(SessionKey.SESSION_USER);
+        return user.getEmail();
+    }
+     */
 }

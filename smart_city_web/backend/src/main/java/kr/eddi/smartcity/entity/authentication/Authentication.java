@@ -2,6 +2,7 @@ package kr.eddi.smartcity.entity.authentication;
 
 import kr.eddi.smartcity.entity.member.Member;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ public abstract class Authentication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id = null;
 
     @ManyToOne(fetch = FetchType.LAZY)
