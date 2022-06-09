@@ -9,6 +9,7 @@ import AirQualityDashboardView from "@/views/air/AirQualityDashboardView";
 import SignUpPage from "@/views/account/SignUpPage";
 import SignInPage from "@/views/account/SignInPage";
 import SearchAccountPage from "@/views/account/SearchAccountPage"
+import SearchAccountPasswordPage from "@/views/account/SearchAccountPasswordPage";
 
 Vue.use(VueRouter)
 
@@ -47,8 +48,13 @@ const routes = [
     path: '/search-account',
     name: 'SearchAccountPage',
     component: SearchAccountPage
+  },
+  {
+    path: '/search-password',
+    name: 'SearchAccountPasswordPage',
+    component: SearchAccountPasswordPage
   }
-  
+
 ]
 
 const router = new VueRouter({
