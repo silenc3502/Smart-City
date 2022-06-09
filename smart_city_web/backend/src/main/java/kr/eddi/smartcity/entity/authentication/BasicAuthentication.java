@@ -5,6 +5,7 @@ import kr.eddi.smartcity.entity.member.Member;
 import kr.eddi.smartcity.utility.encrypt.EncryptionUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(Authentication.BASIC_AUTH)
 public class BasicAuthentication extends Authentication {
 
+    @Setter
     @Column(nullable = false)
     @Convert(converter = PasswordHashConverter.class)
     private String password;

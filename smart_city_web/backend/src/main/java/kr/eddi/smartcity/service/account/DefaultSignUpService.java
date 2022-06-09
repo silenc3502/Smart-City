@@ -2,14 +2,13 @@ package kr.eddi.smartcity.service.account;
 
 import kr.eddi.smartcity.entity.authentication.Authentication;
 import kr.eddi.smartcity.entity.authentication.BasicAuthentication;
-import kr.eddi.smartcity.entity.member.Member;
-import kr.eddi.smartcity.entity.member.MemberRole;
-import kr.eddi.smartcity.entity.member.Role;
-import kr.eddi.smartcity.entity.member.RoleType;
+import kr.eddi.smartcity.entity.member.*;
 import kr.eddi.smartcity.repository.authentication.AuthenticationRepository;
 import kr.eddi.smartcity.repository.member.MemberRepository;
 import kr.eddi.smartcity.repository.member.MemberRoleRepository;
 import kr.eddi.smartcity.repository.member.RoleRepository;
+import kr.eddi.smartcity.service.account.dto.EmailMatchPhoneRequest;
+import kr.eddi.smartcity.service.account.dto.EmailPasswordRequest;
 import kr.eddi.smartcity.service.account.dto.MemberRegisterRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -70,5 +69,28 @@ public class DefaultSignUpService implements SignUpService {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public Boolean emailMatchPhone(EmailMatchPhoneRequest request) {
+        Optional<Member> maybeMember = repository.findByPhoneNumber(request.getPhoneNumber(), request.getEmail());
+        if (!maybeMember.isPresent()){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean applyNewPassword(EmailPasswordRequest request) {
+        Optional<Authentication> maybeAuthentication = authenticationRepository.findByEmail(request.getEmail());
+        if (!maybeAuthentication.isPresent()){
+            return false;
+        }
+        BasicAuthentication authentication = (BasicAuthentication)maybeAuthentication.get();
+        authentication.setPassword(request.getPassword());
+        authenticationRepository.save(authentication);
+
+        return true;
     }
 }
