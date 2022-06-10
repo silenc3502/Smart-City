@@ -5,7 +5,7 @@
       <v-app-bar-nav-icon @click="nav_drawer = !nav_drawer"></v-app-bar-nav-icon>
       <v-img
           class="mx-2"
-          src="@/assets/img/EDDI_eng.png"
+          src="@/assets/logo.png"
           max-height="40"
           max-width="40"
           contain
@@ -14,7 +14,19 @@
         <span>EDDI Robot Academy</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text color="grey">
+      <v-btn v-if="isAuthenticated == true" text color="grey" v-on:click="resign">
+        <span>회원 탈퇴</span>
+        <v-icon right>mdi-login</v-icon>
+      </v-btn>
+      <v-btn text color="grey" onclick="location.href='http://localhost:8081/sign-up'">
+        <span>Sign Up</span>
+        <v-icon right>mdi-account-plus-outline</v-icon>
+      </v-btn>
+      <v-btn v-if="isAuthenticated == false" text color="grey" onclick="location.href='http://localhost:8081/sign-in'">
+        <span>Sign In</span>
+        <v-icon right>mdi-login</v-icon>
+      </v-btn>
+      <v-btn v-else text color="grey" v-on:click="logout">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
@@ -48,10 +60,14 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+import axios from "axios";
+
 export default {
   data() {
     return {
       nav_drawer: false,
+      session: false,
       links: [
         { icon: 'mdi-home-outline', title: 'Home', route: '/' },
         { icon: 'mdi-account-alert-outline', title: 'My Page', route: '/my-page' },
@@ -63,6 +79,25 @@ export default {
         { icon: 'mdi-video-wireless-outline', title: 'CCTV', route: '/cctv' },
         { icon: 'mdi-account-group-outline', title: 'Member', route: '/member' },
       ]
+    }
+  },
+  computed: {
+    ...mapState(["isAuthenticated"]),
+  },
+  methods: {
+    logout () {
+      axios.get("http://localhost:7777/mainpage/logout")
+          .then(() => {
+            alert("로그아웃 완료");
+            this.$store.state.isAuthenticated = false;
+          })
+    },
+    resign () {
+      axios.get("http://localhost:7777/mainpage/resign")
+          .then(() => {
+            alert("회원탈퇴 완료");
+            this.$store.state.isAuthenticated = false;
+          })
     }
   }
 }
