@@ -11,6 +11,8 @@ import SignInPage from "@/views/account/SignInPage";
 import SearchAccountPage from "@/views/account/SearchAccountPage"
 import SearchAccountPasswordPage from "@/views/account/SearchAccountPasswordPage";
 
+import CarBookBoardListView from "@/views/board/vehicle/CarBookBoardListView";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,8 +55,13 @@ const routes = [
     path: '/search-password',
     name: 'SearchAccountPasswordPage',
     component: SearchAccountPasswordPage
+  },
+  {
+    path: '/car-book-list',
+    name: 'CarBookBoardListView',
+    component: CarBookBoardListView
   }
-
+  
 ]
 
 const router = new VueRouter({

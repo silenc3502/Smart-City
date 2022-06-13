@@ -1,6 +1,9 @@
 export default {
     isAuthenticated: false,
 
+    carBookBoards: [],
+    carBookBoard: null,
+
     /*
     foodBoards: [],
     foodBoard: null,
@@ -8,10 +11,7 @@ export default {
     bestFoodBoards:[],
     foodBoardComments:[],
     myCartFoods:[],
-
-    noticeBoards: [],
-    noticeBoard: null,
-
+    
     registerMembers:[],
     registerMember: null,
     registerMemberAuths: [],
