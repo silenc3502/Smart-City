@@ -32,9 +32,9 @@ export default {
       items: [
         {
           id: 1,
-          src: require("@/assets/img/freeboard.jpg"),
-          title: '게시판',
-          link: '/freeboard'
+          src: require("@/assets/img/notice.jpg"),
+          title: '공지사항',
+          link: '/notice'
         },
         {
           id: 2,
@@ -77,6 +77,12 @@ export default {
           src: require("@/assets/img/team.jpg"),
           title: '멤버 소개',
           link: '/member'
+        },
+        {
+          id: 9,
+          src: require("@/assets/img/carbook.jpg"),
+          title: '차량 예약',
+          link: '/car-book-list'
         }
       ]
     };
