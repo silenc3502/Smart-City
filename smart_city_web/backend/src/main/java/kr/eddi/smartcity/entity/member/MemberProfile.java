@@ -25,7 +25,7 @@ public class MemberProfile extends BaseTimeEntity {
     private Address address;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     private MemberProfile(String phoneNumber, Address address) {
