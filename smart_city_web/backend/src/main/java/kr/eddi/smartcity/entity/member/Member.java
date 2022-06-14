@@ -2,6 +2,7 @@ package kr.eddi.smartcity.entity.member;
 
 import kr.eddi.smartcity.entity.authentication.Authentication;
 import kr.eddi.smartcity.entity.authentication.BasicAuthentication;
+import kr.eddi.smartcity.entity.board.carbook.VehicleBookingBoard;
 import kr.eddi.smartcity.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,6 +41,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private Set<Authentication> authentications = new HashSet<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private Set<VehicleBookingBoard> bookingBoards = new HashSet<>();
 
     public Member(String email, MemberProfile profile) {
         this.email = email;
