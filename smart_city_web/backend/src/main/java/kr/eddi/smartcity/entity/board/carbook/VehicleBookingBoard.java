@@ -19,10 +19,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Entity
-@Table(
-        name = "eddi_car_book_board",
-        uniqueConstraints = @UniqueConstraint(name = "account_uq_email", columnNames = {"email"})
-)
+@Table(name = "eddi_car_book_board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VehicleBookingBoard extends BaseTimeEntity {
 
@@ -46,18 +43,14 @@ public class VehicleBookingBoard extends BaseTimeEntity {
     @Column(nullable = false)
     private LocalDateTime reservedDate;
 
-    /*
-    public VehicleBookingBoard(Member member, VehicleBookingInfo info) {
-        this.member = member;
-        this.bookingInfo = info;
-        info.setBookingBoard(this);
-    }
-     */
-
     public VehicleBookingBoard(String phoneNumber, String source, String destination, LocalDateTime reservedDate) {
         this.phoneNumber = phoneNumber;
         this.source = source;
         this.destination = destination;
         this.reservedDate = reservedDate;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }
