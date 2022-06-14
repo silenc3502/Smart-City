@@ -2,8 +2,8 @@ package kr.eddi.smartcity.controller.board.carbook;
 
 import kr.eddi.smartcity.controller.board.carbook.form.VehicleBookingBoardForm;
 import kr.eddi.smartcity.entity.board.carbook.VehicleBookingBoard;
+import kr.eddi.smartcity.service.board.vehicle.VehicleBookingBoardService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +17,15 @@ public class VehicleBookingBoardController {
 
     private final VehicleBookingBoardService service;
 
+    public VehicleBookingBoardController(VehicleBookingBoardService service) {
+        this.service = service;
+    }
+
     @PostMapping("/register")
     public void vehicleBookingBoardRegister(@Validated @RequestBody VehicleBookingBoardForm form){
         log.info("noticeBoardRegister()");
 
-        service.register(board);
+        service.register(form.toVehicleBookingBoardRequest());
     }
 
     @GetMapping("/list")

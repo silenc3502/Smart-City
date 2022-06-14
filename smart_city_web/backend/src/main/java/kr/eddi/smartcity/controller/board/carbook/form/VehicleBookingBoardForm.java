@@ -1,6 +1,7 @@
 package kr.eddi.smartcity.controller.board.carbook.form;
 
-import kr.eddi.smartcity.service.account.dto.MemberRegisterRequest;
+import kr.eddi.smartcity.entity.board.carbook.VehicleBookingBoard;
+
 import kr.eddi.smartcity.service.board.vehicle.dto.VehicleBookingBoardRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
