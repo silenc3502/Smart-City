@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/noticeBoard")
+@RequestMapping("/board/car-book")
 @CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
 public class VehicleBookingBoardController {
 
@@ -23,14 +23,14 @@ public class VehicleBookingBoardController {
 
     @PostMapping("/register")
     public void vehicleBookingBoardRegister(@Validated @RequestBody VehicleBookingBoardForm form){
-        log.info("noticeBoardRegister()");
+        log.info("vehicleBookingBoardRegister()");
 
         service.register(form.toVehicleBookingBoardRequest());
     }
 
     @GetMapping("/list")
     public List<VehicleBookingBoard> vehicleBookingBoardList(){
-        log.info("noticeBoardList()");
+        log.info("vehicleBookingBoardList()");
 
         return service.list();
     }
