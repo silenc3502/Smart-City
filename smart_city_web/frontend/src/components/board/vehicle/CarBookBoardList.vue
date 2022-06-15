@@ -91,7 +91,6 @@
       <v-row>
         <v-col>
           <v-btn
-            v-if="loginAuth == '관리자' || loginAuth == '매니저'"
             x-large
             rounded
             color="orange lighten-1"
@@ -112,7 +111,7 @@
 export default {
   name: "CarBookBoardList",
   props: {
-    noticeBoards: {
+    carBookBoards: {
       type: Array,
     },
   },
@@ -151,7 +150,7 @@ export default {
   },
   methods: {
     register() {
-      this.$router.push("/carBookRegister");
+      this.$router.push("/car-book-register");
     },
   },
   created() {
