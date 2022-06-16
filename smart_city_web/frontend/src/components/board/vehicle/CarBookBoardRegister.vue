@@ -109,7 +109,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.writer = this.userNick;
       const { date, time, source, destination } = this;
       this.$emit("submit", { date, time, source, destination });
     },
