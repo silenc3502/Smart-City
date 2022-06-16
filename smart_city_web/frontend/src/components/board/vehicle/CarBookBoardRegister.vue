@@ -3,204 +3,84 @@
     <v-container class="white">
       <v-row justify="center">
         <v-col cols="auto">
-          <v-card style="margin: 30px">
+          <v-card style="margin: 30px" width="460">
             <v-card-text>
-              <!--
-              <validation-observer v-slot="{ invalid }">
-                <form @submit.prevent="onSubmit" style="display: flex">
-                  <div style="justify-content: center">
-                    <table
-                      style="
-                        text-align: center;
-                        margin-right: 50px;
-                        margin-left: 50px;
-                      "
-                    >
-                      <div class="text-h4 font-weight-black mb-10">
-                        공지사항 등록
-                      </div>
-                      <div>
-                        <div>
-                          <tr>
-                            <td>
-                              <validation-provider
-                                v-slot="{ errors }"
-                                name="제목"
-                                :rules="{ required: true }"
-                              >
-                                <v-text-field
-                                  style="width: 700px"
-                                  v-model="title"
-                                  label="제목"
-                                  clearable
-                                  outlined
-                                  color="orange"
-                                  :error-messages="errors"
-                                />
-                              </validation-provider>
-                            </td>
-                          </tr>
+              <v-form class="px-3">
 
-                          <tr>
-                            <td>
-                              <v-text-field
-                                style="width: 700px"
-                                v-model="userInfo.nickName"
-                                label="작성자"
-                                clearable
-                                disabled
-                                outlined
-                                color="orange"
-                              />
-                            </td>
-                          </tr>
-                        </div>
-                      </div>
+                <v-menu
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="date"
+                        label="차량 예약 일자 선택"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                      v-model="date"
+                      @input="menu = false"
+                  ></v-date-picker>
+                </v-menu>
 
-                      <tr>
-                        <td>
-                          <validation-provider
-                            v-slot="{ errors }"
-                            name="본문"
-                            :rules="{ required: true }"
-                          >
-                            <v-textarea
-                              style="width: 700px"
-                              v-model="content"
-                              label="본문"
-                              clearable
-                              auto-grow
-                              outlined
-                              color="orange"
-                              rows="10"
-                              :error-messages="errors"
-                            />
-                          </validation-provider>
-                        </td>
-                      </tr>
-                    </table>
+                <v-menu
+                    ref="menu"
+                    v-model="timeMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    :return-value.sync="time"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="time"
+                        label="시간 설정"
+                        prepend-icon="mdi-clock-time-four-outline"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-time-picker
+                      v-if="timeMenu"
+                      v-model="time"
+                      full-width
+                      @click:minute="$refs.menu.save(time)"
+                  ></v-time-picker>
+                </v-menu>
 
-                    <div class="d-flex" style="justify-content: center">
-                      <v-btn
-                        type="submit"
-                        class="mr-5"
-                        large
-                        rounded
-                        color="orange lighten-1"
-                        :disabled="invalid"
-                      >
-                        등록
-                      </v-btn>
-                      <v-btn
-                        to="noticeList"
-                        large
-                        rounded
-                        color="orange lighten-1"
-                      >
-                        취소
-                      </v-btn>
-                    </div>
-                  </div>
-                </form>
-              </validation-observer>
-              -->
-              
-              <!-- 연락처, 예약 일자(날자와 시간), 출발 장소, 도착 장소 -->
-              <form @submit.prevent="onSubmit" style="display: flex">
-                  <div style="justify-content: center">
-                    <table
-                      style="
-                        text-align: center;
-                        margin-right: 50px;
-                        margin-left: 50px;
-                      "
-                    >
-                      <div class="text-h4 font-weight-black mb-10">
-                        공지사항 등록
-                      </div>
-                      <div>
-                        <div>
-                          <tr>
-                            <td>
-                              <validation-provider
-                                v-slot="{ errors }"
-                                name="제목"
-                                :rules="{ required: true }"
-                              >
-                                <v-text-field
-                                  style="width: 700px"
-                                  v-model="title"
-                                  label="제목"
-                                  clearable
-                                  outlined
-                                  color="orange"
-                                  :error-messages="errors"
-                                />
-                              </validation-provider>
-                            </td>
-                          </tr>
+                <v-text-field
+                    v-model="source"
+                    label="출발지"
+                    clearable
+                    outlined
+                    color="orange"
+                />
 
-                          <tr>
-                            <td>
-                              <v-text-field
-                                style="width: 700px"
-                                v-model="userInfo.nickName"
-                                label="작성자"
-                                clearable
-                                disabled
-                                outlined
-                                color="orange"
-                              />
-                            </td>
-                          </tr>
-                        </div>
-                      </div>
+                <v-text-field
+                    v-model="destination"
+                    label="목적지"
+                    clearable
+                    outlined
+                    color="orange"
+                />
 
-                      <tr>
-                        <td>
-                          <validation-provider
-                            v-slot="{ errors }"
-                            name="본문"
-                            :rules="{ required: true }"
-                          >
-                            <v-textarea
-                              style="width: 700px"
-                              v-model="content"
-                              label="본문"
-                              clearable
-                              auto-grow
-                              outlined
-                              color="orange"
-                              rows="10"
-                              :error-messages="errors"
-                            />
-                          </validation-provider>
-                        </td>
-                      </tr>
-                    </table>
+                <v-spacer></v-spacer>
 
-                    <div class="d-flex" style="justify-content: center">
-                      <v-btn
-                        type="submit"
-                        class="mr-5"
-                        large
-                        rounded
-                        color="orange lighten-1"
-                        :disabled="invalid"
-                      >
-                        등록
-                      </v-btn>
-                      <v-btn
-                        to="noticeList"
-                        large
-                        rounded
-                        color="orange lighten-1"
-                      >
-                        취소
-                      </v-btn>
-                    </div>
-                  </div>
-                </form>
+                <v-btn text @click="onSubmit" class="success mx-0 mt-3">차량 예약 확인</v-btn>
+
+              </v-form>
             </v-card-text>
           </v-card>
         </v-col>
@@ -210,22 +90,28 @@
 </template>
 
 <script>
+
 export default {
   name: "CarBookBoardRegister",
   data() {
     return {
-      title: "",
-      content: "",
+      source: "",
+      destination: "",
       userInfo: "",
       userNick: "",
       userAuth: "",
+      due: null,
+      menu: false,
+      timeMenu: false,
+      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      time: null,
     };
   },
   methods: {
     onSubmit() {
       this.writer = this.userNick;
-      const { title, content, writer } = this;
-      this.$emit("submit", { title, content, writer });
+      const { date, time, source, destination } = this;
+      this.$emit("submit", { date, time, source, destination });
     },
   }
 };

@@ -5,7 +5,11 @@ import {
 
 export default {
     [FETCH_CAR_BOOK_BOARD_LIST](state, carBookBoards){
-        state.carBookBoards = carBookBoards
+        if (carBookBoards) {
+            state.carBookBoards = carBookBoards
+        } else {
+            state.carBookBoards = null
+        }
     },
     [FETCH_CAR_BOOK_BOARD](state, carBookBoard){
         state.carBookBoard = carBookBoard
