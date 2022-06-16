@@ -9,4 +9,5 @@ public interface VehicleBookingBoardService {
 
     void register(VehicleBookingBoardRequest request);
     List<VehicleBookingBoard> list();
+    public VehicleBookingBoard read (Integer boardNo);
 }

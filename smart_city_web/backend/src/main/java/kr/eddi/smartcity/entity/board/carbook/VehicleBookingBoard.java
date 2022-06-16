@@ -26,24 +26,29 @@ import java.util.stream.Collectors;
 public class VehicleBookingBoard extends BaseTimeEntity {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Getter
+    @Column(nullable = false)
+    private LocalDate date;
+
+    @Getter
+    @Column(nullable = false)
+    private LocalTime time;
+
+    @Getter
+    @Column(nullable = false)
+    private String source;
+
+    @Getter
+    @Column(nullable = false)
+    private String destination;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @Column(nullable = false)
-    private LocalDate date;
-
-    @Column(nullable = false)
-    private LocalTime time;
-
-    @Column(nullable = false)
-    private String source;
-
-    @Column(nullable = false)
-    private String destination;
 
     public VehicleBookingBoard(LocalDate date, LocalTime time, String source, String destination) {
         this.date = date;
