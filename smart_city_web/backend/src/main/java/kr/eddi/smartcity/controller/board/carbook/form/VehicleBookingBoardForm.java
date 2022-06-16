@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -16,13 +18,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class VehicleBookingBoardForm {
 
+    /* date, time, source, destination */
     private String email;
-    private String phoneNumber;
+    private LocalDate date;
+    private LocalTime time;
     private String source;
     private String destination;
-    private LocalDateTime reservedDate;
 
     public VehicleBookingBoardRequest toVehicleBookingBoardRequest() {
-        return new VehicleBookingBoardRequest(email, phoneNumber, source, destination, reservedDate);
+        return new VehicleBookingBoardRequest(email, date, time, source, destination);
     }
 }
