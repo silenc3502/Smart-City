@@ -1,6 +1,6 @@
 <template>
   <div style="font-family: 'Noto Sans KR', sans-serif">
-    <v-container class="white" style="width: 1400px">
+    <v-container class="white">
       <v-row>
         <v-col>
           <div class="mb-10">
@@ -33,7 +33,7 @@
         <v-col
           ><v-card flat>
             <div v-if="!carBookBoards || (Array.isArray(carBookBoards) && carBookBoards.length === 0)">
-              <td colspan="4">
+              <td colspan="3">
                 현재 예약된 일정이 없습니다!
               </td>
             </div>
@@ -51,10 +51,8 @@
                   v-model="search"
                   append-icon="mdi-magnify"
                   placeholder="검색어를 입력해주세요."
-                  single-line
                   hide-details
                   color="orange"
-                  style="width: 10px"
                   outlined
                   rounded
                 />
@@ -64,23 +62,14 @@
                 :headers="headers"
                 :items="carBookBoards"
                 :items-per-page="itemsPerPage"
-                :key="carBookBoards.boardNo"
+                :key="carBookBoards.id"
                 :search="search"
                 :page.sync="page"
                 hide-default-footer
+                @click:row="handleClick"
                 @page-count="pageCount = $event"
                 class="vTable"
               >
-                <template v-slot:[`item.title`]="{ item }">
-                  <router-link
-                    style="color: black; text-decoration: none"
-                    :to="{
-                      name: 'NoticeReadPage',
-                      params: { boardNo: item.boardNo.toString() },
-                    }"
-                    >{{ item.title }}</router-link
-                  >
-                </template>
               </v-data-table>
               <div class="text-center pt-10">
                 <v-pagination
@@ -128,25 +117,34 @@ export default {
       headers: [
         {
           text: "No",
-          value: "boardNo",
-          width: "100px",
-          align: "center",
+          value: "id",
+          align: "left",
           class: "orange lighten-5",
         },
         {
-          text: "작성자",
-          value: "writer",
-          width: "150px",
-          align: "center",
+          text: "예약일자",
+          value: "date",
+          align: "left",
           class: "orange lighten-5",
         },
         {
-          text: "작성일자",
-          value: "regDate",
-          width: "300px",
-          align: "center",
+          text: "시간",
+          value: "time",
+          align: "left",
           class: "orange lighten-5",
         },
+        {
+          text: "출발지",
+          value: "source",
+          align: "left",
+          class: "orange lighten-5",
+        },
+        {
+          text: "목적지",
+          value: "destination",
+          align: "left",
+          class: "orange lighten-5",
+        }
       ],
       search: "",
       page: 1,
@@ -156,8 +154,18 @@ export default {
   },
   methods: {
     register() {
-      this.$router.push("/car-book-register");
+      this.$router.push("/car-book-register")
     },
+    handleClick (value) {
+      //console.log('value: ' + JSON.stringify(value))
+      //const { id, date, time, source, destination } = value;
+      //console.log('carBookBoards: ' + id + ', ' + date + ', ' + time + ', ' + source + ', ' + destination)
+      //console.log('id: ' + value.id)
+      this.$router.push({
+        name: 'CarBookBoardReadView', 
+        params: { boardNo: value.id.toString() }
+      })
+    }
   },
   created() {
     if (this.$store.state.userInfo != null) {
