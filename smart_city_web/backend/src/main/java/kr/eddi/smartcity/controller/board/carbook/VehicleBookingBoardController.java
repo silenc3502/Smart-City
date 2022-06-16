@@ -32,6 +32,16 @@ public class VehicleBookingBoardController {
     public List<VehicleBookingBoard> vehicleBookingBoardList(){
         log.info("vehicleBookingBoardList()");
 
+        log.info("list(): " + service.list().get(0).toString());
+
         return service.list();
+    }
+
+    @GetMapping("/{boardNo}")
+    public VehicleBookingBoard vehicleBookingBoardRead (
+            @PathVariable("boardNo") Integer boardNo) {
+        log.info("vehicleBookingBoardRead()");
+
+        return service.read(boardNo);
     }
 }
