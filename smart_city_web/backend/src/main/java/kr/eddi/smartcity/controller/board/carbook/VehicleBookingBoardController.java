@@ -23,7 +23,7 @@ public class VehicleBookingBoardController {
 
     @PostMapping("/register")
     public void vehicleBookingBoardRegister(@Validated @RequestBody VehicleBookingBoardForm form){
-        log.info("vehicleBookingBoardRegister()");
+        log.info("vehicleBookingBoardRegister(): " + form.getEmail());
 
         service.register(form.toVehicleBookingBoardRequest());
     }

@@ -2,7 +2,9 @@ package kr.eddi.smartcity.service.board.vehicle;
 
 import kr.eddi.smartcity.entity.board.carbook.VehicleBookingBoard;
 import kr.eddi.smartcity.entity.member.Member;
+import kr.eddi.smartcity.entity.member.MemberProfile;
 import kr.eddi.smartcity.repository.board.vehicle.VehicleBookingBoardRepository;
+import kr.eddi.smartcity.repository.member.MemberProfileRepository;
 import kr.eddi.smartcity.repository.member.MemberRepository;
 import kr.eddi.smartcity.service.board.vehicle.dto.VehicleBookingBoardRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +32,11 @@ public class DefaultVehicleBookingBoardService implements VehicleBookingBoardSer
         final VehicleBookingBoard bookingBoard = request.toVehicleBookingBoard();
 
         Optional<Member> maybeMember = memberRepository.findByEmail(request.getEmail());
-        bookingBoard.setMember(maybeMember.get());
+        Member member = maybeMember.get();
+        bookingBoard.setMember(member);
+
+        log.info("myabeMember email: " + member.getEmail());
+        log.info("bookingBoard: " + bookingBoard);
 
         repository.save(bookingBoard);
     }
