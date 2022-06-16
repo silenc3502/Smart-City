@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -32,7 +34,10 @@ public class VehicleBookingBoard extends BaseTimeEntity {
     private Member member;
 
     @Column(nullable = false)
-    private String phoneNumber;
+    private LocalDate date;
+
+    @Column(nullable = false)
+    private LocalTime time;
 
     @Column(nullable = false)
     private String source;
@@ -40,14 +45,11 @@ public class VehicleBookingBoard extends BaseTimeEntity {
     @Column(nullable = false)
     private String destination;
 
-    @Column(nullable = false)
-    private LocalDateTime reservedDate;
-
-    public VehicleBookingBoard(String phoneNumber, String source, String destination, LocalDateTime reservedDate) {
-        this.phoneNumber = phoneNumber;
+    public VehicleBookingBoard(LocalDate date, LocalTime time, String source, String destination) {
+        this.date = date;
+        this.time = time;
         this.source = source;
         this.destination = destination;
-        this.reservedDate = reservedDate;
     }
 
     public void setMember(Member member) {

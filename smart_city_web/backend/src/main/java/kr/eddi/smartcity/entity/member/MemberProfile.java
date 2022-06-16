@@ -18,7 +18,7 @@ public class MemberProfile extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = null;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String phoneNumber;
 
     @Embedded

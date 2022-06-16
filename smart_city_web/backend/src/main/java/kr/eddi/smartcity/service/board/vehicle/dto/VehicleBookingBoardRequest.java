@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @ToString
@@ -15,12 +17,12 @@ import java.time.LocalDateTime;
 public class VehicleBookingBoardRequest {
 
     final private String email;
-    final private String phoneNumber;
+    final private LocalDate date;
+    final private LocalTime time;
     final private String source;
     final private String destination;
-    final private LocalDateTime reservedDate;
 
     public VehicleBookingBoard toVehicleBookingBoard() {
-        return new VehicleBookingBoard(phoneNumber, source, destination, reservedDate);
+        return new VehicleBookingBoard(date, time, source, destination);
     }
 }
