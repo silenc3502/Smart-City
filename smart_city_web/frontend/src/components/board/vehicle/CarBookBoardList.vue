@@ -32,28 +32,34 @@
       <v-row>
         <v-col
           ><v-card flat>
-            <v-card-title class="mb-3">
-              <div style="countWrap">
-                총
-                <b class="count">{{ carBookBoards.length }}</b
-                >개의 공지사항이 있습니다.
-              </div>
-              <v-spacer></v-spacer>
-              <v-spacer></v-spacer>
-              <v-spacer></v-spacer>
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                placeholder="검색어를 입력해주세요."
-                single-line
-                hide-details
-                color="orange"
-                style="width: 10px"
-                outlined
-                rounded
-              />
-            </v-card-title>
-            <div>
+            <div v-if="!carBookBoards || (Array.isArray(carBookBoards) && carBookBoards.length === 0)">
+              <td colspan="4">
+                현재 예약된 일정이 없습니다!
+              </td>
+            </div>
+            <div v-else>
+              <v-card-title class="mb-3">
+                <div style="countWrap">
+                  총
+                  <b class="count">{{ carBookBoards.length }}</b
+                  >개의 차량 예약이 진행중입니다.
+                </div>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  placeholder="검색어를 입력해주세요."
+                  single-line
+                  hide-details
+                  color="orange"
+                  style="width: 10px"
+                  outlined
+                  rounded
+                />
+              </v-card-title>
+
               <v-data-table
                 :headers="headers"
                 :items="carBookBoards"
@@ -98,7 +104,7 @@
             style="float: right"
             @click="register"
           >
-            공지사항 작성</v-btn
+            차량 예약하기</v-btn
           >
         </v-col>
       </v-row>
