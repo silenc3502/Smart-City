@@ -1,5 +1,7 @@
 <template>
-  <div><car-book-board-register @submit="onSubmit" /></div>
+  <div>
+    <car-book-board-register @submit="onSubmit"/>
+  </div>
 </template>
 
 <script>
@@ -12,15 +14,14 @@ export default {
   },
   methods: {
     onSubmit(payload) {
-      const { title, content, writer } = payload;
+      const email = "test@naver.com"
+      const { date, time, source, destination } = payload
       axios
-        .post("http://localhost:7777/car-book-list", {
-          title,
-          content,
-          writer,
+        .post("http://localhost:7777/board/car-book/register", {
+          email, date, time, source, destination
         })
         .then(() => {
-          alert("게시물 등록 성공");
+          alert("차량 예약 성공");
           this.$router.push({
             name: "CarBookBoardListView",
           });
