@@ -1,0 +1,18 @@
+#redis-server
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    command: redis-server --port 6379
+    container_name: redis_boot
+    hostname: redis_boot
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - "6379:6379"
+    restart: always
+      #    volumes:
+      #      - C:/docker/redis/6379/data:/data
+      #      - C:/docker/redis/6379/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      #      - C:/docker/redis/6379/acl/users.acl:/etc/redis/users.acl
