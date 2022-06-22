@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class Member extends BaseTimeEntity {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -20,8 +20,16 @@ spring:
     hibernate:
       ddl-auto: update
 
+  cache:
+    type: redis
+
 logging:
   level:
     org:
       hibernate:
         SQL: DEBUG
+
+app:
+  auth:
+    jwt-secret: TEj9ZyurkG3LiRqjU9u9KrWrPDL5UDa/vL03rjMv5GqPXCYjOySIfOIqAXBkDzdU/rPALuyxGwj1z4tN4cayoA==
+    jwt-expiration-ms: 60000 # 1분 (ms 기준)
