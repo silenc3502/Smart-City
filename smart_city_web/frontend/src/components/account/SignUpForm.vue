@@ -13,7 +13,7 @@
           <v-card width="460">
             <v-card-text class="text-center px-12 py-16">
 
-              <v-form @submit.prevent="onSubmit">
+              <v-form @submit.prevent="onSubmit" ref="form">
                 <div class="text-h4 font-weight-black mb-10">회원가입</div>
                 <div class="d-flex">
                   <v-text-field
@@ -117,7 +117,7 @@
                     rounded
                     color="orange lighten-1"
                     class="mt-6"
-                    :disabled="false"
+                    :disabled="(emailPass & streetPass) == false"
                   >가입하기</v-btn>
               </v-form>
             </v-card-text>
@@ -140,6 +140,7 @@ export default {
       password: "",
       password_confirm: "",
       emailPass: false,
+      streetPass: false,
       state: 'ins',
       phoneNumber: "",
       city: '',
@@ -174,26 +175,40 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (!this.emailPass) {
-        alert("이메일 중복확인을 해주세요.");
-      } else {
+      if (this.$refs.form.validate()) {
         const { email, phoneNumber, password, city, street, addressDetail, zipcode } = this;
         this.$emit("submit", { email, phoneNumber, password, city, street, addressDetail, zipcode });
+      } else {
+        alert('올바른 정보를 입력하세요!')
+      }
+
+      if (!this.emailPass) {
+        alert("이메일 중복확인을 해주세요.");
+      } else if (!this.streetPass) {
+        alert("주소지를 입력해주세요.")
       }
     },
     checkDuplicateEmail() {
-      const { email } = this;
-      axios.get(`http://localhost:7777/member/check-email/${email}`)
-          .then((res) => {
-            this.temp = res.data;
-            if (res.data) {
-              alert("사용 가능한 이메일 입니다.");
-              this.emailPass = true;
-            } else {
-              alert("중복된 이메일 입니다.");
-              this.emailPass = false;
-            }
-          });
+      const emailValid = this.email.match(
+          /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+
+      if (emailValid) {
+        const {email} = this;
+        axios.get(`http://localhost:7777/member/check-email/${email}`)
+            .then((res) => {
+              this.temp = res.data;
+              if (res.data) {
+                alert("사용 가능한 이메일 입니다.");
+                this.emailPass = true;
+              } else {
+                alert("중복된 이메일 입니다.");
+                this.emailPass = false;
+              }
+            });
+      } else {
+        alert('올바른 이메일을 입력하세요.')
+      }
     },
     callDaumAddressApi() {
       new window.daum.Postcode({
@@ -226,6 +241,8 @@ export default {
           this.city = data.sido;
           this.zipcode = data.zonecode;
           this.street = data.sigungu + ' ' + fullRoadAddr;
+
+          this.streetPass = true
         }
       }).open()
     }
