@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @RequiredArgsConstructor
 public class VehicleBookingBoardRequest {
 
-    final private String email;
+    final private Long memberId;
     final private LocalDate date;
     final private LocalTime time;
     final private String source;

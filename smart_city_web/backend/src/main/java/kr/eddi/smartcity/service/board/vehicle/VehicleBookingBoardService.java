@@ -8,6 +8,8 @@ import java.util.List;
 public interface VehicleBookingBoardService {
 
     void register(VehicleBookingBoardRequest request);
-    List<VehicleBookingBoard> list();
-    public VehicleBookingBoard read (Integer boardNo);
+    List<VehicleBookingBoard> list(Long memberId);
+    VehicleBookingBoard read (Integer boardNo);
+    void modify(VehicleBookingBoard vehicleBookingBoard);
+    void remove(Long boardNo);
 }

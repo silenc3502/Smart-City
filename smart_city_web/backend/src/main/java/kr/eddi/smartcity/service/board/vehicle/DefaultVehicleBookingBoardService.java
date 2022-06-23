@@ -32,7 +32,9 @@ public class DefaultVehicleBookingBoardService implements VehicleBookingBoardSer
     public void register(VehicleBookingBoardRequest request) {
         final VehicleBookingBoard bookingBoard = request.toVehicleBookingBoard();
 
-        Optional<Member> maybeMember = memberRepository.findByEmail(request.getEmail());
+        log.info("member id: " + request.getMemberId());
+
+        Optional<Member> maybeMember = memberRepository.findById(request.getMemberId());
         Member member = maybeMember.get();
         bookingBoard.setMember(member);
 
@@ -43,8 +45,9 @@ public class DefaultVehicleBookingBoardService implements VehicleBookingBoardSer
     }
 
     @Override
-    public List<VehicleBookingBoard> list() {
-        return repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public List<VehicleBookingBoard> list(Long memberId) {
+        //return repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return repository.findAllByMemberId(memberId);
     }
 
     @Override
@@ -57,5 +60,15 @@ public class DefaultVehicleBookingBoardService implements VehicleBookingBoardSer
         }
 
         return maybeVehicleBookingBoard.get();
+    }
+
+    @Override
+    public void modify(VehicleBookingBoard vehicleBookingBoard) {
+        repository.save(vehicleBookingBoard);
+    }
+
+    @Override
+    public void remove(Long boardNo) {
+        repository.deleteById(boardNo);
     }
 }
