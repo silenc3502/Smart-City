@@ -1,6 +1,7 @@
 package kr.eddi.smartcity.controller.member;
 
-import kr.eddi.smartcity.service.session.SessionService;
+import kr.eddi.smartcity.service.account.ResignService;
+import kr.eddi.smartcity.service.security.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,20 +10,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/mainpage")
 @CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
 public class MainPageController {
-    private final SessionService sessionService;
+    //private final SessionService sessionService;
+    private final RedisService redisService;
+    private final ResignService resignService;
 
-    public MainPageController(SessionService sessionService) {
-        this.sessionService = sessionService;
+    public MainPageController(RedisService redisService, ResignService resignService) {
+        this.redisService = redisService;
+        this.resignService = resignService;
     }
 
-    @GetMapping("/logout")
-    public void logout() {
-        log.info("logout()");
-        sessionService.logout();
+    @PostMapping("/logout")
+    public void logout(@RequestBody String token) {
+        log.info("logout(): " + token);
+
+        redisService.deleteByKey(token);
     }
 
-    @GetMapping("checkLogin")
-    public void checkLogin(@RequestParam("email") String email) {
-        log.info("session find(): " + sessionService.find());
+    @PostMapping("/resign")
+    public void resign(@RequestBody String token) {
+        log.info("resign(): " + token);
+
+        token = token.substring(0, token.length() - 1);
+
+        log.info("after remove: " + token);
+        Long id = redisService.getValueByKey(token);
+        log.info("id: " + id);
+        resignService.resign(id);
     }
 }
