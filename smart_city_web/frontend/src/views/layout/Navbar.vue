@@ -85,16 +85,25 @@ export default {
   },
   methods: {
     logout () {
-      axios.get("http://localhost:7777/mainpage/logout")
+      console.log('getItem: ' + localStorage.getItem("userInfo"))
+      //const token = localStorage.getItem("userInfo")
+      axios.post("http://localhost:7777/mainpage/logout", localStorage.getItem("userInfo"))
           .then(() => {
             alert("로그아웃 완료");
+            localStorage.removeItem("userInfo");
             this.$store.state.isAuthenticated = false;
           })
     },
     resign () {
-      axios.get("http://localhost:7777/mainpage/resign")
+      let token = localStorage.getItem("userInfo")
+      const length = token.length
+      console.log('token: ' + token + ', length: ' + length)
+      token = token.substr(1, length - 2)
+      console.log('token: ' + token)
+      axios.post("http://localhost:7777/mainpage/resign", token)
           .then(() => {
             alert("회원탈퇴 완료");
+            localStorage.removeItem("userInfo");
             this.$store.state.isAuthenticated = false;
           })
     }
