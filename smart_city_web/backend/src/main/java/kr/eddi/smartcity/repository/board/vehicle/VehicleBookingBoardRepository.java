@@ -15,4 +15,6 @@ public interface VehicleBookingBoardRepository extends JpaRepository<VehicleBook
 
     @Query("SELECT vbb FROM VehicleBookingBoard vbb JOIN FETCH vbb.member m WHERE m.id = :memberId")
     List<VehicleBookingBoard> findAllByMemberId(Long memberId);
+
+    //@Query("SELECT vbb FROM VehicleBookingBoard vbb JOIN FETCH vbb.member m WHERE m.id = :memberId and vbb.id")
 }

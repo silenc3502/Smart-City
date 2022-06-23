@@ -10,6 +10,6 @@ public interface VehicleBookingBoardService {
     void register(VehicleBookingBoardRequest request);
     List<VehicleBookingBoard> list(Long memberId);
     VehicleBookingBoard read (Integer boardNo);
-    void modify(VehicleBookingBoard vehicleBookingBoard);
+    VehicleBookingBoard modify(VehicleBookingBoardRequest request, Long boardNo);
     void remove(Long boardNo);
 }

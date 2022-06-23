@@ -4,10 +4,9 @@ import kr.eddi.smartcity.entity.authentication.Authentication;
 import kr.eddi.smartcity.entity.authentication.BasicAuthentication;
 import kr.eddi.smartcity.entity.common.BaseTimeEntity;
 import kr.eddi.smartcity.entity.member.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,8 +20,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Entity
+@Builder
 @Table(name = "eddi_car_book_board")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class VehicleBookingBoard extends BaseTimeEntity {
 
     @Id

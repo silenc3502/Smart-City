@@ -63,8 +63,30 @@ public class DefaultVehicleBookingBoardService implements VehicleBookingBoardSer
     }
 
     @Override
-    public void modify(VehicleBookingBoard vehicleBookingBoard) {
-        repository.save(vehicleBookingBoard);
+    public VehicleBookingBoard modify(VehicleBookingBoardRequest request, Long boardNo) {
+
+        //final VehicleBookingBoard bookingBoard = request.toVehicleBookingBoard();
+
+        Optional<Member> maybeMember = memberRepository.findById(request.getMemberId());
+        Member member = maybeMember.get();
+
+        Optional<VehicleBookingBoard> maybeBoard = repository.findById(boardNo);
+        VehicleBookingBoard vehicleBookingBoard = maybeBoard.get();
+
+        VehicleBookingBoard vbb = VehicleBookingBoard.builder().
+                id(boardNo).
+                date(request.getDate()).
+                time(request.getTime()).
+                source(request.getSource()).
+                destination(request.getDestination()).
+                member(member).
+                build();
+
+        vbb.setCreatedDate(vehicleBookingBoard.getCreatedDate());
+
+        repository.save(vbb);
+
+        return vbb;
     }
 
     @Override
