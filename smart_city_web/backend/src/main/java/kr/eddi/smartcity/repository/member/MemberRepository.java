@@ -15,6 +15,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT m FROM Member m JOIN FETCH m.profile p WHERE p.phoneNumber = :phoneNumber and m.email = :email")
     Optional<Member> findByPhoneNumber(String phoneNumber, String email);
 
-    @Query("DELETE FROM Member m WHERE m.email = :email")
-    Optional<Authentication> deleteByEmail(String email);
+    //@Query("DELETE FROM Member m WHERE m.id = :id")
+    //void deleteById(Long id);
 }
