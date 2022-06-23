@@ -40,8 +40,6 @@ public class VehicleBookingBoardController {
     public List<VehicleBookingBoard> vehicleBookingBoardList(@RequestBody String token){
         log.info("vehicleBookingBoardList()");
 
-        //log.info("list(): " + service.list().get(0).toString());
-
         token = token.substring(0, token.length() - 1);
         Long memberId = redisService.getValueByKey(token);
 
@@ -58,20 +56,21 @@ public class VehicleBookingBoardController {
     }
 
     @PutMapping("/{boardNo}")
-    public VehicleBookingBoard noticeBoardModify(
+    public VehicleBookingBoard vehicleBookingBoardModify(
             @PathVariable("boardNo")Long boardNo,
-            @RequestBody VehicleBookingBoard vehicleBookingBoard) {
+            @Validated @RequestBody VehicleBookingBoardForm form) {
 
-        log.info("noticeBoardModify(): " + vehicleBookingBoard.getId());
+        log.info("vehicleBookingBoardRegister(): " + form.getToken());
 
-        //vehicleBookingBoard.setBoardNo(boardNo);
-        service.modify(vehicleBookingBoard);
+        String token = form.getToken();
+        Long memberId = redisService.getValueByKey(token);
 
-        return vehicleBookingBoard;
+        //service.modify(vehicleBookingBoard);
+        return service.modify(form.toVehicleBookingBoardRequest(memberId), boardNo);
     }
 
     @DeleteMapping("/{boardNo}")
-    public void noticeBoardRemove(@PathVariable("boardNo") Long boardNo){
+    public void vehicleBookingBoardRemove(@PathVariable("boardNo") Long boardNo){
         log.info("noticeBoardRemove()");
 
         service.remove(boardNo);
