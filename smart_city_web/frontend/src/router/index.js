@@ -14,6 +14,7 @@ import SearchAccountPasswordPage from "@/views/account/SearchAccountPasswordPage
 import CarBookBoardListView from "@/views/board/vehicle/CarBookBoardListView";
 import CarBookBoardRegisterView from "@/views/board/vehicle/CarBookBoardRegisterView";
 import CarBookBoardReadView from "@/views/board/vehicle/CarBookBoardReadView";
+import CarBookBoardModifyView from "@/views/board/vehicle/CarBookBoardModifyView";
 
 Vue.use(VueRouter)
 
@@ -77,8 +78,18 @@ const routes = [
     props: {
       default: true
     }
+  },
+  {
+    path: '/car-book-modify/:boardNo',
+    name: 'CarBookBoardModifyView',
+    components: {
+      default: CarBookBoardModifyView
+    },
+    props: {
+      default: true
+    }
   }
-  
+
 ]
 
 const router = new VueRouter({

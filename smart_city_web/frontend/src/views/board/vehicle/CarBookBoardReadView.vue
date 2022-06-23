@@ -22,10 +22,17 @@ export default {
     ...mapState(["carBookBoard"]),
   },
   created() {
+    console.log('readView created')
     this.fetchCarBookBoard(this.boardNo).catch(() => {
       alert("게시물 요청 실패");
       this.$router.push();
     });
+  },
+  mounted() {
+    console.log('readView mounted')
+  },
+  beforeUpdate() {
+    console.log('readView update')
   },
   methods: {
     ...mapActions(["fetchCarBookBoard"]),

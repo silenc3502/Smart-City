@@ -3,107 +3,84 @@
     <v-container class="white">
       <v-row justify="center">
         <v-col cols="auto">
-          <v-card style="margin: 30px">
+          <v-card style="margin: 30px" width="460">
             <v-card-text>
-              <validation-observer v-slot="{ invalid }">
-                <form @submit.prevent="onSubmit">
-                  <div style="justify-content: center">
-                    <table
-                      style="
-                        text-align: center;
-                        margin-right: 50px;
-                        margin-left: 50px;
-                      "
-                    >
-                      <div class="text-h4 font-weight-black mb-10">
-                        공지사항 수정
-                      </div>
-                      <div>
-                        <div>
-                          <tr>
-                            <td>
-                              <validation-provider
-                                v-slot="{ errors }"
-                                name="제목"
-                                :rules="{ required: true }"
-                              >
-                                <v-text-field
-                                  style="width: 700px"
-                                  :value="noticeBoard.title"
-                                  v-model="title"
-                                  clearable
-                                  outlined
-                                  color="orange"
-                                  :error-messages="errors"
-                                />
-                              </validation-provider>
-                            </td>
-                          </tr>
+              <v-form class="px-3">
 
-                          <tr>
-                            <td>
-                              <v-text-field
-                                style="width: 700px"
-                                :value="noticeBoard.writer"
-                                clearable
-                                disabled
-                                outlined
-                                color="orange"
-                              />
-                            </td>
-                          </tr>
-                        </div>
-                      </div>
+                <v-menu
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="date"
+                        label="차량 예약 일자 선택"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                      v-model="date"
+                      @input="menu = false"
+                  ></v-date-picker>
+                </v-menu>
 
-                      <tr>
-                        <td>
-                          <validation-provider
-                            v-slot="{ errors }"
-                            name="본문"
-                            :rules="{ required: true }"
-                          >
-                            <v-textarea
-                              style="width: 700px"
-                              :value="noticeBoard.content"
-                              v-model="content"
-                              clearable
-                              auto-grow
-                              outlined
-                              color="orange"
-                              rows="10"
-                              :error-messages="errors"
-                            />
-                          </validation-provider>
-                        </td>
-                      </tr>
-                    </table>
+                <v-menu
+                    ref="menu"
+                    v-model="timeMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    :return-value.sync="time"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="time"
+                        label="시간 설정"
+                        prepend-icon="mdi-clock-time-four-outline"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-time-picker
+                      v-if="timeMenu"
+                      v-model="time"
+                      full-width
+                      @click:minute="$refs.menu.save(time)"
+                  ></v-time-picker>
+                </v-menu>
 
-                    <div class="d-flex" style="justify-content: center">
-                      <v-btn
-                        type="submit"
-                        class="mr-5"
-                        large
-                        rounded
-                        color="orange lighten-1"
-                        :disabled="invalid"
-                      >
-                        수정
-                      </v-btn>
-                      <v-btn
-                        :to="{
-                          name: 'NoticeReadPage',
-                          params: { boardNo: noticeBoard.boardNo.toString() },
-                        }"
-                        large
-                        rounded
-                        color="orange lighten-1"
-                      >
-                        취소
-                      </v-btn>
-                    </div>
-                  </div>
-                </form>
-              </validation-observer>
+                <v-text-field
+                    v-model="source"
+                    label="출발지"
+                    clearable
+                    outlined
+                    color="orange"
+                />
+
+                <v-text-field
+                    v-model="destination"
+                    label="목적지"
+                    clearable
+                    outlined
+                    color="orange"
+                />
+
+                <v-spacer></v-spacer>
+
+                <v-btn text @click="onSubmit" class="success mx-0 mt-3">차량 예약 일정 변경</v-btn>
+
+              </v-form>
             </v-card-text>
           </v-card>
         </v-col>
@@ -123,8 +100,12 @@ export default {
   },
   data() {
     return {
-      title: "",
-      content: "",
+      source: "",
+      destination: "",
+      menu: false,
+      timeMenu: false,
+      date: "",
+      time: "",
       userInfo: "",
       userNick: "",
       userAuth: "",
@@ -132,21 +113,19 @@ export default {
   },
   methods: {
     onSubmit() {
-      const { title, content } = this;
-      this.$emit("submit", { title, content });
+      const { date, time, source, destination } = this;
+      this.$emit("submit", { date, time, source, destination });
     },
   },
   created() {
-    this.title = this.noticeBoard.title;
-    this.content = this.noticeBoard.content;
-    if (this.$store.state.userInfo != null) {
-      this.userInfo = this.$store.state.userInfo;
-      this.userNick = this.userInfo.nickName;
-      this.userAuth = this.userInfo.auth;
-    }
-    if (this.userAuth != "관리자" && this.userAuth != "매니저") {
-      alert("권한이 없습니다.");
-      this.$router.push("/noticeList");
+    this.source = this.carBookBoard.source
+    this.destination = this.carBookBoard.destination
+    this.date = this.carBookBoard.date
+    this.time = this.carBookBoard.time
+
+    if (this.$store.state.isAuthenticated == false) {
+      alert("로그인 후 이용해주세요.");
+      this.$router.push("/sign-in");
     }
   },
 };
