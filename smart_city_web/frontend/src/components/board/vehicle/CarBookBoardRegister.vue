@@ -97,10 +97,6 @@ export default {
     return {
       source: "",
       destination: "",
-      userInfo: "",
-      userNick: "",
-      userAuth: "",
-      due: null,
       menu: false,
       timeMenu: false,
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
