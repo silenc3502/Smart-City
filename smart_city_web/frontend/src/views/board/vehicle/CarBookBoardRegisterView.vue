@@ -14,11 +14,14 @@ export default {
   },
   methods: {
     onSubmit(payload) {
-      const email = "test@naver.com"
+      let token = localStorage.getItem("userInfo")
+      const length = token.length
+      token = token.substr(1, length - 2)
+
       const { date, time, source, destination } = payload
       axios
         .post("http://localhost:7777/board/car-book/register", {
-          email, date, time, source, destination
+          token, date, time, source, destination
         })
         .then(() => {
           alert("차량 예약 성공");
