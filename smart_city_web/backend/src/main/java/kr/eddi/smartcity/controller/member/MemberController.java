@@ -52,12 +52,10 @@ public class MemberController {
     }
 
     @PostMapping("/sign-in")
-    public Boolean signIn(@Validated @RequestBody MemberLoginForm form, BindingResult bindingResult) {
+    public String signIn(@Validated @RequestBody MemberLoginForm form, BindingResult bindingResult) {
         log.info("MainFormController#signIn: {}", form);
 
-        signInService.signIn(form.toLoginRequest());
-
-        return true;
+        return signInService.signIn(form.toLoginRequest());
     }
 
     @GetMapping("/find-email/{email}")
