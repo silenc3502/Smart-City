@@ -8,7 +8,12 @@ import {
 
 export default {
     fetchCarBookBoardList({commit}) {
-        return axios.get("http://localhost:7777/board/car-book/list")
+
+        let token = localStorage.getItem("userInfo")
+        const length = token.length
+        token = token.substr(1, length - 2)
+        
+        return axios.post("http://localhost:7777/board/car-book/list", token)
         .then((res)=>{
             commit(FETCH_CAR_BOOK_BOARD_LIST, res.data)
         })

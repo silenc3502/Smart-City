@@ -160,7 +160,7 @@ export default {
       //console.log('value: ' + JSON.stringify(value))
       //const { id, date, time, source, destination } = value;
       //console.log('carBookBoards: ' + id + ', ' + date + ', ' + time + ', ' + source + ', ' + destination)
-      //console.log('id: ' + value.id)
+      console.log('id: ' + value.id)
       this.$router.push({
         name: 'CarBookBoardReadView', 
         params: { boardNo: value.id.toString() }
@@ -168,11 +168,9 @@ export default {
     }
   },
   created() {
-    if (this.$store.state.userInfo != null) {
-      this.userInfo = this.$store.state.userInfo;
-      this.loginAuth = this.userInfo.auth;
-    } else {
-      alert("내집, 내직장 예약의 경우엔 로그인 후 보다 간편하게 이용할 수 있습니다.");
+    if (this.$store.state.isAuthenticated == false) {
+      alert("로그인 후 이용해주세요.");
+      this.$router.push("/sign-in");
     }
   },
 };
