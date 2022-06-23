@@ -69,15 +69,19 @@ export default {
   },
   data() {
     return {
+      date: "",
+      time: "",
+      source: "",
+      destination: "",
       userInfo: "",
       nickName: "",
       dialogDelete: false,
       checkbox: false,
       items: [
-        { text: '예약 일자', icon: 'mdi-calendar', data: this.carBookBoard.date },
-        { text: '예약 시간', icon: 'mdi-clock', data: this.carBookBoard.time },
-        { text: '출발지', icon: 'mdi-import', data: this.carBookBoard.source },
-        { text: '목적지', icon: 'mdi-export', data: this.carBookBoard.destination },
+        { text: '예약 일자', icon: 'mdi-calendar', data: this.date },
+        { text: '예약 시간', icon: 'mdi-clock', data: this.time },
+        { text: '출발지', icon: 'mdi-import', data: this.source },
+        { text: '목적지', icon: 'mdi-export', data: this.destination },
       ],
     };
   },
@@ -86,6 +90,12 @@ export default {
       alert("로그인 후 이용해주세요.");
       this.$router.push("/sign-in");
     }
+  },
+  mounted() {
+    this.items[0].data = this.carBookBoard.date
+    this.items[1].data = this.carBookBoard.time
+    this.items[2].data = this.carBookBoard.source
+    this.items[3].data = this.carBookBoard.destination
   },
   methods: {
     backToList() {
