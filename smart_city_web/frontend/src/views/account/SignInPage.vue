@@ -39,7 +39,7 @@ export default {
             .then((res) => {
               if (res.data) {
                 alert("로그인 성공!");
-                this.$store.state.isAuthenticated = res.data;
+                this.$store.state.isAuthenticated = true;
                 this.$cookies.set("user", res.data, 3600);
                 localStorage.setItem("userInfo", JSON.stringify(res.data));
                 this.isLogin = true;
