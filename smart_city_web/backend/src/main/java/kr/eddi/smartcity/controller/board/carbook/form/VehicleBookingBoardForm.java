@@ -19,13 +19,13 @@ import java.time.LocalTime;
 public class VehicleBookingBoardForm {
 
     /* date, time, source, destination */
-    private String email;
+    private String token;
     private LocalDate date;
     private LocalTime time;
     private String source;
     private String destination;
 
-    public VehicleBookingBoardRequest toVehicleBookingBoardRequest() {
-        return new VehicleBookingBoardRequest(email, date, time, source, destination);
+    public VehicleBookingBoardRequest toVehicleBookingBoardRequest(Long memberId) {
+        return new VehicleBookingBoardRequest(memberId, date, time, source, destination);
     }
 }
