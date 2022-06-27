@@ -20,7 +20,11 @@ export default {
   },
   methods: {
     onWindowResize: function () {
-      this.renderer.setSize(document.getElementsByClassName('v-main__wrap')[0].childNodes[1].clientWidth, this.rendererHeight);
+      let canvasWidth = document.getElementsByClassName('v-main__wrap')[0].childNodes[1].clientWidth
+      this.renderer.setSize(canvasWidth, this.rendererHeight);
+
+      this.camera.aspect = canvasWidth / this.rendererHeight;
+      this.camera.updateProjectionMatrix();
     },
     init: function() {
       this.scene = new THREE.Scene()
