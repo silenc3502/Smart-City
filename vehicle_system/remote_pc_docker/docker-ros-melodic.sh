@@ -24,7 +24,8 @@ TAG='dev'
 IMAGE='ros/melodic'
 TTY='--device=/dev/ttyACM0'
 
-xhost +local:docker
+#xhost +local:$USER
+xhost +
 
 echo "IMAGE=" $IMAGE
 echo "TAG=" $TAG
@@ -44,6 +45,10 @@ for ((a=0; a<"${#args[@]}"; ++a)); do
 	esac
 done
 
+#-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+#-e XDG_RUNTIME_DIR=/run/user/$USER_UID \
+#--gpus=all \
+#-e NVIDIA_DRIVER_CAPABILITIES=all \
 cur_loc=$(pwd)
 docker run -it \
 	--init \
@@ -51,18 +56,20 @@ docker run -it \
 	--shm-size=8G \
 	--privileged \
 	--net=host \
-	-e DISPLAY=$DISPLAY \
-	-e XDG_RUNTIME_DIR=/run/user/$USER_UID \
+	-e DISPLAY=unix$DISPLAY \
+	-e XDG_RUNTIME_DIR=/run/user/1000 \
 	-e QT_GRAPHICSSYSTEM=native \
 	-e CONTAINER_NAME=$TAG \
 	-e USER=$USER \
+	-e LIBGL_ALWAYS_INDIRECT=1 \
+	-e NVIDIA_DRIVER_CAPABILITIES=all \
 	--env=UDEV=1 \
 	--env=LIBUSB_DEBU=1 \
 	--env="DISPLAY" \
 	--env="QT_X11_NO_MITSHM=1" \
 	${ENV_PARAMS[@]} \
 	-v /dev:/dev \
-	-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-v $cur_loc/workspace:/home/$USER/workspace \
 	ros/melodic:dev \
 	${OTHER_PARAMS[@]} \
