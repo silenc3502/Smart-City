@@ -54,6 +54,7 @@
 #include "HL_reg_pcr.h"
 #include "HL_pinmux.h"
 
+#include "HL_emif.h"
 
 
 /* USER CODE BEGIN (1) */
@@ -322,7 +323,7 @@ void mapClocks(void)
                          | (uint32)((uint32)1U << 16U);
 
     systemREG2->CLK2CNTRL = (systemREG2->CLK2CNTRL & 0xFFFFFFF0U)
-                         | (uint32)((uint32)1U << 0U);
+                         | (uint32)((uint32)14U << 0U);
 
     systemREG2->VCLKACON1 =  (uint32)((uint32)(1U - 1U) << 24U)
                            | (uint32)((uint32)0U << 20U)
@@ -392,6 +393,11 @@ void systemInit(void)
     trimLPO();
 
 
+/*
+*   As per the errata EMIF#5, EMIF SDRAM initialization must performed with EMIF clock below 40MHz.
+*   Hence the init function needs to be called from the startup before the PLL is configured.
+*/
+    emif_SDRAM_StartupInit();
 
 /* USER CODE BEGIN (20) */
 /* USER CODE END */

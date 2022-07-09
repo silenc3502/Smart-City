@@ -94,10 +94,11 @@ SemaphoreHandle_t sem;
 */
 
 /* USER CODE BEGIN (2) */
+uint32_t ipAddr;
 /* USER CODE END */
 
-uint8   emacAddress[6U] =   {0x00U, 0x08U, 0xeeU, 0x03U, 0xa6U, 0x6cU};
-uint32_t ipAddr;
+uint8	emacAddress[6U] = 	{0x00U, 0x08U, 0xeeU, 0x03U, 0xa6U, 0x6cU};
+uint32 	emacPhyAddress	=	1U;
 
 int main(void)
 {
@@ -142,8 +143,10 @@ int main(void)
     /* Run forever */
     while(1);
 /* USER CODE END */
+
     return 0;
 }
+
 
 /* USER CODE BEGIN (4) */
 /* Task1 */

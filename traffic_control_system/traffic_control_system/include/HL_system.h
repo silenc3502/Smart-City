@@ -230,7 +230,7 @@ typedef enum
 *
 *   VCLK3 Domain frequency exported from HALCoGen GUI
 */
-#define VCLK3_FREQ   75.000F
+#define VCLK3_FREQ   10.000F
 
 /** @def VCLK4_FREQ
 *   @brief VCLK4 Domain frequency exported from HALCoGen GUI
@@ -408,7 +408,7 @@ typedef struct system_config_reg
 #define SYS2_PLLCTL3_CONFIGVALUE_2  (((SYS2_PLLCTL3_CONFIGVALUE_1) & 0xE0FFFFFFU) | (uint32)((uint32)(1U - 1U) << 24U))
 #define SYS2_STCCLKDIV_CONFIGVALUE  0U
 #define SYS2_ECPCNTL1_CONFIGVALUE   0x50000000U
-#define SYS2_CLK2CNTRL_CONFIGVALUE  (1U | 0x00000100U)
+#define SYS2_CLK2CNTRL_CONFIGVALUE  (14U | 0x00000100U)
 #define SYS2_HCLKCNTL_CONFIGVALUE    1U
 #define SYS2_VCLKACON1_CONFIGVALUE  ( (uint32)((uint32)1U << 24U) \
 									| (uint32)((uint32)1U << 20U) \
