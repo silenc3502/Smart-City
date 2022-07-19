@@ -25,7 +25,7 @@ IMAGE='ros/melodic'
 TTY='--device=/dev/ttyACM0'
 
 #xhost +local:$USER
-xhost +
+sudo xhost +
 
 echo "IMAGE=" $IMAGE
 echo "TAG=" $TAG
