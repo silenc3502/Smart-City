@@ -12,28 +12,28 @@
 #include "HL_system.h"
 #include "HL_spi.h"
 
-typedef enum _sensor_dev sensor_dev;
-enum _sensor_dev{
-    _gy50 = 0,
-    _25lc010a,
-    sensor_eof
+typedef enum _sensor_dev_name sensor_dev_name;
+enum _sensor_dev_name{
+    GYRO_GY50 = 0,
+    EEPROM_25lc010a,
+    SENSOR_EOF
 };
-#define SENSOR_TOT_NUM (sensor_eof)
-#define SENSOR_DEV_NUM (sensor_eof - 1)
+#define SENSOR_TOT_NUM (SENSOR_EOF)
+#define SENSOR_DEV_NUM (SENSOR_EOF - 1)
 
-typedef enum _spi_dev spi_dev;
-enum _spi_dev{
-    _spi1 = 0,
-    _spi2,
-    _spi3,
-    _spi4,
-    _spi5,
-    spi_eof
+typedef enum _spi_dev_num spi_dev_num;
+enum _spi_dev_num{
+    SPI1 = 0,
+    SPI2,
+    SPI3,
+    SPI4,
+    SPI5,
+    SPI_EOF
 };
-#define SPI_TOT_NUM (spi_eof)
-#define SPI_DEV_NUM (spi_eof - 1)
+#define SPI_TOT_NUM (SPI_EOF)
+#define SPI_DEV_NUM (SPI_EOF - 1)
 
-uint8_t open_spi(spi_dev num, sensor_dev dev_name);
-void close_spi(uint8_t fd);
+spiBASE_t *spi_open(spi_dev_num spi_num, sensor_dev_name dev_name);
+void spi_close(uint8_t fd);
 
 #endif /* CONTROL_SENSOR_COMMON_INCLUDE_SPI_OPEN_H_ */

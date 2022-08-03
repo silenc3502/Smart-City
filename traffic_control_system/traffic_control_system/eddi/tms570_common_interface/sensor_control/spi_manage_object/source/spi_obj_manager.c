@@ -7,28 +7,33 @@
 #include "spi_obj_manager.h"
 #include "stdlib.h"
 
-typedef struct _spi_intf spi_intf;
-struct _spi_intf{
+typedef struct _spi_operations spi_operations;
+struct _spi_operations{
     //spi_io_ctl 세부사항 미구현
+    spiBASE_t *(*_spi_open)(spi_dev_num spi_num, sensor_dev_name dev_name);
+    void (*_spi_close)(uint8_t fd);
     void (*_spi_io_ctl)(void);
     void (*_spi_read)(uint8_t, uint16_t *, uint16_t);
     void (*_spi_write)(uint8_t, uint16_t *, uint16_t);
-    spiBASE_t *_spi_reg;
-    spiDAT1_t _data_config;
 };
-spi_intf *spi_fd[SPI_TOT_NUM];
+
+typedef struct _spi_dev spi_dev;
+struct _spi_dev{
+    spi_operations *operations;
+    spiDAT1_t data_config_;
+};
+spi_dev *p_spi_dev[SPI_TOT_NUM];
 spiBASE_t *spi_reg[SPI_TOT_NUM] = {spiREG1, spiREG2, spiREG3, spiREG4, spiREG5};
 
-uint8_t open_spi(spi_dev spi_num, sensor_dev dev_name)
+spiBASE_t *spi_open(spi_dev_num spi_num, sensor_dev_name dev_name)
 {
-    spi_fd[spi_num] = (spi_intf *)malloc(sizeof(spi_intf));
-    spi_fd[spi_num]->_spi_reg = spi_reg[spi_num];
-    return (uint8_t)spi_num;
+    p_spi_dev[spi_num] = (spi_dev *)malloc(sizeof(spi_dev));
+    return spi_reg[spi_num];
 }
 
-void close_spi(uint8_t fd)
+void spi_close(uint8_t fd)
 {
-    free(spi_fd[fd]);
+    free(p_spi_dev[fd]);
 }
 
 
