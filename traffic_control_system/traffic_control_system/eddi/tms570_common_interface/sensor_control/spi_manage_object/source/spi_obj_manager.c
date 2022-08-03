@@ -28,6 +28,9 @@ spiBASE_t *spi_reg[SPI_TOT_NUM] = {spiREG1, spiREG2, spiREG3, spiREG4, spiREG5};
 spiBASE_t *spi_open(spi_dev_num spi_num, sensor_dev_name dev_name)
 {
     p_spi_dev[spi_num] = (spi_dev *)malloc(sizeof(spi_dev));
+    p_spi_dev[spi_num]->operations->_spi_open = spi_open;
+    p_spi_dev[spi_num]->operations->_spi_close = spi_close;
+    //센서 종류에 해당하는 read, write, io_ctl 함수 등록
     return spi_reg[spi_num];
 }
 
