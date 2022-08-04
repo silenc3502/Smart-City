@@ -23,19 +23,25 @@ struct _spi_operations{
     _spi_write write;
 };
 
+typedef struct _spi_register spi_register;
+struct _spi_register{
+    spiBASE_t *base;
+    spiDAT1_t data_config;
+};
+
 typedef struct _spi_dev spi_dev;
 struct _spi_dev{
     spi_operations *operations;
-    spiDAT1_t data_config;
+    spi_register register_t;
 };
 spi_dev *spi_dev_t[SPI_TOT_NUM];
 spiBASE_t *spi_reg[SPI_TOT_NUM] = {spiREG1, spiREG2, spiREG3, spiREG4, spiREG5};
 
-spiBASE_t *spi_open(const spi_dev_num spi_num, const sensor_dev_name dev_name)
+void spi_open(const spi_dev_num spi_num, const sensor_dev_name dev_name)
 {
     spi_dev_t[spi_num] = (spi_dev *)malloc(sizeof(spi_dev));
+    spi_dev_t[spi_num]->register_t.base = spi_reg[spi_num];
     //센서 종류에 해당하는 read, write, io_ctl 함수 등록
-    return spi_reg[spi_num];
 }
 
 void spi_close(const spi_dev_num spi_num)
@@ -43,6 +49,3 @@ void spi_close(const spi_dev_num spi_num)
     free(spi_dev_t[spi_num]->operations);
     free(spi_dev_t[spi_num]);
 }
-
-
-

@@ -33,7 +33,7 @@ enum _spi_dev_num{
 #define SPI_TOT_NUM (SPI_EOF)
 #define SPI_DEV_NUM (SPI_EOF - 1)
 
-spiBASE_t *spi_open(spi_dev_num spi_num, sensor_dev_name dev_name);
+void spi_open(spi_dev_num spi_num, sensor_dev_name dev_name);
 void spi_close(spi_dev_num spi_num);
 
 #endif /* CONTROL_SENSOR_COMMON_INCLUDE_SPI_OPEN_H_ */
