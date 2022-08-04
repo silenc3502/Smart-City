@@ -9,7 +9,7 @@
 
 typedef spiBASE_t *(*_spi_open)(const spi_dev_num, const sensor_dev_name);
 typedef void (*_spi_close)(const spi_dev_num);
-typedef void (*_spi_io_ctl)(void);
+typedef void (*_spi_ioctl)(void);
 typedef void (*_spi_read)(const spiDAT1_t *, uint16_t *, uint16_t);
 typedef void (*_spi_write)(const spiDAT1_t *, uint16_t *, uint16_t);
 
@@ -18,7 +18,7 @@ struct _spi_operations{
     //spi_io_ctl 세부사항 미구현
     _spi_open open;
     _spi_close close;
-    _spi_io_ctl io_ctl;
+    _spi_ioctl ioctl;
     _spi_read read;
     _spi_write write;
 };
@@ -34,9 +34,6 @@ spiBASE_t *spi_reg[SPI_TOT_NUM] = {spiREG1, spiREG2, spiREG3, spiREG4, spiREG5};
 spiBASE_t *spi_open(const spi_dev_num spi_num, const sensor_dev_name dev_name)
 {
     spi_dev_t[spi_num] = (spi_dev *)malloc(sizeof(spi_dev));
-    spi_dev_t[spi_num]->operations = (spi_operations *)malloc(sizeof(spi_operations));
-    spi_dev_t[spi_num]->operations->open = spi_open;
-    spi_dev_t[spi_num]->operations->close = spi_close;
     //센서 종류에 해당하는 read, write, io_ctl 함수 등록
     return spi_reg[spi_num];
 }
