@@ -5,8 +5,8 @@
  *      Author: son
  */
 
-#ifndef CONTROL_SENSOR_COMMON_INCLUDE_SPI_OPEN_H_
-#define CONTROL_SENSOR_COMMON_INCLUDE_SPI_OPEN_H_
+#ifndef _SPI_DEV_MANAGER_H_
+#define _SPI_DEV_MANAGER_H_
 
 #include "HL_sys_common.h"
 #include "HL_system.h"

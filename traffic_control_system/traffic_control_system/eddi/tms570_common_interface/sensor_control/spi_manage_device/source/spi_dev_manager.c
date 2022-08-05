@@ -4,7 +4,7 @@
  *  Created on: 2022. 8. 3.
  *      Author: son
  */
-#include "spi_obj_manager.h"
+#include "spi_dev_manager.h"
 #include "spi_operation_manager.h"
 #include "stdlib.h"
 

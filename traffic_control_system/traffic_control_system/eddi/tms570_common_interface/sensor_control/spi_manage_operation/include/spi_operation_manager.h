@@ -5,14 +5,14 @@
  *      Author: son
  */
 
-#ifndef EDDI_TMS570_COMMON_INTERFACE_SENSOR_CONTROL_SPI_MANAGE_OPERATION_INCLUDE_SPI_OPERATION_MANAGER_H_
-#define EDDI_TMS570_COMMON_INTERFACE_SENSOR_CONTROL_SPI_MANAGE_OPERATION_INCLUDE_SPI_OPERATION_MANAGER_H_
+#ifndef _SPI_OPERATION_MANAGER_H_
+#define _SPI_OPERATION_MANAGER_H_
 
+#include "spi_dev_manager.h"
 #include "HL_sys_common.h"
 #include "HL_system.h"
 #include "HL_spi.h"
 
-#include "spi_obj_manager.h"
 
 typedef spiBASE_t *(*_spi_open)(const spi_dev_num, const sensor_dev_name);
 typedef void (*_spi_close)(const spi_dev_num);
