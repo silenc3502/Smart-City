@@ -5,8 +5,8 @@
  *      Author: son
  */
 
-#ifndef _SPI_DEV_MANAGER_H_
-#define _SPI_DEV_MANAGER_H_
+#ifndef __SPI_DEV_MANAGER_H__
+#define __SPI_DEV_MANAGER_H__
 
 #include "HL_sys_common.h"
 #include "HL_system.h"
