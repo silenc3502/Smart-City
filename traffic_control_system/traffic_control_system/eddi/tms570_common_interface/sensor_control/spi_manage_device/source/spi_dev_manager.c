@@ -20,14 +20,14 @@ struct _spi_dev{
 spi_dev spi_dev_t[SPI_TOT_NUM];
 spiBASE_t *spi_reg[SPI_TOT_NUM] = {spiREG1, spiREG2, spiREG3, spiREG4, spiREG5};
 
-spiBASE_t *spi_open(const spi_dev_num spi_num, const sensor_dev_name dev_name)
+uint32_t spi_open(spi_dev_num spi_num, const sensor_dev_name dev_name)
 {
     spi_dev_t[spi_num]->spi_reg = spi_reg[spi_num];
     spi_dev_t[spi_num]->sensor_type = dev_name;
 
     //operations와 status의 정보를 가지고 온다
 
-    return spi_dev_t[spi_num]->spi_reg;
+    return spi_num;
 }
 
 void spi_close(const spi_dev_num spi_num)
