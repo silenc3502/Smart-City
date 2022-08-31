@@ -5,170 +5,13 @@
         <v-col cols="auto" style="padding-bottom: 90px">
           <router-link to="/">
             <v-img
-                :src="require('@/assets/img/EDDI_eng.png')"
+                :src="require('@/assets/logo.png')"
                 width="120"
                 class="mx-auto mb-6"
             ></v-img>
           </router-link>
           <v-card width="460">
             <v-card-text class="text-center px-12 py-16">
-              <!--
-              <validation-observer v-slot="{ invalid }">
-                <v-form @submit.prevent="onSubmit">
-                  <div class="text-h4 font-weight-black mb-10">회원가입</div>
-
-                  <div class="d-flex">
-                    <validation-provider
-                        v-slot="{ errors }"
-                        name="아이디"
-                        :rules="{
-                        max: 12,
-                        required: true,
-                        alpha_num: true,
-                      }"
-                    >
-                      <v-text-field
-                          v-model="id"
-                          label="아이디"
-                          clearable
-                          prepend-icon="mdi-account-outline"
-                          :error-messages="errors"
-                          :counter="12"
-                          class="mr-5"
-                          color="orange"
-                      />
-                    </validation-provider>
-                    <v-btn
-                        text
-                        large
-                        outlined
-                        style="font-size: 13px"
-                        class="mt-3 ml-5"
-                        color="teal lighten-1"
-                        @click="checkDuplicateId"
-                        :disabled="id == ''"
-                    >아이디 <br />중복 확인</v-btn
-                    >
-                  </div>
-
-                  <validation-provider
-                      v-slot="{ errors }"
-                      name="비밀번호"
-                      :rules="{ max: 15, required: true }"
-                  >
-                    <v-text-field
-                        type="password"
-                        v-model="pw"
-                        label="비밀번호"
-                        clearable
-                        prepend-icon="mdi-lock-outline"
-                        :error-messages="errors"
-                        :counter="15"
-                        color="orange"
-                    />
-                  </validation-provider>
-                  <validation-provider
-                      v-slot="{ errors }"
-                      name="비밀번호 확인"
-                      :rules="{ max: 15, confirmed: '비밀번호', required: true }"
-                  >
-                    <v-text-field
-                        type="password"
-                        v-model="pwConfirm"
-                        label="비밀번호 확인"
-                        clearable
-                        prepend-icon="mdi-lock-check-outline"
-                        :error-messages="errors"
-                        :counter="15"
-                        color="orange"
-                    />
-                  </validation-provider>
-                  <validation-provider
-                      v-slot="{ errors }"
-                      name="이름"
-                      :rules="{ required: true }"
-                  >
-                    <v-text-field
-                        v-model="name"
-                        label="이름"
-                        clearable
-                        prepend-icon="mdi-badge-account-horizontal-outline"
-                        :error-messages="errors"
-                        color="orange"
-                    />
-                  </validation-provider>
-                  <div class="d-flex">
-                    <validation-provider
-                        v-slot="{ errors }"
-                        name="닉네임"
-                        :rules="{ max: 10, required: true }"
-                    >
-                      <v-text-field
-                          v-model="nickName"
-                          label="닉네임"
-                          clearable
-                          prepend-icon="mdi-badge-account-outline"
-                          :error-messages="errors"
-                          :counter="10"
-                          class="mr-5"
-                          color="orange"
-                      />
-                    </validation-provider>
-                    <v-btn
-                        text
-                        large
-                        outlined
-                        style="font-size: 13px"
-                        class="mt-3 ml-5"
-                        color="orange lighten-1"
-                        @click="checkDuplicateNickName"
-                        :disabled="nickName == ''"
-                    >닉네임 <br />중복 확인</v-btn
-                    >
-                  </div>
-                  <div class="d-flex">
-                    <validation-provider
-                        v-slot="{ errors }"
-                        name="이메일"
-                        :rules="{ email: true, required: true }"
-                    >
-                      <v-text-field
-                          v-model="email"
-                          label="이메일"
-                          clearable
-                          prepend-icon="mdi-email"
-                          :error-messages="errors"
-                          class="mr-5"
-                          color="orange"
-                      />
-                    </validation-provider>
-                    <v-btn
-                        text
-                        large
-                        outlined
-                        style="font-size: 13px"
-                        class="mt-3 ml-5"
-                        color="orange lighten-1"
-                        @click="checkDuplicateEmail"
-                        :disabled="email == ''"
-                    >이메일 <br />중복 확인</v-btn
-                    >
-                  </div>
-
-                  <v-btn
-                      type="submit"
-                      block
-                      x-large
-                      rounded
-                      color="orange lighten-1"
-                      class="mt-6"
-                      :disabled="invalid"
-                  >
-                    가입하기</v-btn
-                  >
-                </v-form>
-              </validation-observer>
-              -->
 
               <v-form @submit.prevent="onSubmit">
                 <div class="text-h4 font-weight-black mb-10">회원가입</div>
@@ -177,7 +20,7 @@
                       v-model="email"
                       label="이메일"
                       :rules="email_rule"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="false"
                       required
                   ></v-text-field>
                   <v-btn
@@ -198,7 +41,7 @@
                       label="비밀번호"
                       type="password"
                       :rules="password_rule"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="false"
                       required
                   ></v-text-field>
                 </div>
@@ -209,7 +52,7 @@
                       label="비밀번호 확인"
                       type="password"
                       :rules="password_confirm_rule"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="false"
                       required
                   ></v-text-field>
                 </div>
@@ -219,26 +62,16 @@
                       v-model="phone_num"
                       label="연락처"
                       :rules="phone_num_rule"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="false"
                       required
                   ></v-text-field>
-                  <v-btn
-                      text
-                      large
-                      outlined
-                      style="font-size: 13px"
-                      class="mt-3 ml-5"
-                      color="teal lighten-1"
-                      @click="checkDuplicatePhoneNum"
-                      :disabled="phone_num == ''"
-                  >연락처 <br />중복 확인</v-btn>
                 </div>
 
                 <div class="d-flex">
                   <v-text-field
                       v-model="city"
                       label="도시"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="true"
                       required
                   ></v-text-field>
                 </div>
@@ -246,23 +79,23 @@
                   <v-text-field
                       v-model="street"
                       label="기본 주소"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="true"
                       required
                   ></v-text-field>
                 </div>
                 <div class="d-flex">
                   <v-text-field
-                      v-model="detail"
+                      v-model="addressDetail"
                       label="상세 주소"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="false"
                       required
                   ></v-text-field>
                 </div>
                 <div class="d-flex">
                   <v-text-field
-                      v-model="postcode"
+                      v-model="zipcode"
                       label="우편번호"
-                      :disabled="state == 'ins' ? false : true"
+                      :disabled="true"
                       required
                   ></v-text-field>
                   <v-btn
@@ -271,10 +104,21 @@
                       outlined
                       style="font-size: 13px"
                       class="mt-3 ml-5"
+                      :disabled="false"
                       color="teal lighten-1"
                       @click="callDaumAddressApi"
                   >주소 확인</v-btn>
                 </div>
+
+                <v-btn
+                    type="submit"
+                    block
+                    x-large
+                    rounded
+                    color="orange lighten-1"
+                    class="mt-6"
+                    :disabled="false"
+                  >가입하기</v-btn>
               </v-form>
             </v-card-text>
           </v-card>
@@ -292,28 +136,17 @@ export default {
   name: "SignUpForm",
   data() {
     return {
-      id: "",
+      email: "",
       password: "",
       password_confirm: "",
-      name: "",
-      nickName: "",
-      email: "",
-      auth: "개인",
-      IdPass: false,
-      NickPass: false,
-      EmailPass: false,
+      emailPass: false,
+      phonePass: false,
       state: 'ins',
-      user_id: '',
-      phone_num: '',
+      phone_num: "",
       city: '',
       street: '',
-      detail: '',
-      postcode: '',
-      user_id_rule: [
-        v => !!v || '아이디는 필수 입력사항입니다.',
-        v => /^[a-zA-Z0-9]*$/.test(v) || '아이디는 영문+숫자만 입력 가능합니다.',
-        v => !( v && v.length >= 15) || '아이디는 15자 이상 입력할 수 없습니다.'
-      ],
+      addressDetail: '',
+      zipcode: '',
       email_rule:[
         v => !!v || '이메일을 입력해주세요.',
         v => {
@@ -332,73 +165,50 @@ export default {
         v => v === this.password || '패스워드가 일치하지 않습니다.'
       ],
       phone_num_rule:[
-        v => !!v || '휴대폰 연락처를 '-' 없이 숫자만 입력해주세요.',
-        v => {
-          const replaceV = v.replace(/(\s*)/g, '')
-          const pattern = /[0-9]*$/
-          return pattern.test(replaceV) || '올바른 연락처를 입력해주세요'
-        },
-        v => !( v && v.length >= 12) || '올바른 연락처 형식으로 기입해주세요'
+        v => this.state === 'ins' ? !!v || '휴대폰 연락처를 '-' 없이 숫자만 입력해주세요.' : true,
+        v => !(v && v.length >= 12) || '올바른 휴대폰 번호를 입력해주세요.'
       ]
     };
   },
   components: {
-    //ValidationObserver,
-    //ValidationProvider
   },
   methods: {
     onSubmit() {
-      if (!this.IdPass) {
-        alert("아이디 중복확인을 해주세요.");
-      } else if (!this.NickPass) {
-        alert("닉네임 중복확인을 해주세요.");
-      } else if (!this.EmailPass) {
+      if (!this.emailPass) {
         alert("이메일 중복확인을 해주세요.");
+      } else if (!this.phonePass) {
+        alert("휴대폰 번호 중복확인을 해주세요.");
       } else {
-        const { id, pw, name, nickName, email, auth } = this;
-        this.$emit("submit", { id, pw, name, nickName, email, auth });
+        const { email, phone_num, password, city, street, addressDetail, zipcode } = this;
+        this.$emit("submit", { email, phone_num, password, city, street, addressDetail, zipcode });
       }
-    },
-    checkDuplicateId() {
-      const { id } = this;
-      axios.get(`http://localhost:7777/member/checkId/${id}`).then((res) => {
-        this.temp = res.data;
-        if (res.data) {
-          alert("사용 가능한 아이디 입니다.");
-          this.IdPass = true;
-        } else {
-          alert("중복된 아이디 입니다.");
-          this.IdPass = false;
-        }
-      });
-    },
-    checkDuplicateNickName() {
-      const { nickName } = this;
-      axios
-          .get(`http://localhost:7777/member/checkNickName/${nickName}`)
-          .then((res) => {
-            this.temp = res.data;
-            if (res.data) {
-              alert("사용 가능한 닉네임 입니다.");
-              this.NickPass = true;
-            } else {
-              alert("중복된 닉네임 입니다.");
-              this.NickPass = false;
-            }
-          });
     },
     checkDuplicateEmail() {
       const { email } = this;
-      axios
-          .get(`http://localhost:7777/member/checkEmail/${email}`)
+      axios.get(`http://localhost:7777/member/check-email/${email}`)
           .then((res) => {
             this.temp = res.data;
             if (res.data) {
               alert("사용 가능한 이메일 입니다.");
-              this.EmailPass = true;
+              this.phonePass = true;
             } else {
               alert("중복된 이메일 입니다.");
-              this.EmailPass = false;
+              this.phonePass = false;
+            }
+          });
+    },
+    checkDuplicatePhoneNum() {
+      const { phone_num } = this;
+      axios
+          .get(`http://localhost:7777/member/check-phone/${phone_num}`)
+          .then((res) => {
+            this.temp = res.data;
+            if (res.data) {
+              alert("사용 가능한 휴대폰 번호 입니다.");
+              this.NickPass = true;
+            } else {
+              alert("중복된 휴대폰 번호 입니다.");
+              this.NickPass = false;
             }
           });
     },
@@ -431,7 +241,7 @@ export default {
           }
 
           this.city = data.sido;
-          this.postcode = data.zonecode;
+          this.zipcode = data.zonecode;
           this.street = data.sigungu + ' ' + fullRoadAddr;
         }
       }).open()

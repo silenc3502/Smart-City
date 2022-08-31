@@ -4,15 +4,26 @@
 
     <v-app-bar color="dark" class="flex-grow-0" app dark>
       <v-app-bar-nav-icon @click="nav_drawer = !nav_drawer"></v-app-bar-nav-icon>
+      <v-img
+          class="mx-2"
+          src="@/assets/logo.png"
+          max-height="40"
+          max-width="40"
+          contain
+      ></v-img>
       <v-toolbar-title class="text-uppercase text--darken-4">
         <span>EDDI Robot Academy</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text color="grey" onclick="location.href='http://localhost:8081/sign-up'">
+      <v-btn text color="grey" onclick="location.href='http://localhost:8080/sign-up'">
         <span>Sign Up</span>
         <v-icon right>mdi-account-plus-outline</v-icon>
       </v-btn>
-      <v-btn text color="grey">
+      <v-btn v-if="session" text color="grey" onclick="location.href='http://localhost:8080/sign-in'">
+        <span>Sign In</span>
+        <v-icon right>mdi-exit-to-app</v-icon>
+      </v-btn>
+      <v-btn v-else text color="grey" onclick="location.href='http://localhost:8080/logout'">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
@@ -50,6 +61,7 @@ export default {
   data() {
     return {
       nav_drawer: false,
+      session: false,
       links: [
         { icon: 'mdi-account-alert-outline', title: 'My Page', route: '/' },
         { icon: 'mdi-calendar-check-outline', title: 'Schedule', route: '/schedule' },
