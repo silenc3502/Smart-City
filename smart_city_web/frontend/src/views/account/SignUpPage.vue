@@ -22,7 +22,7 @@ export default {
           })
           .then((res) => {
             alert("회원가입 완료" + res);
-            this.$router.push("/login");
+            this.$router.push("/sign-in");
           })
           .catch((res) => {
             alert(res.response.data.message);
