@@ -16,10 +16,9 @@ export default {
   },
   methods: {
     onSubmit(payload) {
-      const { id, pw, name, nickName, email, auth } = payload;
-      axios
-          .post("http://localhost:7777/member/sign-up", {
-            id, pw, name, nickName, email, auth,
+      const { email, phone_num, password, city, street, addressDetail, zipcode } = payload;
+      axios.post("http://localhost:7777/member/sign-up", {
+            email, phone_num, password, city, street, addressDetail, zipcode
           })
           .then((res) => {
             alert("회원가입 완료" + res);

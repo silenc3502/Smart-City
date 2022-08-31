@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @Transactional
@@ -46,5 +48,27 @@ public class DefaultSignUpService implements SignUpService {
         final Role role = roleRepository.findByRoleType(RoleType.CUSTOMER).get();
         final MemberRole accountRole = new MemberRole(member, role);
         memberRoleRepository.save(accountRole);
+    }
+
+    @Override
+    public Boolean checkDupEmail(String email) {
+        Optional<Member> checkDupEmail = repository.findByEmail(email);
+
+        if (checkDupEmail.isPresent()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public Boolean checkDupPhone(String phone) {
+        Optional<Member> checkDupPhone = repository.findByEmail(phone);
+
+        if (checkDupPhone.isPresent()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
