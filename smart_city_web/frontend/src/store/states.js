@@ -4,6 +4,8 @@ export default {
     carBookBoards: [],
     carBookBoard: null,
 
+    glEngineOn: false,
+
     /*
     foodBoards: [],
     foodBoard: null,

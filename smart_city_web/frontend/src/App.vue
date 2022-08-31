@@ -4,6 +4,8 @@
 
     <v-main>
       <router-view></router-view>
+
+      <Footer v-if="this.$store.state.glEngineOn == false"/>
     </v-main>
   </v-app>
 </template>
