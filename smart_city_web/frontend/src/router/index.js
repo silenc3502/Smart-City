@@ -16,6 +16,8 @@ import CarBookBoardRegisterView from "@/views/board/vehicle/CarBookBoardRegister
 import CarBookBoardReadView from "@/views/board/vehicle/CarBookBoardReadView";
 import CarBookBoardModifyView from "@/views/board/vehicle/CarBookBoardModifyView";
 
+import CityMapMainView from "@/views/cityMap/CityMapMainView";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -88,6 +90,11 @@ const routes = [
     props: {
       default: true
     }
+  },
+  {
+    path: '/city-map',
+    name: 'CityMapMainView',
+    component: CityMapMainView
   }
 
 ]
