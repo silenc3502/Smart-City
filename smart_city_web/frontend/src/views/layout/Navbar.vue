@@ -15,6 +15,10 @@
         <span>EDDI Robot Academy</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn v-if="isAuthenticated == true" text color="grey" v-on:click="resign">
+        <span>회원 탈퇴</span>
+        <v-icon right>mdi-login</v-icon>
+      </v-btn>
       <v-btn text color="grey" onclick="location.href='http://localhost:8081/sign-up'">
         <span>Sign Up</span>
         <v-icon right>mdi-account-plus-outline</v-icon>
@@ -84,6 +88,13 @@ export default {
       axios.get("http://localhost:7777/mainpage/logout")
           .then(() => {
             alert("로그아웃 완료");
+            this.$store.state.isAuthenticated = false;
+          })
+    },
+    resign () {
+      axios.get("http://localhost:7777/mainpage/resign")
+          .then(() => {
+            alert("회원탈퇴 완료");
             this.$store.state.isAuthenticated = false;
           })
     }

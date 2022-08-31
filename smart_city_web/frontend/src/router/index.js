@@ -61,7 +61,7 @@ const routes = [
     name: 'CarBookBoardListView',
     component: CarBookBoardListView
   }
-  
+
 ]
 
 const router = new VueRouter({
