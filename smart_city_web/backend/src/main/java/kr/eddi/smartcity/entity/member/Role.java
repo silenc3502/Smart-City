@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(
-        name = "dahada_user_role",
+        name = "eddi_user_role",
         uniqueConstraints = @UniqueConstraint(name = "role_uq_role_name", columnNames = {"roleType"})
 )
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

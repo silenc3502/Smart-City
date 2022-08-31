@@ -8,6 +8,10 @@
         <span>EDDI Robot Academy</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn text color="grey" onclick="location.href='http://localhost:8081/sign-up'">
+        <span>Sign Up</span>
+        <v-icon right>mdi-account-plus-outline</v-icon>
+      </v-btn>
       <v-btn text color="grey">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
