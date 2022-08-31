@@ -59,7 +59,7 @@
 
                 <div class="d-flex">
                   <v-text-field
-                      v-model="phone_num"
+                      v-model="phoneNumber"
                       label="연락처"
                       :rules="phone_num_rule"
                       :disabled="false"
@@ -140,9 +140,8 @@ export default {
       password: "",
       password_confirm: "",
       emailPass: false,
-      phonePass: false,
       state: 'ins',
-      phone_num: "",
+      phoneNumber: "",
       city: '',
       street: '',
       addressDetail: '',
@@ -165,8 +164,9 @@ export default {
         v => v === this.password || '패스워드가 일치하지 않습니다.'
       ],
       phone_num_rule:[
-        v => this.state === 'ins' ? !!v || '휴대폰 연락처를 '-' 없이 숫자만 입력해주세요.' : true,
-        v => !(v && v.length >= 12) || '올바른 휴대폰 번호를 입력해주세요.'
+        v => this.state === 'ins' ? !!v || '휴대폰 연락처를 \'-\' 없이 숫자만 입력해주세요.' : true,
+        v => !(v && v.length < 10) || '휴대폰 번호는 10개 보다 많아야 합니다.',
+        v => !(v && v.length >= 12) || '휴대폰 연락처를 \'-\' 없이 숫자만 입력해주세요.'
       ]
     };
   },
@@ -176,11 +176,9 @@ export default {
     onSubmit() {
       if (!this.emailPass) {
         alert("이메일 중복확인을 해주세요.");
-      } else if (!this.phonePass) {
-        alert("휴대폰 번호 중복확인을 해주세요.");
       } else {
-        const { email, phone_num, password, city, street, addressDetail, zipcode } = this;
-        this.$emit("submit", { email, phone_num, password, city, street, addressDetail, zipcode });
+        const { email, phoneNumber, password, city, street, addressDetail, zipcode } = this;
+        this.$emit("submit", { email, phoneNumber, password, city, street, addressDetail, zipcode });
       }
     },
     checkDuplicateEmail() {
@@ -190,25 +188,10 @@ export default {
             this.temp = res.data;
             if (res.data) {
               alert("사용 가능한 이메일 입니다.");
-              this.phonePass = true;
+              this.emailPass = true;
             } else {
               alert("중복된 이메일 입니다.");
-              this.phonePass = false;
-            }
-          });
-    },
-    checkDuplicatePhoneNum() {
-      const { phone_num } = this;
-      axios
-          .get(`http://localhost:7777/member/check-phone/${phone_num}`)
-          .then((res) => {
-            this.temp = res.data;
-            if (res.data) {
-              alert("사용 가능한 휴대폰 번호 입니다.");
-              this.NickPass = true;
-            } else {
-              alert("중복된 휴대폰 번호 입니다.");
-              this.NickPass = false;
+              this.emailPass = false;
             }
           });
     },
