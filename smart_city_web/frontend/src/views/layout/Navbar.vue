@@ -1,7 +1,6 @@
 <template>
   <nav>
 
-
     <v-app-bar color="dark" class="flex-grow-0" app dark>
       <v-app-bar-nav-icon @click="nav_drawer = !nav_drawer"></v-app-bar-nav-icon>
       <v-img
@@ -70,13 +69,15 @@ export default {
       nav_drawer: false,
       session: false,
       links: [
-        { icon: 'mdi-account-alert-outline', title: 'My Page', route: '/' },
+        { icon: 'mdi-home-outline', title: 'Home', route: '/' },
+        { icon: 'mdi-account-alert-outline', title: 'My Page', route: '/my-page' },
         { icon: 'mdi-calendar-check-outline', title: 'Schedule', route: '/schedule' },
-        { icon: 'mdi-traffic-light-outline', title: 'Traffic Control', route: '/traffic' },
-        { icon: 'mdi-car-electric-outline', title: 'Vehicle Control', route: '/vehicle' },
+        { icon: 'mdi-traffic-light-outline', title: 'Traffic Control', route: '/traffic-control' },
+        { icon: 'mdi-car-electric-outline', title: 'Vehicle Control', route: '/vehicle-control' },
         { icon: 'mdi-meter-gas-outline', title: 'Gas Measurement', route: '/air-quality' },
         { icon: 'mdi-lightning-bolt-outline', title: 'Power Plant', route: '/power' },
         { icon: 'mdi-video-wireless-outline', title: 'CCTV', route: '/cctv' },
+        { icon: 'mdi-account-group-outline', title: 'Member', route: '/member' },
       ]
     }
   },
