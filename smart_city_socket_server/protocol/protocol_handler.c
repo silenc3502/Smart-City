@@ -55,7 +55,7 @@ void *vehicle_handler (void *pkt)
 void *electric_plant_handler (void *pkt)
 {
     int sub_command = ((prot_analysis_metadata *)pkt)->sub_command;
-    printf("전력 발전 시스템 핸들러 구동\n");
+    printf("전력 그리드 시스템 핸들러 구동\n");
 
     if (sub_command)
     {
