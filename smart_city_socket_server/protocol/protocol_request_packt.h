@@ -7,10 +7,10 @@ struct _protocol_request_packt
 {
     int total_length;
     int target_command;
-    char ip_addr[16];
-    int session_id;
     int sub_command;
     int data[0];
+    //char ip_addr[16];
+    //int session_id;
 };
 
 typedef struct _protocol_request_packt protocol_request_packt;
