@@ -27,11 +27,10 @@ prot_analysis_metadata *protocol_analysis (work_queue *recv_queue)
 
     tmp->length = packet->total_length;
     tmp->target = packet->target_command;
-    memcpy(tmp->ip_addr, packet->ip_addr, IP_ADDR_SIZE);
-
-    tmp->session_id = packet->session_id;
     tmp->sub_command = packet->sub_command;
+
     tmp->data = (int *)malloc(sizeof(int) * data_cnt);
+
     memcpy(tmp->data, (int *)packet->data, data_cnt);
     memcpy(&tmp->socket_addr, &recv_data->socket_addr, sizeof(si));
 
