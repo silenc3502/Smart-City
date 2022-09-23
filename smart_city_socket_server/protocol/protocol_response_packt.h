@@ -4,7 +4,6 @@
 struct _protocol_response_packt
 {
     int total_length;
-    char ip_addr[16];
     int data[0];
 };
 
