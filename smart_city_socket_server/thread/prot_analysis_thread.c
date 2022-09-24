@@ -31,7 +31,7 @@ prot_analysis_metadata *protocol_analysis (work_queue *recv_queue)
 
     tmp->data = (int *)malloc(sizeof(int) * data_cnt);
 
-    memcpy(tmp->data, (int *)packet->data, data_cnt);
+    memcpy(tmp->data, (int *)packet->data, sizeof(int) * data_cnt);
     memcpy(&tmp->socket_addr, &recv_data->socket_addr, sizeof(si));
 
     memmove(&((int *)recv_queue->head->data)[0], &((int *)recv_queue->head->data)[tot_cnt], recv_data->recv_len);
