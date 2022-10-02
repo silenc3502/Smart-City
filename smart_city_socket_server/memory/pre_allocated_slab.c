@@ -73,5 +73,5 @@ void free_pre_allocated_slab_chunck(int mem_size_idx, int mem_loc_idx)
 {
     //memset(&pre_allocated_slab[mem_size_idx][mem_loc_idx], 1 << (mem_size_idx + ARRAY_BIAS), 0x00);
 
-    pre_allocated_slab_free_state[mem_size_idx][mem_loc_idx] = FREE_STATE;
+    pre_allocated_slab_free_state[mem_size_idx - ARRAY_BIAS][mem_loc_idx] = FREE_STATE;
 }
