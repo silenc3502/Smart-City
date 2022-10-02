@@ -8,6 +8,8 @@
 #include <sys/time.h>
 #include <sys/types.h>
 
+#include "session_manage.h"
+#include "transmitter_thread.h"
 #include "receiver_thread.h"
 #include "common.h"
 
@@ -100,6 +102,16 @@ void print_buf (char *buf)
 void print_buf (char *buf) { }
 #endif
 
+#define PACKET_LOSS         -1
+#define PACKET_OK           1
+
+int check_packet_loss(char *recv_buf, int recv_len)
+{
+    if (((int *)recv_buf)[0] != recv_len) { return PACKET_LOSS; }
+
+    return PACKET_OK;
+}
+
 int recv_from_timeout (int sock, long sec)
 {
     struct timeval timeout;
@@ -122,6 +134,7 @@ void *encrypt_side_receiver (void *fd)
     int recv_len;
     int select_res;
 
+    transmit_data *trans_data;
     receive_data *recv_data = NULL;
     si client;
 
@@ -159,6 +172,19 @@ void *encrypt_side_receiver (void *fd)
                 print_buf(encrypt_side_sock_buf);
                 printf(" Received!\n");
 
+                if (check_packet_loss(encrypt_side_sock_buf, recv_len) == PACKET_LOSS)
+                {
+                    printf("패킷 로스 발생!\n");
+                    trans_data = (transmit_data *)malloc(sizeof(transmit_data));
+
+                    trans_data->session_id = NO_SESSION;
+                    memcpy(&trans_data->socket_addr, (sp) &clnt_addr, sizeof(si));
+                    inet_ntop(AF_INET, &(trans_data->socket_addr.sin_addr), trans_data->dest_ip_addr, INET_ADDRSTRLEN);
+                    enqueue_node_data(&transmit_queue, trans_data);
+
+                    goto mutex_unlock;
+                }
+
                 do {
                     recv_data = (receive_data *) malloc(sizeof(receive_data));
                 } while (!recv_data);
@@ -174,6 +200,7 @@ void *encrypt_side_receiver (void *fd)
             }
         }
 
+mutex_unlock:
         pthread_mutex_unlock(&mtx);
 
         usleep(10000);

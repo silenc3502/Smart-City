@@ -8,6 +8,7 @@ PWD = $(shell pwd)
 
 INC_DIRS = -I$(PWD)/../common
 INC_DIRS += -I$(PWD)/../protocol
+INC_DIRS += -I$(PWD)/../session
 INC_DIRS += -I$(PWD)/../data_structure/queue
 
 #SRCS = $(patsubst %.o,%,$(wildcard *.c))
