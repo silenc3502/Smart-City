@@ -11,7 +11,8 @@ struct _prot_proc_metadata
     int length;
     int target;
     int sub_command;
-    int *data;
+    //int *data;
+    void *data;
 };
 
 #endif //SMART_CITY_SOCKET_SERVER_PROT_PROC_THREAD_H

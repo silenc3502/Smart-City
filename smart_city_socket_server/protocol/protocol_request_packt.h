@@ -8,7 +8,7 @@ struct _protocol_request_packt
     int total_length;
     int target_command;
     int sub_command;
-    int data[0];
+    float data[0];
     //char ip_addr[16];
     //int session_id;
 };
