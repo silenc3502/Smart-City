@@ -20,7 +20,7 @@
 #include "gs_command.h"
 
 #include "electric_plant_command_handler.h"
-#include "electric_plant_command.h"
+#include "electric_plant_command_table.h"
 
 #include "protocol_handler.h"
 #include "protocol.h"
@@ -59,7 +59,7 @@ void *electric_plant_handler (void *pkt)
 
     if (sub_command)
     {
-        electric_plant_command_table[sub_command](((prot_analysis_metadata *)pkt)->data);
+        electric_plant_command_table[sub_command](pkt);
         memset((char *)pkt, 0x00, ((protocol_request_packt *)pkt)->total_length);
 
         return true;
