@@ -7,7 +7,10 @@ endif
 PWD = $(shell pwd)
 
 INC_DIRS = -I$(PWD)/../common
-
+INC_DIRS += -I$(PWD)/../protocol
+INC_DIRS += -I$(PWD)/../session
+INC_DIRS += -I$(PWD)/../thread
+INC_DIRS += -I$(PWD)/../data_structure/queue
 
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:%.c=%.o)
