@@ -70,7 +70,23 @@ void electric_plant_battery_each_cell_voltage_status (void *packet)
 
 void electric_plant_battery_module_temperature_status (void *packet)
 {
+    char name[] = "battery_contact_temperature";
+    int name_length = strlen(name);
+    float *command_data = ((float *)((prot_analysis_metadata *)packet)->data);
+    db_request_data *req_data = (db_request_data *)malloc(sizeof(db_request_data));
+    int session_id = command_data[0];
 
+    printf("배터리 접점 온도 정보\n");
+
+    req_data->request = DB_RECORD;
+    req_data->table_name = (char *)malloc(sizeof(char) * name_length);
+    memmove(req_data->table_name, name, name_length);
+    req_data->data = (float *)malloc(sizeof(float) * CONTACT_TEMPERATURE_COUNT);
+    memmove(req_data->data, &command_data[1], sizeof(int) * CONTACT_TEMPERATURE_COUNT);
+
+    printf("%f, %f\n", command_data[1], command_data[2]);
+
+    enqueue_node_data(&db_request_queue, req_data);
 }
 
 void electric_plant_battery_health_status (void *packet)
