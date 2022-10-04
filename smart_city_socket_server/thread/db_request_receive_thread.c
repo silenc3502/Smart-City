@@ -12,18 +12,18 @@
 
 extern pthread_mutex_t mtx;
 
-int db_request_analysis(work_queue *db_request_queue)
+int db_request_analysis(work_queue *db_request_queue, db_request_data *metadata)
 {
     queue_node *node = db_request_queue->head;
-    db_request_data *data = (db_request_data *)node->data;
+    metadata = (db_request_data *)node->data;
 
-    return data->request;
+    return metadata->request_operation;
 }
 
 void *db_request_manager (void *fd)
 {
     int db_operation;
-    db_request_data *metadata;
+    db_request_data metadata;
 
     init_work_queue(&db_request_queue);
 
@@ -34,12 +34,13 @@ void *db_request_manager (void *fd)
         while (db_request_queue.count)
         {
             printf("db 요청 분석\n");
-            db_operation = db_request_analysis(&db_request_queue);
+            db_operation = db_request_analysis(&db_request_queue, &metadata);
 
             switch (db_operation)
             {
                 case DB_RECORD:
                     printf("DB 기록 요청\n");
+                    enqueue_node_data(&db_record_queue, &metadata);
                     break;
 
                 case DB_SELECT:

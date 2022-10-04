@@ -49,5 +49,8 @@ work_queue protocol_queue;
 work_queue transmit_queue;
 
 work_queue db_request_queue;
+work_queue db_record_queue;
+work_queue in_memory_db_record_queue;
+work_queue general_db_record_queue;
 
 #endif

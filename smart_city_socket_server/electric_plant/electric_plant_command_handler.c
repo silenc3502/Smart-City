@@ -15,6 +15,7 @@
 #include "transmitter_thread.h"
 #include "prot_analysis_thread.h"
 #include "db_request_receive_thread.h"
+#include "db_record_thread.h"
 
 #include "thread_work_queue.h"
 
@@ -78,7 +79,8 @@ void electric_plant_battery_module_temperature_status (void *packet)
 
     printf("배터리 접점 온도 정보\n");
 
-    req_data->request = DB_RECORD;
+    req_data->request_operation = DB_RECORD;
+    req_data->record_operation = GENERAL_DB_RECORD;
     req_data->table_name = (char *)malloc(sizeof(char) * name_length);
     memmove(req_data->table_name, name, name_length);
     req_data->session_id = command_data[0];
