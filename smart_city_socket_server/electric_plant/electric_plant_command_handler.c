@@ -81,8 +81,9 @@ void electric_plant_battery_module_temperature_status (void *packet)
     req_data->request = DB_RECORD;
     req_data->table_name = (char *)malloc(sizeof(char) * name_length);
     memmove(req_data->table_name, name, name_length);
+    req_data->session_id = command_data[0];
     req_data->data = (float *)malloc(sizeof(float) * CONTACT_TEMPERATURE_COUNT);
-    memmove(req_data->data, &command_data[1], sizeof(int) * CONTACT_TEMPERATURE_COUNT);
+    memmove(req_data->data, &command_data[1], sizeof(float) * CONTACT_TEMPERATURE_COUNT);
 
     printf("%f, %f\n", command_data[1], command_data[2]);
 
