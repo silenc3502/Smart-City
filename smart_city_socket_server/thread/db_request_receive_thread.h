@@ -9,7 +9,8 @@ typedef struct _db_request_data db_request_data;
 
 struct _db_request_data
 {
-    int request;
+    int request_operation;
+    int record_operation;
     char *table_name;
     int session_id;
     float *data;
