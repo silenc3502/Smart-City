@@ -14,7 +14,7 @@ typedef struct sockaddr *       sp;
 
 #define EDDI_SERVER_PORT        7777
 
-#define THREAD_MAX          4
+#define THREAD_MAX          7
 #define GAS_THREAD_MAX      6
 
 #define BUF_SIZE                        32
@@ -42,8 +42,12 @@ pthread_mutex_t mtx;
 char encrypt_side_sock_buf[RECEIVER_BUF_SIZE];
 char transmit_buf[TRANSMITTER_BUF_SIZE];
 
+work_queue slab_request_queue;
+
 work_queue receive_queue;
 work_queue protocol_queue;
 work_queue transmit_queue;
+
+work_queue db_request_queue;
 
 #endif

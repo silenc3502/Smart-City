@@ -7,6 +7,7 @@
 #include "receiver_thread.h"
 #include "prot_analysis_thread.h"
 #include "transmitter_thread.h"
+#include "db_request_receive_thread.h"
 #include "common.h"
 
 extern int thread_id[THREAD_MAX];
@@ -27,21 +28,28 @@ void start_pthread_manager (void)
     thread_id[cnt] = pthread_create(&p_thread[cnt], NULL, encrypt_side_protocol_processer, NULL);
     if(thread_id[cnt++] < 0)
     {
-        perror("encryption side protocol processor thread create error: ");
+        perror("protocol processor thread create error: ");
         exit(0);
     }
 
     thread_id[cnt] = pthread_create(&p_thread[cnt], NULL, protocol_analyzer, NULL);
     if(thread_id[cnt++] < 0)
     {
-        perror("encryption side protocol processor thread create error: ");
+        perror("protocol analyzer thread create error: ");
         exit(0);
     }
 
     thread_id[cnt] = pthread_create(&p_thread[cnt], NULL, transmitter, NULL);
     if(thread_id[cnt++] < 0)
     {
-        perror("encryption side protocol processor thread create error: ");
+        perror("transmitter thread create error: ");
+        exit(0);
+    }
+
+    thread_id[cnt] = pthread_create(&p_thread[cnt], NULL, db_request_manager, NULL);
+    if(thread_id[cnt++] < 0)
+    {
+        perror("db request manager thread create error: ");
         exit(0);
     }
 
@@ -49,4 +57,5 @@ void start_pthread_manager (void)
     pthread_join(p_thread[1], (void **)&status);
     pthread_join(p_thread[2], (void **)&status);
     pthread_join(p_thread[3], (void **)&status);
+    pthread_join(p_thread[4], (void **)&status);
 }
