@@ -11,6 +11,7 @@ INC_DIRS += -I$(PWD)/../protocol
 INC_DIRS += -I$(PWD)/../session
 INC_DIRS += -I$(PWD)/../thread
 INC_DIRS += -I$(PWD)/../data_structure/queue
+INC_DIRS += -I$(PWD)/../database/redis
 
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:%.c=%.o)

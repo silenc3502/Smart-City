@@ -17,6 +17,8 @@
 #include "db_request_receive_thread.h"
 #include "db_record_thread.h"
 
+#include "redis_command_protocol.h"
+
 #include "thread_work_queue.h"
 
 #define SESSION_IDX         0
@@ -79,8 +81,10 @@ void electric_plant_battery_module_temperature_status (void *packet)
 
     printf("배터리 접점 온도 정보\n");
 
+    req_data->total_length = sizeof(db_request_data);
     req_data->request_operation = DB_RECORD;
     req_data->record_operation = GENERAL_DB_RECORD;
+    req_data->in_memory_operation = REDIS_COMMAND_BATTERY_MODULE_TEMPERATURE;
     req_data->table_name = (char *)malloc(sizeof(char) * name_length);
     memmove(req_data->table_name, name, name_length);
     req_data->session_id = command_data[0];
