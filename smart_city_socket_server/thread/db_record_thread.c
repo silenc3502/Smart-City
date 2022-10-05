@@ -6,24 +6,29 @@
 #include <stdio.h>
 
 #include "db_record_thread.h"
+#include "in_memory_record_thread.h"
 #include "common.h"
 
 #include "protocol_request_packt.h"
 
 extern pthread_mutex_t mtx;
 
-int db_record_analysis(work_queue *db_record_queue, db_record_data *metadata)
+in_memory_db_proc_metadata *db_record_analysis(work_queue *db_record_queue, int *record_operation)
 {
+    in_memory_db_proc_metadata *metadata;
     queue_node *node = db_record_queue->head;
-    metadata = (db_record_data *)node->data;
+    db_record_data *node_data = (db_record_data *)node->data;
+    memmove(metadata, node_data, node_data->total_length);
 
-    return metadata->record_operation;
+    *record_operation = metadata->record_operation;
+
+    return metadata;
 }
 
 void *db_record_manager (void *fd)
 {
     int record_operation;
-    db_record_data *metadata;
+    in_memory_db_proc_metadata *metadata;
 
     init_work_queue(&db_record_queue);
 
@@ -34,7 +39,7 @@ void *db_record_manager (void *fd)
         while (db_record_queue.count)
         {
             printf("db 기록\n");
-            record_operation = db_record_analysis(&db_record_queue, metadata);
+            metadata = db_record_analysis(&db_record_queue, &record_operation);
 
             switch (record_operation)
             {
@@ -46,6 +51,10 @@ void *db_record_manager (void *fd)
                 case GENERAL_DB_RECORD:
                     printf("General DB 요청\n");
                     enqueue_node_data(&general_db_record_queue, metadata);
+                    break;
+
+                default:
+                    printf("요청된 번호: %d\n", record_operation);
                     break;
             }
 

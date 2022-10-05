@@ -7,8 +7,10 @@ typedef struct _db_record_data db_record_data;
 
 struct _db_record_data
 {
+    int total_length;
     int request_operation;
     int record_operation;
+    int in_memory_operation;
     char *table_name;
     int session_id;
     float *data;
