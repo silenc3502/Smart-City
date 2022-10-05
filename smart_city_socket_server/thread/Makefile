@@ -10,6 +10,7 @@ INC_DIRS = -I$(PWD)/../common
 INC_DIRS += -I$(PWD)/../protocol
 INC_DIRS += -I$(PWD)/../session
 INC_DIRS += -I$(PWD)/../data_structure/queue
+INC_DIRS += -I$(PWD)/../database/redis
 
 #SRCS = $(patsubst %.o,%,$(wildcard *.c))
 SRCS = $(wildcard *.c)

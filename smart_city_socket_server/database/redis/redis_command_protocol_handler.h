@@ -1,0 +1,7 @@
+#ifndef SMART_CITY_SOCKET_SERVER_REDIS_COMMAND_PROTOCOL_HANDLER_H
+#define SMART_CITY_SOCKET_SERVER_REDIS_COMMAND_PROTOCOL_HANDLER_H
+
+void redis_command_dummy (void *);
+void redis_command_battery_module_temperature (void *);
+
+#endif //SMART_CITY_SOCKET_SERVER_REDIS_COMMAND_PROTOCOL_HANDLER_H
