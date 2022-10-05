@@ -9,6 +9,7 @@ typedef struct _in_memory_db_proc_metadata in_memory_db_proc_metadata;
 
 struct _in_memory_db_proc_metadata
 {
+    int total_length;
     int request_operation;
     int record_operation;
     int in_memory_operation;
