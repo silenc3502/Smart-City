@@ -20,9 +20,10 @@ INC_DIRS += -I$(PWD)/../electric_plant
 INC_DIRS += -I$(PWD)/../session
 INC_DIRS += -I$(PWD)/../data_structure/queue
 INC_DIRS += -I$(PWD)/../memory
+INC_DIRS += -I /usr/local/include/hiredis
 
 #LIBS = -lm -lGL -lglut -lGLU -lGLEW -lstdc++
-LIBS = -lpthread
+LIBS = -lpthread -lhiredis
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -41,6 +42,7 @@ EP_DIR = $(PWD)/../electric_plant
 SESSION_DIR = $(PWD)/../session
 DATA_STRUCTURE_DIR = $(PWD)/../data_structure/queue
 MEMORY_DIR = $(PWD)/../memory
+REDIS_DIR = $(PWD)/../database/redis
 
 MUTEX_OBJS = $(shell find $(MUTEX_DIR) -name '*.o')
 SOCKET_OBJS = $(shell find $(SOCKET_DIR) -name '*.o')
@@ -55,6 +57,7 @@ EP_OBJS = $(shell find $(EP_DIR) -name '*.o')
 SESSION_OBJS = $(shell find $(SESSION_DIR) -name '*.o')
 DATA_STRUCTURE_OBJS = $(shell find $(DATA_STRUCTURE_DIR) -name '*.o')
 MEMORY_OBJS = $(shell find $(MEMORY_DIR) -name '*.o')
+REDIS_OBJS = $(shell find $(REDIS_DIR) -name '*.o')
 
 all:	$(TARGET)
 
@@ -73,7 +76,8 @@ eddi_socket_server:		eddi_socket_server.o
 	@echo "$(SESSION_OBJS)"
 	@echo "$(DATA_STRUCTURE_OBJS)"
 	@echo "$(MEMORY_OBJS)"
-	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(TM_CCTV_OBJS) $(CP_CCTV_OBJS) $(TC_OBJS) $(VC_OBJS) $(GS_OBJS) $(EP_OBJS) $(SESSION_OBJS) $(DATA_STRUCTURE_OBJS) $(MEMORY_OBJS) $(LIBS)
+	@echo "$(REDIS_OBJS)"
+	$(CC) -o $@ eddi_socket_server.o $(MUTEX_OBJS) $(SOCKET_OBJS) $(THREAD_OBJS) $(PROTOCOL_OBJS) $(TM_CCTV_OBJS) $(CP_CCTV_OBJS) $(TC_OBJS) $(VC_OBJS) $(GS_OBJS) $(EP_OBJS) $(SESSION_OBJS) $(DATA_STRUCTURE_OBJS) $(MEMORY_OBJS) $(REDIS_OBJS) $(LIBS)
 
 .c.o:
 	@echo "====================================================="

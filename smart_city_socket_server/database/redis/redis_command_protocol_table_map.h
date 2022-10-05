@@ -1,0 +1,11 @@
+#ifndef SMART_CITY_SOCKET_SERVER_REDIS_COMMAND_PROTOCOL_TABLE_MAP_H
+#define SMART_CITY_SOCKET_SERVER_REDIS_COMMAND_PROTOCOL_TABLE_MAP_H
+
+#define __REDIS_COMMAND_PROTOCOL_TABLE(nr, sym) [nr] = sym,
+
+#include "redis_command_protocol_handler.h"
+
+__REDIS_COMMAND_PROTOCOL_TABLE(0, redis_command_dummy)
+__REDIS_COMMAND_PROTOCOL_TABLE(1, redis_command_battery_module_temperature)
+
+#endif //SMART_CITY_SOCKET_SERVER_REDIS_COMMAND_PROTOCOL_TABLE_MAP_H
