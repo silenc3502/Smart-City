@@ -6,24 +6,29 @@
 #include <stdio.h>
 
 #include "db_request_receive_thread.h"
+#include "db_record_thread.h"
 #include "common.h"
 
 #include "protocol_request_packt.h"
 
 extern pthread_mutex_t mtx;
 
-int db_request_analysis(work_queue *db_request_queue, db_request_data *metadata)
+db_record_data *db_request_analysis(work_queue *db_request_queue, int *request_operation)
 {
+    db_record_data *metadata;
     queue_node *node = db_request_queue->head;
-    metadata = (db_request_data *)node->data;
+    db_request_data *node_data = (db_request_data *)node->data;
+    memmove(metadata, node_data, node_data->total_length);
 
-    return metadata->request_operation;
+    *request_operation = metadata->request_operation;
+
+    return metadata;
 }
 
 void *db_request_manager (void *fd)
 {
     int db_operation;
-    db_request_data metadata;
+    db_record_data *metadata;
 
     init_work_queue(&db_request_queue);
 
@@ -34,13 +39,13 @@ void *db_request_manager (void *fd)
         while (db_request_queue.count)
         {
             printf("db 요청 분석\n");
-            db_operation = db_request_analysis(&db_request_queue, &metadata);
+            metadata = db_request_analysis(&db_request_queue, &db_operation);
 
             switch (db_operation)
             {
                 case DB_RECORD:
                     printf("DB 기록 요청\n");
-                    enqueue_node_data(&db_record_queue, &metadata);
+                    enqueue_node_data(&db_record_queue, metadata);
                     break;
 
                 case DB_SELECT:
