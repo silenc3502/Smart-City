@@ -10,6 +10,6 @@ struct _socket_manage
     int alloc_fd;
 };
 
-socket_manage socket_manage_map[10][20];
+socket_manage socket_manage_map[30][20];
 
 #endif //SMART_CITY_SOCKET_SERVER_SOCKET_MANAGE_H
