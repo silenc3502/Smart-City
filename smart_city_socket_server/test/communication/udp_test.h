@@ -12,5 +12,6 @@
 #include "common.h"
 #include "protocol.h"
 #include "tc_command.h"
+#include "electric_plant_command.h"
 
 #endif //SMART_CITY_SOCKET_SERVER_UDP_TEST_H
