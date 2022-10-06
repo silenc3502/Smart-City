@@ -6,7 +6,7 @@ void init_socket_manage_map (void)
 {
     int i, j;
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 30; i++)
     {
         for (j = 0; j < 20; j++)
         {
