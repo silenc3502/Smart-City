@@ -19,11 +19,12 @@ void processing_in_memory_db(work_queue *in_memory_db_worklist)
     in_memory_db_proc_metadata *metadata = node->data;
     printf("redis handler 동작!\n");
 
-    redis_command_protocol_table[metadata->in_memory_operation](metadata->data);
+    redis_command_protocol_table[metadata->in_memory_operation](metadata);
 }
 
 void *redis_recorder (void *fd)
 {
+    redis_connect("127.0.0.1", 6379);
     init_work_queue(&in_memory_db_record_queue);
 
     for(;;)

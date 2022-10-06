@@ -1,6 +1,8 @@
 #ifndef SMART_CITY_SOCKET_SERVER_REDIS_MANAGE_H
 #define SMART_CITY_SOCKET_SERVER_REDIS_MANAGE_H
 
+#include <hiredis/hiredis.h>
+
 redisReply *redis_reply;
 redisContext *redis_context;
 
